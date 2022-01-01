@@ -4,13 +4,14 @@ interface BasicTitleProps extends LayerConfig {}
 
 const BasicTitle: React.FC<BasicTitleProps> = (props) => {
   const { view, configValues } = props;
+  const { width, height } = view;
 
   return (
     <div
       style={{
-        width: view.w,
-        height: view.h,
-        lineHeight: view.h,
+        width,
+        height,
+        lineHeight: height,
       }}
     >
       {configValues.text}

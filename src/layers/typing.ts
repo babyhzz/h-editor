@@ -47,8 +47,8 @@ export interface LayerConfig extends LayerTemplate {
   dcFields?: Record<string, string>;
 
   view: {
-    w: number;
-    h: number;
+    width: number;
+    height: number;
     x: number;
     y: number;
     opacity: number;

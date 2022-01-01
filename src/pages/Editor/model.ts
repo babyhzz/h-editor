@@ -9,6 +9,8 @@ interface EditorModel {
   };
   reducers: {
     addLayer: Reducer;
+    selectLayer: Reducer;
+    updateLayerView: Reducer;
   };
 }
 
@@ -22,6 +24,15 @@ const editor: EditorModel = {
     addLayer(state, { payload }) {
       state.layers.push(payload);
       state.selected = payload.id;
+    },
+    selectLayer(state, { payload }) {
+      state.selected = payload;
+    },
+    updateLayerView(state, { payload }) {
+      const { id, view } = payload;
+      const layer = state.layers.find((l: any) => l.id === payload.id);
+      layer.view = view;
+      state.selected = id;
     },
   },
 };
