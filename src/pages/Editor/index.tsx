@@ -2,7 +2,7 @@ import { LayerConfig, LayerTemplate } from '@/layers/typing';
 import { Tabs } from 'antd';
 import styles from './index.less';
 import { componentMap, templateMap } from '@/layers';
-import React from 'react';
+import React, { DragEvent } from 'react';
 import { connect, Dispatch } from 'umi';
 import FormRenderer, { FormConfig } from '@/components/FormRenderer';
 import { DraggableData, Position, Rnd } from 'react-rnd';
@@ -97,15 +97,19 @@ function getDefaultValues(config: FormConfig): Record<string, any> {
   }, {});
 }
 
-function getLayerConfigFromTemplate(template: LayerTemplate): LayerConfig {
+function getLayerConfigFromTemplate(
+  template: LayerTemplate,
+  e: DragEvent,
+): LayerConfig {
+  const { offsetX, offsetY } = e.nativeEvent;
   return {
     ...template,
     id: `${template.type}-${randomString()}`,
     view: {
       width: template.width,
       height: template.height,
-      x: 0,
-      y: 0,
+      x: offsetX - template.width / 2,
+      y: offsetY - template.height / 2,
       opacity: 1,
     },
     configValues: getDefaultValues(template.config),
@@ -135,7 +139,7 @@ const Editor: React.FC<EditorProps> = (props) => {
 
   const handleDrop: React.DragEventHandler = (e) => {
     const template = JSON.parse(e.dataTransfer.getData('text/plain'));
-    const layer = getLayerConfigFromTemplate(template);
+    const layer = getLayerConfigFromTemplate(template, e);
 
     dispatch({ type: 'editor/addLayer', payload: layer });
   };
@@ -210,37 +214,39 @@ const Editor: React.FC<EditorProps> = (props) => {
           </Tabs>
         </div>
         <div className={styles.canvas}>
-          <div
-            className={styles.board}
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={handleDrop}
-          >
-            {layers.map((l) => {
-              const {
-                id,
-                type,
-                view: { width, height, opacity, x, y },
-              } = l;
-              const DynamicComponent = componentMap[type];
-              return (
-                <Rnd
-                  key={id}
-                  style={{ opacity }}
-                  size={{ width, height }}
-                  position={{ x, y }}
-                  onDragStart={() => handleRndDragStart(l)}
-                  onDragStop={(e, data) => handleRndDragStop(data, l)}
-                  onResize={(e, d, ref, delta, position) =>
-                    handleRndResize(ref, position, l)
-                  }
-                  bounds="parent"
-                  resizeHandleStyles={handleStyles}
-                  enableResizing={selectedLayer?.id === l.id}
-                >
-                  <DynamicComponent {...l} />
-                </Rnd>
-              );
-            })}
+          <div className={styles.inner}>
+            <div
+              className={styles.board}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={handleDrop}
+            >
+              {layers.map((l) => {
+                const {
+                  id,
+                  type,
+                  view: { width, height, opacity, x, y },
+                } = l;
+                const DynamicComponent = componentMap[type];
+                return (
+                  <Rnd
+                    key={id}
+                    style={{ opacity }}
+                    size={{ width, height }}
+                    position={{ x, y }}
+                    onDragStart={() => handleRndDragStart(l)}
+                    onDragStop={(e, data) => handleRndDragStop(data, l)}
+                    onResize={(e, d, ref, delta, position) =>
+                      handleRndResize(ref, position, l)
+                    }
+                    bounds="parent"
+                    resizeHandleStyles={handleStyles}
+                    enableResizing={selectedLayer?.id === l.id}
+                  >
+                    <DynamicComponent {...l} />
+                  </Rnd>
+                );
+              })}
+            </div>
           </div>
         </div>
         <div className={styles.config}>

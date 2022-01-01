@@ -15,12 +15,17 @@
     display: flex;
 
     .lib {
-      width: 300px;
+      width: 240px;
     }
 
     .canvas {
       flex: 1;
       background-color: cadetblue;
+      overflow: auto;
+
+      .inner {
+        transform: scale(1);
+      }
 
       .board {
         width: 800px;
