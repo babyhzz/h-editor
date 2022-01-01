@@ -1,12 +1,12 @@
 import { HexColorInput } from 'react-colorful';
 
 interface ColorPickerProps {
-  value: string;
+  value?: string;
   onChange?: (value: string) => void;
 }
 
 const ColorPicker: React.FC<ColorPickerProps> = (props) => {
-  const { value, onChange } = props;
+  const { value, onChange, ...rest } = props;
 
   const handleChange = (color: string) => {
     if (onChange) {
@@ -14,7 +14,7 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
     }
   };
 
-  return <HexColorInput color={value} onChange={handleChange} />;
+  return <HexColorInput color={value} onChange={handleChange} {...rest} />;
 };
 
 export default ColorPicker;

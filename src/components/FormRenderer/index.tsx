@@ -8,6 +8,7 @@ import {
   Collapse,
 } from 'antd';
 import omit from 'lodash/omit';
+import ColorPicker from './ColorPicker';
 
 type FieldConfigType = 'text' | 'number' | 'select' | 'color';
 
@@ -40,7 +41,12 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
 
   const [form] = Form.useForm();
 
+  useEffect(() => {
+    form.setFieldsValue(values);
+  }, [values]);
+
   const handleValuesChange = (values: any) => {
+    console.log('Value Change!!', values);
     if (onChange) {
       onChange(values);
     }
@@ -79,7 +85,7 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
     if (item.type === 'color') {
       return (
         <Form.Item label={item.name} name={item.key}>
-          <Select {...comProps} />
+          <ColorPicker {...comProps} />
         </Form.Item>
       );
     }
@@ -107,7 +113,9 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
 
   return (
     <ConfigProvider componentSize="small">
-      <Form onChange={handleValuesChange}>{renderForm(config)}</Form>
+      <Form form={form} onValuesChange={handleValuesChange}>
+        {renderForm(config)}
+      </Form>
     </ConfigProvider>
   );
 };

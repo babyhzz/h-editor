@@ -11,6 +11,7 @@ interface EditorModel {
     addLayer: Reducer;
     selectLayer: Reducer;
     updateLayerView: Reducer;
+    updateLayerConfig: Reducer;
   };
 }
 
@@ -31,8 +32,12 @@ const editor: EditorModel = {
     updateLayerView(state, { payload }) {
       const { id, view } = payload;
       const layer = state.layers.find((l: any) => l.id === payload.id);
-      layer.view = view;
+      layer.view = { ...layer.view, ...view };
       state.selected = id;
+    },
+    updateLayerConfig(state, { payload }) {
+      const layer = state.layers.find((l: any) => l.id === state.selected);
+      layer.configValues = { ...layer.configValues, ...payload };
     },
   },
 };

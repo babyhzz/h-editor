@@ -4,14 +4,65 @@ import styles from './index.less';
 import { componentMap, templateMap } from '@/layers';
 import React from 'react';
 import { connect, Dispatch } from 'umi';
-import { FormConfig } from '@/components/FormRenderer';
-import {
-  DraggableData,
-  Position,
-  Rnd,
-  RndDragCallback,
-  RndResizeCallback,
-} from 'react-rnd';
+import FormRenderer, { FormConfig } from '@/components/FormRenderer';
+import { DraggableData, Position, Rnd } from 'react-rnd';
+
+/** Resize按钮的尺寸大小 */
+const handleSize = 6;
+
+const handleCommonStyle = {
+  width: handleSize,
+  height: handleSize,
+  backgroundColor: '#2321DD',
+  borderRadius: '50%',
+};
+
+const handleStyles = {
+  topLeft: {
+    ...handleCommonStyle,
+    left: -handleSize / 2,
+    top: -handleSize / 2,
+  },
+  topRight: {
+    ...handleCommonStyle,
+    right: -handleSize / 2,
+    top: -handleSize / 2,
+  },
+  bottomLeft: {
+    ...handleCommonStyle,
+    left: -handleSize / 2,
+    bottom: -handleSize / 2,
+  },
+  bottomRight: {
+    ...handleCommonStyle,
+    right: -handleSize / 2,
+    bottom: -handleSize / 2,
+  },
+  top: {
+    ...handleCommonStyle,
+    left: `calc(50% - ${handleSize / 2}px)`,
+    top: -handleSize / 2,
+    cursor: 'n-resize',
+  },
+  bottom: {
+    ...handleCommonStyle,
+    left: `calc(50% - ${handleSize / 2}px)`,
+    bottom: -handleSize / 2,
+    cursor: 'n-resize',
+  },
+  left: {
+    ...handleCommonStyle,
+    left: -handleSize / 2,
+    top: `calc(50% - ${handleSize / 2}px)`,
+    cursor: 'w-resize',
+  },
+  right: {
+    ...handleCommonStyle,
+    right: -handleSize / 2,
+    top: `calc(50% - ${handleSize / 2}px)`,
+    cursor: 'w-resize',
+  },
+};
 
 const { TabPane } = Tabs;
 
@@ -43,7 +94,7 @@ function getDefaultValues(config: FormConfig): Record<string, any> {
     } else {
       return { ...preValues, [item.key]: item.default };
     }
-  });
+  }, {});
 }
 
 function getLayerConfigFromTemplate(template: LayerTemplate): LayerConfig {
@@ -68,12 +119,12 @@ function getLayerConfigFromTemplate(template: LayerTemplate): LayerConfig {
 
 interface EditorProps {
   layers: Array<LayerConfig>;
-  selected: string;
+  selectedLayer: LayerConfig | null;
   dispatch: Dispatch;
 }
 
 const Editor: React.FC<EditorProps> = (props) => {
-  const { layers, selected, dispatch } = props;
+  const { layers, selectedLayer, dispatch } = props;
 
   const handleDragStart = (e: React.DragEvent, template: LayerTemplate) => {
     e.dataTransfer.setData('text/plain', JSON.stringify(template));
@@ -99,7 +150,7 @@ const Editor: React.FC<EditorProps> = (props) => {
       type: 'editor/updateLayerView',
       payload: {
         id: layer.id,
-        view: { ...layer.view, x, y },
+        view: { x, y },
       },
     });
   };
@@ -117,10 +168,19 @@ const Editor: React.FC<EditorProps> = (props) => {
       type: 'editor/updateLayerView',
       payload: {
         id: layer.id,
-        view: { ...layer.view, x, y, width, height },
+        view: { x, y, width, height },
       },
     });
   };
+
+  const handleConfigChange = (values: any) => {
+    dispatch({
+      type: 'editor/updateLayerConfig',
+      payload: values,
+    });
+  };
+
+  console.log('layers', layers);
 
   return (
     <div className={styles.page}>
@@ -137,8 +197,9 @@ const Editor: React.FC<EditorProps> = (props) => {
               >
                 {lib.children.map((item) => (
                   <div
-                    style={{ height: 100, border: '1px solid red' }}
+                    key={item.type}
                     draggable
+                    style={{ height: 100, border: '1px solid red' }}
                     onDragStart={(e) => handleDragStart(e, item)}
                   >
                     <span>{item.name}</span>
@@ -156,12 +217,14 @@ const Editor: React.FC<EditorProps> = (props) => {
           >
             {layers.map((l) => {
               const {
+                id,
                 type,
                 view: { width, height, opacity, x, y },
               } = l;
               const DynamicComponent = componentMap[type];
               return (
                 <Rnd
+                  key={id}
                   style={{ opacity }}
                   size={{ width, height }}
                   position={{ x, y }}
@@ -170,6 +233,9 @@ const Editor: React.FC<EditorProps> = (props) => {
                   onResize={(e, d, ref, delta, position) =>
                     handleRndResize(ref, position, l)
                   }
+                  bounds="parent"
+                  resizeHandleStyles={handleStyles}
+                  enableResizing={selectedLayer?.id === l.id}
                 >
                   <DynamicComponent {...l} />
                 </Rnd>
@@ -177,13 +243,24 @@ const Editor: React.FC<EditorProps> = (props) => {
             })}
           </div>
         </div>
-        <div className={styles.config}></div>
+        <div className={styles.config}>
+          {selectedLayer && (
+            <FormRenderer
+              key={selectedLayer.id}
+              config={selectedLayer.config}
+              values={selectedLayer.configValues}
+              onChange={handleConfigChange}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
-export default connect((state: any) => ({
-  layers: state.layers,
-  selected: state.selected,
-}))(Editor);
+export default connect((state: any) => {
+  const { layers, selected } = state.editor;
+  const selectedLayer = layers.find((l: LayerConfig) => l.id === selected);
+
+  return { layers, selectedLayer };
+})(Editor);

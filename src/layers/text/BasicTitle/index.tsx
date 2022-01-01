@@ -11,7 +11,8 @@ const BasicTitle: React.FC<BasicTitleProps> = (props) => {
       style={{
         width,
         height,
-        lineHeight: height,
+        lineHeight: height + 'px',
+        backgroundColor: configValues.backgroundColor,
       }}
     >
       {configValues.text}
