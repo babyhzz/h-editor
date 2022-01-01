@@ -1,6 +1,6 @@
 import { LayerTemplate } from '@/layers/typing';
 
-const BasicTitleSchema: LayerTemplate = {
+const BasicTitleTemplate: LayerTemplate = {
   type: 'BasicTitle',
   name: '标题',
   width: 600,
@@ -14,4 +14,4 @@ const BasicTitleSchema: LayerTemplate = {
   ],
 };
 
-export default BasicTitleSchema;
+export default BasicTitleTemplate;
