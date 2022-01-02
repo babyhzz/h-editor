@@ -32,6 +32,7 @@ interface StaticDataSource {
 }
 
 interface ApiDataSource {
+  type: 'api';
   api: string;
   apiMethod: 'get' | 'post';
   apiHeaders: string;

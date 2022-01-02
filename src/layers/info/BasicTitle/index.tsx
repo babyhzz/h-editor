@@ -1,8 +1,6 @@
 import { LayerConfig } from '@/layers/typing';
 
-interface BasicTitleProps extends LayerConfig {}
-
-const BasicTitle: React.FC<BasicTitleProps> = (props) => {
+const BasicTitle: React.FC<LayerConfig> = (props) => {
   const { view, configValues } = props;
   const { width, height } = view;
 
@@ -22,5 +20,7 @@ const BasicTitle: React.FC<BasicTitleProps> = (props) => {
     </div>
   );
 };
+
+BasicTitle.displayName = 'BasicTitle';
 
 export default BasicTitle;

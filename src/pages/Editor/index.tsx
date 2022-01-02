@@ -85,7 +85,7 @@ const libs: Libs = [
   },
   {
     name: '图表',
-    children: [],
+    children: [templateMap.BasicLineChart],
   },
 ];
 
@@ -245,7 +245,7 @@ const Editor: React.FC<EditorProps> = (props) => {
                   <div
                     key={item.type}
                     draggable
-                    style={{ height: 100, border: '1px solid red' }}
+                    style={{ height: 50, border: '1px solid red' }}
                     onDragStart={(e) => handleDragStart(e, item)}
                   >
                     <span>{item.name}</span>

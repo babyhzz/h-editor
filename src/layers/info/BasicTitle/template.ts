@@ -1,4 +1,5 @@
 import { LayerTemplate } from '@/layers/typing';
+import BasicTitle from './index';
 
 const BasicTitleTemplate: LayerTemplate = {
   type: 'BasicTitle',
