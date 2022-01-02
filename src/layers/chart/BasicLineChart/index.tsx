@@ -1,13 +1,17 @@
 import useECharts from '@/hooks/useEcharts';
 import { LayerConfig } from '@/layers/typing';
 import * as echarts from 'echarts';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const BasicLineChart: React.FC<LayerConfig> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { view, dataSource } = props;
 
-  const [data, setData] = useState(props.dataTemplate);
+  const [data, setData] = useState(dataSource.data);
+
+  useEffect(() => {
+    setData(dataSource.data);
+  }, [dataSource]);
 
   // if (dataSource.type === 'static') {
 
