@@ -56,3 +56,25 @@ export interface LayerConfig extends LayerTemplate {
 
   dataSource: StaticDataSource | ApiDataSource;
 }
+
+enum DisplayMode {
+  FULL_SCREEN = 1,
+  FIT_WIDTH = 2,
+  FIT_HEIGHT = 3,
+}
+
+export interface BoardConfig {
+  width: number;
+  height: number;
+  grid: number;
+  display: DisplayMode;
+  backgroundColor: string;
+  backgroundImage: string;
+}
+
+interface BigBoard {
+  name: string;
+  thumbnail?: string;
+  config: BoardConfig;
+  layers: Array<LayerConfig>;
+}

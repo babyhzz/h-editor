@@ -1,6 +1,6 @@
 import { ComponentType } from 'react';
-import BasicTitleTemplate from './text/BasicTitle/template';
-import BasicTitle from './text/BasicTitle';
+import BasicTitleTemplate from './info/BasicTitle/template';
+import BasicTitle from './info/BasicTitle';
 import { LayerTemplate } from './typing';
 
 const componentMap: Record<string, ComponentType<any>> = {

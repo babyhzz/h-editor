@@ -74,7 +74,7 @@ type Libs = Array<{
 
 const libs: Libs = [
   {
-    name: '文本',
+    name: '信息',
     children: [templateMap.BasicTitle],
   },
   {

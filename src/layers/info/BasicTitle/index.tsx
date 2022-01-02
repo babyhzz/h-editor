@@ -13,6 +13,9 @@ const BasicTitle: React.FC<BasicTitleProps> = (props) => {
         height,
         lineHeight: height + 'px',
         backgroundColor: configValues.backgroundColor,
+        fontSize: configValues.fontSize,
+        textAlign: configValues.textAlign,
+        overflow: 'hidden',
       }}
     >
       {configValues.text}
