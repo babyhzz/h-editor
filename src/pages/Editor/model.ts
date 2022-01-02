@@ -1,4 +1,5 @@
 import { BoardConfig, LayerConfig } from '@/layers/typing';
+import { merge } from 'lodash';
 import { Reducer, Subscription } from 'umi';
 interface EditorModel {
   namespace: 'editor';
@@ -13,6 +14,7 @@ interface EditorModel {
     selectLayer: Reducer;
     updateLayerView: Reducer;
     updateLayerConfig: Reducer;
+    updateLayerDataSource: Reducer;
     initBoard: Reducer;
   };
   subscriptions: {
@@ -46,6 +48,11 @@ const editor: EditorModel = {
     updateLayerConfig(state, { payload }) {
       const layer = state.layers.find((l: any) => l.id === state.selected);
       layer.configValues = { ...layer.configValues, ...payload };
+    },
+    updateLayerDataSource(state, { payload }) {
+      const layer = state.layers.find((l: any) => l.id === state.selected);
+      layer.dataSource = merge(layer.dataSource, payload);
+      console.log('layer.dataSource:', layer.dataSource);
     },
   },
   subscriptions: {

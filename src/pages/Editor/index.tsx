@@ -147,6 +147,7 @@ function getLayerConfigFromTemplate(
     dataSource: {
       type: 'static',
       data: template.dataTemplate,
+      dcFields: {},
     },
   };
 }
@@ -223,6 +224,13 @@ const Editor: React.FC<EditorProps> = (props) => {
   const handleViewChange = (values: any) => {
     dispatch({
       type: 'editor/updateLayerView',
+      payload: values,
+    });
+  };
+
+  const handleDataSourceChange = (values: any) => {
+    dispatch({
+      type: 'editor/updateLayerDataSource',
       payload: values,
     });
   };
@@ -306,18 +314,22 @@ const Editor: React.FC<EditorProps> = (props) => {
                 <FormRenderer
                   key="view"
                   config={viewConfig}
-                  values={selectedLayer.view}
+                  value={selectedLayer.view}
                   onChange={handleViewChange}
                 />
                 <FormRenderer
                   key="config"
                   config={selectedLayer.config}
-                  values={selectedLayer.configValues}
+                  value={selectedLayer.configValues}
                   onChange={handleConfigChange}
                 />
               </TabPane>
               <TabPane tab="数据" key="data">
-                <DataSourceForm {...selectedLayer} />
+                <DataSourceForm
+                  value={selectedLayer.dataSource}
+                  dataFields={selectedLayer.dataFields}
+                  onChange={handleDataSourceChange}
+                />
               </TabPane>
               <TabPane tab="交互" key="event">
                 Content of Tab Pane 3

@@ -1,21 +1,26 @@
-import { LayerConfig } from '@/layers/typing';
+import { DataField, DataSource, LayerConfig } from '@/layers/typing';
 import { Table, Form, Input, Radio, ConfigProvider } from 'antd';
 import JsonInput from '@/components/JsonInput';
+import { useEffect } from 'react';
 
 const { Column } = Table;
 
-interface DataSourceFormProps extends LayerConfig {
+interface DataSourceFormProps {
+  dataFields: Array<DataField> | undefined;
+  value: DataSource;
   onChange: (values: any) => void;
 }
 
 const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
-  const { dataFields, onChange, dataSource } = props;
+  const { dataFields, onChange, value } = props;
 
-  // const [form] = Form.useForm();
+  const [form] = Form.useForm();
 
-  // useEffect(() => {
-  //   form.setFieldsValue(values);
-  // }, [values]);
+  console.log('DataSourceForm,', value);
+
+  useEffect(() => {
+    form.setFieldsValue(value);
+  }, [value]);
 
   const handleChange = (values: any) => {
     console.log(values);
@@ -26,25 +31,23 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
 
   return (
     <ConfigProvider componentSize="small">
-      <Form
-        onValuesChange={handleChange}
-        initialValues={{
-          dataSource,
-        }}
-      >
-        <Table dataSource={dataFields} pagination={false} rowKey="key">
-          <Column title="字段" dataIndex="key" />
-          <Column
-            title="映射"
-            dataIndex="dcKey"
-            render={(_, item: any) => (
-              <Form.Item name={['dcFields', item.key]} noStyle>
-                <Input />
-              </Form.Item>
-            )}
-          />
-        </Table>
-        <Form.Item label="数据源" name={['dataSource', 'type']}>
+      <Form onValuesChange={handleChange} form={form}>
+        {dataFields && (
+          <Table dataSource={dataFields} pagination={false} rowKey="key">
+            <Column title="字段" dataIndex="key" />
+            <Column
+              title="映射"
+              dataIndex="dcKey"
+              render={(_, item: any) => (
+                <Form.Item name={['dcFields', item.key]} noStyle>
+                  <Input />
+                </Form.Item>
+              )}
+            />
+          </Table>
+        )}
+
+        <Form.Item label="数据源" name="type">
           <Radio.Group
             optionType="button"
             options={[
@@ -53,8 +56,8 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
             ]}
           />
         </Form.Item>
-        {dataSource.type === 'static' && (
-          <Form.Item noStyle name={['dataSource', 'data']}>
+        {value.type === 'static' && (
+          <Form.Item noStyle name="data">
             <JsonInput />
           </Form.Item>
         )}

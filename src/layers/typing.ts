@@ -1,6 +1,6 @@
 import { FormConfig } from '@/components/FormRenderer';
 
-interface Field {
+export interface DataField {
   key: string;
   description: string;
 }
@@ -21,22 +21,19 @@ export interface LayerTemplate {
 
   dataTemplate?: any;
 
-  dataFields?: Array<Field>;
+  dataFields?: Array<DataField>;
 
   events?: any;
 }
-
-interface StaticDataSource {
-  type: 'static';
-  data: any;
-}
-
-interface ApiDataSource {
-  type: 'api';
-  api: string;
-  apiMethod: 'get' | 'post';
-  apiHeaders: string;
-  apiBody: string;
+export interface DataSource {
+  type: 'static' | 'api';
+  data?: any;
+  api?: string;
+  apiMethod?: 'get' | 'post';
+  apiHeaders?: string;
+  apiBody?: string;
+  /** 字段映射 */
+  dcFields?: Record<string, string>;
 }
 
 export interface LayerViewConfig {
@@ -51,12 +48,8 @@ export interface LayerConfig extends LayerTemplate {
   id: string;
   alias: string;
   configValues: any;
-  /** 字段映射 */
-  dcFields?: Record<string, string>;
-
   view: LayerViewConfig;
-
-  dataSource: StaticDataSource | ApiDataSource;
+  dataSource: DataSource;
 }
 
 export enum DisplayMode {

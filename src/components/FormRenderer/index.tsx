@@ -32,20 +32,20 @@ export type FormConfig = Array<FieldConfig | FieldGroupConfig>;
 
 interface FormRendererProps {
   config: FormConfig;
-  values: any;
+  value: any;
   onChange?: (values: any) => void;
 }
 
 const { Panel } = Collapse;
 
 const FormRenderer: React.FC<FormRendererProps> = (props) => {
-  const { config, values, onChange } = props;
+  const { config, value, onChange } = props;
 
   const [form] = Form.useForm();
 
   useEffect(() => {
-    form.setFieldsValue(values);
-  }, [values]);
+    form.setFieldsValue(value);
+  }, [value]);
 
   const handleValuesChange = (values: any) => {
     console.log('Value Change!!', values);
