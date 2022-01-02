@@ -9,6 +9,7 @@ import {
 } from 'antd';
 import omit from 'lodash/omit';
 import ColorPicker from './ColorPicker';
+import styles from './index.less';
 
 type FieldConfigType = 'text' | 'number' | 'select' | 'color';
 
@@ -113,7 +114,13 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
 
   return (
     <ConfigProvider componentSize="small">
-      <Form form={form} onValuesChange={handleValuesChange}>
+      <Form
+        form={form}
+        onValuesChange={handleValuesChange}
+        colon={false}
+        className="editor-form"
+        labelAlign="left"
+      >
         {renderForm(config)}
       </Form>
     </ConfigProvider>

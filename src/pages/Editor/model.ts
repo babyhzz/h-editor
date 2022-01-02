@@ -13,6 +13,7 @@ interface EditorModel {
     selectLayer: Reducer;
     updateLayerView: Reducer;
     updateLayerConfig: Reducer;
+    initBoard: Reducer;
   };
   subscriptions: {
     setup: Subscription;
@@ -27,6 +28,9 @@ const editor: EditorModel = {
     board: null,
   },
   reducers: {
+    initBoard(state, { payload }) {
+      state.board = payload;
+    },
     addLayer(state, { payload }) {
       state.layers.push(payload);
       state.selected = payload.id;
@@ -35,10 +39,9 @@ const editor: EditorModel = {
       state.selected = payload;
     },
     updateLayerView(state, { payload }) {
-      const { id, view } = payload;
-      const layer = state.layers.find((l: any) => l.id === payload.id);
+      const { view } = payload;
+      const layer = state.layers.find((l: any) => l.id === state.selected);
       layer.view = { ...layer.view, ...view };
-      state.selected = id;
     },
     updateLayerConfig(state, { payload }) {
       const layer = state.layers.find((l: any) => l.id === state.selected);

@@ -38,6 +38,13 @@ interface ApiDataSource {
   apiBody: string;
 }
 
+export interface LayerViewConfig {
+  width: number;
+  height: number;
+  x: number;
+  y: number;
+  opacity: number;
+}
 export interface LayerConfig extends LayerTemplate {
   /** 组件id，一个看板内唯一 */
   id: string;
@@ -46,18 +53,12 @@ export interface LayerConfig extends LayerTemplate {
   /** 字段映射 */
   dcFields?: Record<string, string>;
 
-  view: {
-    width: number;
-    height: number;
-    x: number;
-    y: number;
-    opacity: number;
-  };
+  view: LayerViewConfig;
 
   dataSource: StaticDataSource | ApiDataSource;
 }
 
-enum DisplayMode {
+export enum DisplayMode {
   FULL_SCREEN = 1,
   FIT_WIDTH = 2,
   FIT_HEIGHT = 3,
@@ -68,8 +69,8 @@ export interface BoardConfig {
   height: number;
   grid: number;
   display: DisplayMode;
-  backgroundColor: string;
-  backgroundImage: string;
+  backgroundColor?: string;
+  backgroundImage?: string;
 }
 
 interface BigBoard {

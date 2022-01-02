@@ -1,8 +1,14 @@
-import { LayerConfig, LayerTemplate } from '@/layers/typing';
+import {
+  BoardConfig,
+  DisplayMode,
+  LayerConfig,
+  LayerTemplate,
+  LayerViewConfig,
+} from '@/layers/typing';
 import { Tabs } from 'antd';
 import styles from './index.less';
 import { componentMap, templateMap } from '@/layers';
-import React, { DragEvent } from 'react';
+import React, { DragEvent, useEffect } from 'react';
 import { connect, Dispatch } from 'umi';
 import FormRenderer, { FormConfig } from '@/components/FormRenderer';
 import { DraggableData, Position, Rnd } from 'react-rnd';
@@ -83,6 +89,29 @@ const libs: Libs = [
   },
 ];
 
+const viewConfig: FormConfig = [
+  {
+    key: 'width',
+    name: '宽度',
+    type: 'number',
+  },
+  {
+    key: 'height',
+    name: '高度',
+    type: 'number',
+  },
+  {
+    key: 'x',
+    name: 'x坐标',
+    type: 'number',
+  },
+  {
+    key: 'y',
+    name: 'y坐标',
+    type: 'number',
+  },
+];
+
 function randomString() {
   return Math.random().toString(36).substring(9);
 }
@@ -124,11 +153,23 @@ function getLayerConfigFromTemplate(
 interface EditorProps {
   layers: Array<LayerConfig>;
   selectedLayer: LayerConfig | null;
+  board: BoardConfig;
   dispatch: Dispatch;
 }
 
 const Editor: React.FC<EditorProps> = (props) => {
-  const { layers, selectedLayer, dispatch } = props;
+  const { layers, selectedLayer, board, dispatch } = props;
+
+  // 初始化board参数
+  useEffect(() => {
+    const board: BoardConfig = {
+      width: 900,
+      height: 600,
+      grid: 8,
+      display: DisplayMode.FULL_SCREEN,
+    };
+    dispatch({ type: 'editor/initBoard', payload: board });
+  }, []);
 
   const handleDragStart = (e: React.DragEvent, template: LayerTemplate) => {
     e.dataTransfer.setData('text/plain', JSON.stringify(template));
@@ -150,13 +191,7 @@ const Editor: React.FC<EditorProps> = (props) => {
 
   const handleRndDragStop = (data: DraggableData, layer: LayerConfig) => {
     const { x, y } = data;
-    dispatch({
-      type: 'editor/updateLayerView',
-      payload: {
-        id: layer.id,
-        view: { x, y },
-      },
-    });
+    updateView({ x, y });
   };
 
   const handleRndResize = (
@@ -167,19 +202,26 @@ const Editor: React.FC<EditorProps> = (props) => {
     const { x, y } = position;
     const width = parseInt(ref.style.width);
     const height = parseInt(ref.style.height);
+    updateView({ x, y, width, height });
+  };
 
+  const updateView = (view: Partial<LayerViewConfig>) => {
     dispatch({
       type: 'editor/updateLayerView',
-      payload: {
-        id: layer.id,
-        view: { x, y, width, height },
-      },
+      payload: { view },
     });
   };
 
   const handleConfigChange = (values: any) => {
     dispatch({
       type: 'editor/updateLayerConfig',
+      payload: values,
+    });
+  };
+
+  const handleViewChange = (values: any) => {
+    dispatch({
+      type: 'editor/updateLayerView',
       payload: values,
     });
   };
@@ -217,6 +259,7 @@ const Editor: React.FC<EditorProps> = (props) => {
           <div className={styles.inner}>
             <div
               className={styles.board}
+              style={{ width: board?.width, height: board?.height }}
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleDrop}
             >
@@ -250,14 +293,36 @@ const Editor: React.FC<EditorProps> = (props) => {
           </div>
         </div>
         <div className={styles.config}>
-          {selectedLayer && (
-            <FormRenderer
-              key={selectedLayer.id}
-              config={selectedLayer.config}
-              values={selectedLayer.configValues}
-              onChange={handleConfigChange}
-            />
-          )}
+          {}
+          {selectedLayer ? (
+            <Tabs
+              defaultActiveKey="1"
+              className={styles.configTabs}
+              tabPosition="top"
+              animated={false}
+            >
+              <TabPane tab="配置" key="config">
+                <FormRenderer
+                  key="view"
+                  config={viewConfig}
+                  values={selectedLayer.view}
+                  onChange={handleViewChange}
+                />
+                <FormRenderer
+                  key="config"
+                  config={selectedLayer.config}
+                  values={selectedLayer.configValues}
+                  onChange={handleConfigChange}
+                />
+              </TabPane>
+              <TabPane tab="数据" key="data">
+                Content of Tab Pane 2
+              </TabPane>
+              <TabPane tab="交互" key="event">
+                Content of Tab Pane 3
+              </TabPane>
+            </Tabs>
+          ) : null}
         </div>
       </div>
     </div>
@@ -265,8 +330,8 @@ const Editor: React.FC<EditorProps> = (props) => {
 };
 
 export default connect((state: any) => {
-  const { layers, selected } = state.editor;
+  const { layers, selected, board } = state.editor;
   const selectedLayer = layers.find((l: LayerConfig) => l.id === selected);
 
-  return { layers, selectedLayer };
+  return { layers, selectedLayer, board };
 })(Editor);
