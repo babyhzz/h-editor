@@ -9,7 +9,7 @@ import {
   Radio,
 } from 'antd';
 import omit from 'lodash/omit';
-import ColorPicker from './ColorPicker';
+import ColorPicker from '@/components/ColorPicker';
 import styles from './index.less';
 
 type FieldConfigType = 'text' | 'number' | 'select' | 'color' | 'radioButton';

@@ -1,5 +1,7 @@
 import { LayerConfig } from '@/layers/typing';
-import { Table, Form, Input } from 'antd';
+import { Table, Form, Input, Radio, ConfigProvider } from 'antd';
+import JsonInput from '@/components/JsonInput';
+
 const { Column } = Table;
 
 interface DataSourceFormProps extends LayerConfig {
@@ -7,7 +9,13 @@ interface DataSourceFormProps extends LayerConfig {
 }
 
 const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
-  const { dataFields, onChange } = props;
+  const { dataFields, onChange, dataSource } = props;
+
+  // const [form] = Form.useForm();
+
+  // useEffect(() => {
+  //   form.setFieldsValue(values);
+  // }, [values]);
 
   const handleChange = (values: any) => {
     console.log(values);
@@ -17,25 +25,41 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
   };
 
   return (
-    <Form onValuesChange={handleChange}>
-      <Table
-        dataSource={dataFields}
-        pagination={false}
-        rowKey="key"
-        size="small"
+    <ConfigProvider componentSize="small">
+      <Form
+        onValuesChange={handleChange}
+        initialValues={{
+          dataSource,
+        }}
       >
-        <Column title="字段" dataIndex="key" />
-        <Column
-          title="映射"
-          dataIndex="dcKey"
-          render={(_, item: any) => (
-            <Form.Item name={item.key} noStyle>
-              <Input size="small" />
-            </Form.Item>
-          )}
-        />
-      </Table>
-    </Form>
+        <Table dataSource={dataFields} pagination={false} rowKey="key">
+          <Column title="字段" dataIndex="key" />
+          <Column
+            title="映射"
+            dataIndex="dcKey"
+            render={(_, item: any) => (
+              <Form.Item name={['dcFields', item.key]} noStyle>
+                <Input />
+              </Form.Item>
+            )}
+          />
+        </Table>
+        <Form.Item label="数据源" name={['dataSource', 'type']}>
+          <Radio.Group
+            optionType="button"
+            options={[
+              { label: '静态', value: 'static' },
+              { label: 'API', value: 'api' },
+            ]}
+          />
+        </Form.Item>
+        {dataSource.type === 'static' && (
+          <Form.Item noStyle name={['dataSource', 'data']}>
+            <JsonInput />
+          </Form.Item>
+        )}
+      </Form>
+    </ConfigProvider>
   );
 };
 
