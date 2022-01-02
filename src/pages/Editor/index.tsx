@@ -12,6 +12,7 @@ import React, { DragEvent, useEffect } from 'react';
 import { connect, Dispatch } from 'umi';
 import FormRenderer, { FormConfig } from '@/components/FormRenderer';
 import { DraggableData, Position, Rnd } from 'react-rnd';
+import DataSourceForm from './DataSourceForm';
 
 /** Resize按钮的尺寸大小 */
 const handleSize = 6;
@@ -316,7 +317,7 @@ const Editor: React.FC<EditorProps> = (props) => {
                 />
               </TabPane>
               <TabPane tab="数据" key="data">
-                Content of Tab Pane 2
+                <DataSourceForm {...selectedLayer} />
               </TabPane>
               <TabPane tab="交互" key="event">
                 Content of Tab Pane 3

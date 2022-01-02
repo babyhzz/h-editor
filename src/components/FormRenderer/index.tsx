@@ -6,12 +6,13 @@ import {
   InputNumber,
   Select,
   Collapse,
+  Radio,
 } from 'antd';
 import omit from 'lodash/omit';
 import ColorPicker from './ColorPicker';
 import styles from './index.less';
 
-type FieldConfigType = 'text' | 'number' | 'select' | 'color';
+type FieldConfigType = 'text' | 'number' | 'select' | 'color' | 'radioButton';
 
 interface FieldConfig {
   key: string;
@@ -87,6 +88,13 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
       return (
         <Form.Item label={item.name} name={item.key}>
           <ColorPicker {...comProps} />
+        </Form.Item>
+      );
+    }
+    if (item.type === 'radioButton') {
+      return (
+        <Form.Item label={item.name} name={item.key}>
+          <Radio.Group {...comProps} optionType="button" />
         </Form.Item>
       );
     }
