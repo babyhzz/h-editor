@@ -18,6 +18,7 @@ function useECharts(
 
   useEffect(() => {
     if (chartRef.current) {
+      // chartRef.current.clear();
       chartRef.current.setOption(option);
     }
   }, [option]);

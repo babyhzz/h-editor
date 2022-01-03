@@ -1,3 +1,4 @@
+import useDataSource from '@/hooks/useDataSource';
 import useECharts from '@/hooks/useEcharts';
 import { LayerConfig } from '@/layers/typing';
 import * as echarts from 'echarts';
@@ -7,33 +8,36 @@ const BasicLineChart: React.FC<LayerConfig> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { view, dataSource } = props;
 
-  const [data, setData] = useState(dataSource.data);
+  const data = useDataSource(dataSource);
+  const { dcFields } = dataSource;
 
-  useEffect(() => {
-    setData(dataSource.data);
-  }, [dataSource]);
-
-  // if (dataSource.type === 'static') {
-
-  // }
   const option: echarts.EChartsOption = {
     dataset: {
-      dimensions: ['x', 'y'],
+      dimensions: [dcFields['x'] || 'x', dcFields['y'] || 'y'],
       source: data,
     },
     series: {
       type: 'line',
     },
-    xAxis: { type: 'category' },
-    yAxis: {},
+    xAxis: {
+      type: 'category',
+      axisTick: {
+        alignWithLabel: true,
+      },
+    },
+    yAxis: {
+      type: 'value',
+    },
+    tooltip: { trigger: 'axis' },
   };
 
   useECharts(containerRef, option, view.width, view.height);
 
   return (
-    <div ref={containerRef} style={{ width: view.width, height: view.height }}>
-      BasicLineChart
-    </div>
+    <div
+      ref={containerRef}
+      style={{ width: view.width, height: view.height }}
+    ></div>
   );
 };
 

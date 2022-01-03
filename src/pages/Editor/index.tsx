@@ -146,7 +146,7 @@ function getLayerConfigFromTemplate(
     alias: template.name,
     dataSource: {
       type: 'static',
-      data: template.dataTemplate,
+      data: JSON.stringify(template.dataTemplate, null, 2),
       dcFields: {},
     },
   };

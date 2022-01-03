@@ -25,16 +25,26 @@ export interface LayerTemplate {
 
   events?: any;
 }
-export interface DataSource {
-  type: 'static' | 'api';
-  data?: any;
-  api?: string;
-  apiMethod?: 'get' | 'post';
-  apiHeaders?: string;
-  apiBody?: string;
-  /** 字段映射 */
-  dcFields?: Record<string, string>;
+
+interface StaticDataSource {
+  type: 'static';
+  data: string;
+  dcFields: Record<string, string>;
 }
+
+interface ApiDataSource {
+  type: 'api';
+  apiUrl: string;
+  apiMethod: 'get' | 'post';
+  apiHeaders: string;
+  /** API参数，可能是params也可能是body */
+  apiData: string;
+  /** 字段映射 */
+  dcFields: Record<string, string>;
+  /** 刷新的秒数 */
+  refreshInterval: number;
+}
+export type DataSource = StaticDataSource | ApiDataSource;
 
 export interface LayerViewConfig {
   width: number;

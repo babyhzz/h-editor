@@ -1,5 +1,5 @@
 import { DataField, DataSource, LayerConfig } from '@/layers/typing';
-import { Table, Form, Input, Radio, ConfigProvider } from 'antd';
+import { Table, Form, Input, Radio, ConfigProvider, Select } from 'antd';
 import JsonInput from '@/components/JsonInput';
 import { useEffect } from 'react';
 
@@ -31,7 +31,13 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
 
   return (
     <ConfigProvider componentSize="small">
-      <Form onValuesChange={handleChange} form={form}>
+      <Form
+        onValuesChange={handleChange}
+        form={form}
+        initialValues={{
+          apiMethod: 'get',
+        }}
+      >
         {dataFields && (
           <Table dataSource={dataFields} pagination={false} rowKey="key">
             <Column title="字段" dataIndex="key" />
@@ -60,6 +66,27 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
           <Form.Item noStyle name="data">
             <JsonInput />
           </Form.Item>
+        )}
+        {value.type === 'api' && (
+          <>
+            <Form.Item label="接口地址" name="apiUrl">
+              <Input />
+            </Form.Item>
+            <Form.Item label="接口方式" name="apiMethod">
+              <Radio.Group
+                options={[
+                  { value: 'get', label: 'GET' },
+                  { value: 'post', label: 'POST' },
+                ]}
+              />
+            </Form.Item>
+            <Form.Item label="头部信息" name="apiHeaders">
+              <JsonInput />
+            </Form.Item>
+            <Form.Item label="Body信息" name="apiBody">
+              <JsonInput />
+            </Form.Item>
+          </>
         )}
       </Form>
     </ConfigProvider>

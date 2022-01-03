@@ -1,16 +1,18 @@
 import codemirror from 'codemirror';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/addon/lint/lint';
-import 'codemirror/addon/lint/json-lint';
 import { Controlled as CodeMirror } from 'react-codemirror2';
+
+const jsonlint = require('codemirror/addon/lint/json-lint');
+window.jsonlint = jsonlint;
 
 /**
  * CodeMirror 使用还不是很熟悉，需要了解
  * https://github.com/scniro/react-codemirror2/issues/21
  */
 interface JsonInputProps {
-  value?: Record<string, any>;
-  onChange?: (value: Record<string, any>) => void;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 const JsonInput: React.FC<JsonInputProps> = (props) => {
@@ -35,26 +37,29 @@ const JsonInput: React.FC<JsonInputProps> = (props) => {
     data: codemirror.EditorChange,
     value: string,
   ) => {
-    let jsonObj = props.value;
-    try {
-      jsonObj = JSON.parse(value);
-    } finally {
-      if (onChange) {
-        onChange(jsonObj || {});
-      }
+    if (onChange) {
+      onChange(value);
     }
+    // let jsonObj = props.value;
+    // try {
+    //   jsonObj = JSON.parse(value);
+    // } finally {
+    //   if (onChange) {
+    //     onChange(jsonObj || {});
+    //   }
+    // }
   };
 
   return (
     <CodeMirror
-      value={JSON.stringify(value, null, 2)}
+      value={value || ''}
       // value={JSON.stringify(value)}
       // onChange={handleChange}
       onBeforeChange={handleBeforeChange}
       options={{
         mode: 'application/json',
-        lineNumbers: true,
-        // lint: true,
+        lineNumbers: false,
+        lint: true,
       }}
     />
   );
