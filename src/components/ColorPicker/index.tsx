@@ -2,6 +2,7 @@ import { HexColorInput, HexColorPicker } from 'react-colorful';
 import styles from './index.less';
 import { useRef, useState, useCallback } from 'react';
 import useClickOutside from './useClickOutside';
+import { throttle } from 'lodash';
 
 interface ColorPickerProps {
   value?: string;
@@ -17,15 +18,16 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   const close = useCallback(() => toggle(false), []);
   useClickOutside(popover, close);
 
-  const handleChange = (color: string) => {
+  const handleChange = throttle((color: string) => {
+    console.log('onChange!!!!!!!!');
     if (onChange) {
       onChange(color);
     }
-  };
+  }, 100);
 
   return (
     <div className={styles.picker}>
-      <HexColorInput color={value} onChange={handleChange} {...rest} />
+      <HexColorInput color={value} onChange={handleChange} prefixed {...rest} />
       <div
         className={styles.swatch}
         style={{ backgroundColor: value }}

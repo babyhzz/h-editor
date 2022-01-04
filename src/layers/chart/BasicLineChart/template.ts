@@ -6,12 +6,26 @@ const BasicLineChartTemplate: LayerTemplate = {
   width: 400,
   height: 300,
   config: [
-    // {
-    //   key: 'text',
-    //   name: '标题文本',
-    //   type: 'text',
-    //   default: '这是一个标题',
-    // },
+    {
+      key: 'backgroundColor',
+      name: '背景色',
+      type: 'color',
+      default: 'transparent',
+    },
+    {
+      key: 'xAxis',
+      name: 'x轴',
+      type: 'group',
+      children: [
+        {
+          key: 'xAxisShow',
+          name: '是否显示',
+          type: 'switch',
+          default: true,
+        },
+      ],
+    },
+
     // {
     //   key: 'fontSize',
     //   name: '字体大小',

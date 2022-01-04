@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const BasicLineChart: React.FC<LayerConfig> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { view, dataSource } = props;
+  const { view, dataSource, configValues } = props;
 
   const data = useDataSource(dataSource);
   const { dcFields } = dataSource;
@@ -20,6 +20,7 @@ const BasicLineChart: React.FC<LayerConfig> = (props) => {
       type: 'line',
     },
     xAxis: {
+      show: configValues.xAxisShow,
       type: 'category',
       axisTick: {
         alignWithLabel: true,
@@ -36,7 +37,11 @@ const BasicLineChart: React.FC<LayerConfig> = (props) => {
   return (
     <div
       ref={containerRef}
-      style={{ width: view.width, height: view.height }}
+      style={{
+        width: view.width,
+        height: view.height,
+        backgroundColor: configValues.backgroundColor,
+      }}
     ></div>
   );
 };

@@ -7,12 +7,19 @@ import {
   Select,
   Collapse,
   Radio,
+  Switch,
 } from 'antd';
 import omit from 'lodash/omit';
 import ColorPicker from '@/components/ColorPicker';
 import styles from './index.less';
 
-type FieldConfigType = 'text' | 'number' | 'select' | 'color' | 'radioButton';
+type FieldConfigType =
+  | 'text'
+  | 'number'
+  | 'select'
+  | 'color'
+  | 'radioButton'
+  | 'switch';
 
 interface FieldConfig {
   key: string;
@@ -40,6 +47,7 @@ const { Panel } = Collapse;
 
 const FormRenderer: React.FC<FormRendererProps> = (props) => {
   const { config, value, onChange } = props;
+  console.log('from value ', value);
 
   const [form] = Form.useForm();
 
@@ -95,6 +103,13 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
       return (
         <Form.Item label={item.name} name={item.key}>
           <Radio.Group {...comProps} optionType="button" />
+        </Form.Item>
+      );
+    }
+    if (item.type === 'switch') {
+      return (
+        <Form.Item label={item.name} name={item.key} valuePropName="checked">
+          <Switch {...comProps} />
         </Form.Item>
       );
     }

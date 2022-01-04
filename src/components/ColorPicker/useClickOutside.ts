@@ -10,6 +10,9 @@ const useClickOutside = (
     let startedWhenMounted: any = null;
 
     const listener = (event: MouseEvent) => {
+      console.log('color picker');
+      event.stopPropagation();
+      event.stopImmediatePropagation();
       // Do nothing if `mousedown` or `touchstart` started inside ref element
       if (startedInside || !startedWhenMounted) return;
       // Do nothing if clicking ref's element or descendent elements
