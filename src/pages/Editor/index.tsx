@@ -127,10 +127,7 @@ function getDefaultValues(config: FormConfig): Record<string, any> {
   }, {});
 }
 
-function getLayerConfigFromTemplate(
-  template: LayerTemplate,
-  e: DragEvent,
-): LayerConfig {
+function getLayerConfigFromTemplate(template: LayerTemplate, e: DragEvent): LayerConfig {
   const { offsetX, offsetY } = e.nativeEvent;
   return {
     ...template,
@@ -196,11 +193,7 @@ const Editor: React.FC<EditorProps> = (props) => {
     updateView({ x, y });
   };
 
-  const handleRndResize = (
-    ref: HTMLElement,
-    position: Position,
-    layer: LayerConfig,
-  ) => {
+  const handleRndResize = (ref: HTMLElement, position: Position, layer: LayerConfig) => {
     const { x, y } = position;
     const width = parseInt(ref.style.width);
     const height = parseInt(ref.style.height);
@@ -245,9 +238,7 @@ const Editor: React.FC<EditorProps> = (props) => {
           <Tabs tabPosition="left">
             {libs.map((lib) => (
               <TabPane
-                tab={
-                  <span style={{ writingMode: 'vertical-lr' }}>{lib.name}</span>
-                }
+                tab={<span style={{ writingMode: 'vertical-lr' }}>{lib.name}</span>}
                 key={lib.name}
               >
                 {lib.children.map((item) => (
@@ -264,8 +255,8 @@ const Editor: React.FC<EditorProps> = (props) => {
             ))}
           </Tabs>
         </div>
-        <div className={styles.canvas}>
-          <div className={styles.inner}>
+        <div className={styles.workspaceContainer}>
+          <div className={styles.workspace}>
             <div
               className={styles.board}
               style={{ width: board?.width, height: board?.height }}
@@ -287,9 +278,7 @@ const Editor: React.FC<EditorProps> = (props) => {
                     position={{ x, y }}
                     onDragStart={() => handleRndDragStart(l)}
                     onDragStop={(e, data) => handleRndDragStop(data, l)}
-                    onResize={(e, d, ref, delta, position) =>
-                      handleRndResize(ref, position, l)
-                    }
+                    onResize={(e, d, ref, delta, position) => handleRndResize(ref, position, l)}
                     bounds="parent"
                     resizeHandleStyles={handleStyles}
                     enableResizing={selectedLayer?.id === l.id}
@@ -300,6 +289,7 @@ const Editor: React.FC<EditorProps> = (props) => {
               })}
             </div>
           </div>
+          <div className={styles.workspaceFooter}>这是底部工具栏</div>
         </div>
         <div className={styles.config}>
           {}

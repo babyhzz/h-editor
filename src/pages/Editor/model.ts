@@ -1,10 +1,10 @@
-import { BoardConfig, LayerConfig } from '@/layers/typing';
+import type { BoardConfig, LayerConfig } from '@/layers/typing';
+import type { Reducer, Subscription } from 'umi';
 import { merge } from 'lodash';
-import { Reducer, Subscription } from 'umi';
 interface EditorModel {
   namespace: 'editor';
   state: {
-    layers: Array<LayerConfig>;
+    layers: LayerConfig[];
     /** 当前选择的图层 id */
     selected: string | null;
     board: BoardConfig | null;
