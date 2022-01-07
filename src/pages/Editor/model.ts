@@ -7,7 +7,7 @@ interface EditorModel {
     layers: LayerConfig[];
     /** 当前选择的图层 id */
     selected: string | null;
-    board: BoardConfig | null;
+    board: BoardConfig;
   };
   reducers: {
     addLayer: Reducer;
@@ -16,6 +16,7 @@ interface EditorModel {
     updateLayerConfig: Reducer;
     updateLayerDataSource: Reducer;
     initBoard: Reducer;
+    updateBoardScale: Reducer;
   };
   subscriptions: {
     setup: Subscription;
@@ -27,7 +28,7 @@ const editor: EditorModel = {
   state: {
     layers: [],
     selected: null,
-    board: null,
+    board: {} as BoardConfig,
   },
   reducers: {
     initBoard(state, { payload }) {
@@ -41,9 +42,8 @@ const editor: EditorModel = {
       state.selected = payload;
     },
     updateLayerView(state, { payload }) {
-      const { view } = payload;
       const layer = state.layers.find((l: any) => l.id === state.selected);
-      layer.view = { ...layer.view, ...view };
+      layer.view = { ...layer.view, ...payload };
     },
     updateLayerConfig(state, { payload }) {
       const layer = state.layers.find((l: any) => l.id === state.selected);
@@ -53,6 +53,10 @@ const editor: EditorModel = {
       const layer = state.layers.find((l: any) => l.id === state.selected);
       layer.dataSource = merge(layer.dataSource, payload);
       console.log('layer.dataSource:', layer.dataSource);
+    },
+    updateBoardScale(state, { payload }) {
+      console.log('scale payload!!!', payload);
+      state.board.scale = payload;
     },
   },
   subscriptions: {

@@ -75,6 +75,7 @@ export interface BoardConfig {
   display: DisplayMode;
   backgroundColor?: string;
   backgroundImage?: string;
+  scale: number;
 }
 
 interface BigBoard {

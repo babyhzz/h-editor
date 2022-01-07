@@ -1,83 +1,26 @@
-import {
-  BoardConfig,
-  DisplayMode,
-  LayerConfig,
-  LayerTemplate,
-  LayerViewConfig,
-} from '@/layers/typing';
-import { Tabs } from 'antd';
+import type { BoardConfig, LayerConfig, LayerTemplate, LayerViewConfig } from '@/layers/typing';
+import { DisplayMode } from '@/layers/typing';
+import { Slider, Tabs } from 'antd';
 import styles from './index.less';
 import { componentMap, templateMap } from '@/layers';
-import React, { DragEvent, useEffect } from 'react';
-import { connect, Dispatch } from 'umi';
-import FormRenderer, { FormConfig } from '@/components/FormRenderer';
-import { DraggableData, Position, Rnd } from 'react-rnd';
+import type { DragEvent } from 'react';
+import React, { useEffect } from 'react';
+import type { Dispatch } from 'umi';
+import { connect } from 'umi';
+import type { FormConfig } from '@/components/FormRenderer';
+import FormRenderer from '@/components/FormRenderer';
+import type { DraggableData, Position } from 'react-rnd';
+import { Rnd } from 'react-rnd';
 import DataSourceForm from './DataSourceForm';
-
-/** Resize按钮的尺寸大小 */
-const handleSize = 6;
-
-const handleCommonStyle = {
-  width: handleSize,
-  height: handleSize,
-  backgroundColor: '#2321DD',
-  borderRadius: '50%',
-};
-
-const handleStyles = {
-  topLeft: {
-    ...handleCommonStyle,
-    left: -handleSize / 2,
-    top: -handleSize / 2,
-  },
-  topRight: {
-    ...handleCommonStyle,
-    right: -handleSize / 2,
-    top: -handleSize / 2,
-  },
-  bottomLeft: {
-    ...handleCommonStyle,
-    left: -handleSize / 2,
-    bottom: -handleSize / 2,
-  },
-  bottomRight: {
-    ...handleCommonStyle,
-    right: -handleSize / 2,
-    bottom: -handleSize / 2,
-  },
-  top: {
-    ...handleCommonStyle,
-    left: `calc(50% - ${handleSize / 2}px)`,
-    top: -handleSize / 2,
-    cursor: 'n-resize',
-  },
-  bottom: {
-    ...handleCommonStyle,
-    left: `calc(50% - ${handleSize / 2}px)`,
-    bottom: -handleSize / 2,
-    cursor: 'n-resize',
-  },
-  left: {
-    ...handleCommonStyle,
-    left: -handleSize / 2,
-    top: `calc(50% - ${handleSize / 2}px)`,
-    cursor: 'w-resize',
-  },
-  right: {
-    ...handleCommonStyle,
-    right: -handleSize / 2,
-    top: `calc(50% - ${handleSize / 2}px)`,
-    cursor: 'w-resize',
-  },
-};
+import { handleStyles, viewConfig } from './utils';
 
 const { TabPane } = Tabs;
 
 type LibType = 'text' | 'chart';
-type Libs = Array<{
+type Libs = {
   name: string;
-  children: Array<LayerTemplate>;
-}>;
+  children: LayerTemplate[];
+}[];
 
 const libs: Libs = [
   {
@@ -87,29 +30,6 @@ const libs: Libs = [
   {
     name: '图表',
     children: [templateMap.BasicLineChart],
-  },
-];
-
-const viewConfig: FormConfig = [
-  {
-    key: 'width',
-    name: '宽度',
-    type: 'number',
-  },
-  {
-    key: 'height',
-    name: '高度',
-    type: 'number',
-  },
-  {
-    key: 'x',
-    name: 'x坐标',
-    type: 'number',
-  },
-  {
-    key: 'y',
-    name: 'y坐标',
-    type: 'number',
   },
 ];
 
@@ -150,7 +70,7 @@ function getLayerConfigFromTemplate(template: LayerTemplate, e: DragEvent): Laye
 }
 
 interface EditorProps {
-  layers: Array<LayerConfig>;
+  layers: LayerConfig[];
   selectedLayer: LayerConfig | null;
   board: BoardConfig;
   dispatch: Dispatch;
@@ -161,14 +81,15 @@ const Editor: React.FC<EditorProps> = (props) => {
 
   // 初始化board参数
   useEffect(() => {
-    const board: BoardConfig = {
-      width: 900,
-      height: 600,
+    const payload: BoardConfig = {
+      width: 1920,
+      height: 1080,
       grid: 8,
       display: DisplayMode.FULL_SCREEN,
+      scale: 0.5,
     };
-    dispatch({ type: 'editor/initBoard', payload: board });
-  }, []);
+    dispatch({ type: 'editor/initBoard', payload });
+  }, [dispatch]);
 
   const handleDragStart = (e: React.DragEvent, template: LayerTemplate) => {
     e.dataTransfer.setData('text/plain', JSON.stringify(template));
@@ -188,6 +109,13 @@ const Editor: React.FC<EditorProps> = (props) => {
     dispatch({ type: 'editor/selectLayer', payload: layer.id });
   };
 
+  const updateView = (view: Partial<LayerViewConfig>) => {
+    dispatch({
+      type: 'editor/updateLayerView',
+      payload: view,
+    });
+  };
+
   const handleRndDragStop = (data: DraggableData, layer: LayerConfig) => {
     const { x, y } = data;
     updateView({ x, y });
@@ -200,13 +128,6 @@ const Editor: React.FC<EditorProps> = (props) => {
     updateView({ x, y, width, height });
   };
 
-  const updateView = (view: Partial<LayerViewConfig>) => {
-    dispatch({
-      type: 'editor/updateLayerView',
-      payload: { view },
-    });
-  };
-
   const handleConfigChange = (values: any) => {
     dispatch({
       type: 'editor/updateLayerConfig',
@@ -215,10 +136,7 @@ const Editor: React.FC<EditorProps> = (props) => {
   };
 
   const handleViewChange = (values: any) => {
-    dispatch({
-      type: 'editor/updateLayerView',
-      payload: values,
-    });
+    updateView(values);
   };
 
   const handleDataSourceChange = (values: any) => {
@@ -230,9 +148,18 @@ const Editor: React.FC<EditorProps> = (props) => {
 
   console.log('layers', layers);
 
+  const handleScaleChange = (value: number) => {
+    console.log('handleScaleChange:', value);
+    dispatch({ type: 'editor/updateBoardScale', payload: value / 100 });
+  };
+
   return (
     <div className={styles.page}>
-      <div className={styles.header}></div>
+      <div className={styles.header}>
+        <div className={styles.scale}>
+          <Slider value={board.scale * 100} onChange={handleScaleChange} />
+        </div>
+      </div>
       <div className={styles.content}>
         <div className={styles.lib}>
           <Tabs tabPosition="left">
@@ -256,10 +183,20 @@ const Editor: React.FC<EditorProps> = (props) => {
           </Tabs>
         </div>
         <div className={styles.workspaceContainer}>
-          <div className={styles.workspace}>
+          <div
+            className={styles.workspace}
+            style={{
+              width: (board?.width || 0) * board.scale,
+              height: (board?.height || 0) * board.scale,
+            }}
+          >
             <div
               className={styles.board}
-              style={{ width: board?.width, height: board?.height }}
+              style={{
+                width: board?.width,
+                height: board?.height,
+                transform: `scale(${board.scale}, ${board.scale})`,
+              }}
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleDrop}
             >
@@ -282,6 +219,7 @@ const Editor: React.FC<EditorProps> = (props) => {
                     bounds="parent"
                     resizeHandleStyles={handleStyles}
                     enableResizing={selectedLayer?.id === l.id}
+                    scale={board.scale}
                   >
                     <DynamicComponent {...l} />
                   </Rnd>
@@ -289,7 +227,6 @@ const Editor: React.FC<EditorProps> = (props) => {
               })}
             </div>
           </div>
-          <div className={styles.workspaceFooter}>这是底部工具栏</div>
         </div>
         <div className={styles.config}>
           {}
