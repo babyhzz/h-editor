@@ -48,9 +48,7 @@ async function getData(dataSource: DataSource) {
 
 function useDataSource(dataSource: DataSource) {
   const interval =
-    dataSource.type === 'api'
-      ? (dataSource.refreshInterval || 5) * 1000
-      : 3600 * 1000;
+    dataSource.type === 'api' ? (dataSource.refreshInterval || 5) * 1000 : 3600 * 1000;
 
   const { data } = useRequest(() => getData(dataSource), {
     pollingInterval: interval,

@@ -79,3 +79,16 @@ export const viewConfig: FormConfig = [
     type: 'number',
   },
 ];
+
+export const boardConfig: FormConfig = [
+  {
+    key: 'width',
+    name: '宽度',
+    type: 'number',
+  },
+  {
+    key: 'height',
+    name: '高度',
+    type: 'number',
+  },
+];

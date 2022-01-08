@@ -2,7 +2,7 @@ import type { BoardConfig, LayerConfig, LayerTemplate, LayerViewConfig } from '@
 import { DisplayMode } from '@/layers/typing';
 import { Slider, Tabs } from 'antd';
 import styles from './index.less';
-import { componentMap, templateMap } from '@/layers';
+import { componentMap } from '@/layers';
 import type { DragEvent } from 'react';
 import React, { useEffect } from 'react';
 import type { Dispatch } from 'umi';
@@ -12,27 +12,12 @@ import FormRenderer from '@/components/FormRenderer';
 import type { DraggableData, Position } from 'react-rnd';
 import { Rnd } from 'react-rnd';
 import DataSourceForm from './DataSourceForm';
-import { handleStyles, viewConfig } from './utils';
+import { boardConfig, handleStyles, viewConfig } from './utils';
 import classNames from 'classnames';
+import { MouseEventHandler } from 'react';
+import ComponentLib from './ComponentLib';
 
 const { TabPane } = Tabs;
-
-type LibType = 'text' | 'chart';
-type Libs = {
-  name: string;
-  children: LayerTemplate[];
-}[];
-
-const libs: Libs = [
-  {
-    name: '信息',
-    children: [templateMap.BasicTitle],
-  },
-  {
-    name: '图表',
-    children: [templateMap.BasicLineChart],
-  },
-];
 
 function randomString() {
   return Math.random().toString(36).substring(9);
@@ -92,13 +77,6 @@ const Editor: React.FC<EditorProps> = (props) => {
     dispatch({ type: 'editor/initBoard', payload });
   }, [dispatch]);
 
-  const handleDragStart = (e: React.DragEvent, template: LayerTemplate) => {
-    e.dataTransfer.setData('text/plain', JSON.stringify(template));
-    // TODO: dropEffect的区别是什么
-    // e.dataTransfer.dropEffect = 'move';
-    // e.dataTransfer.setDragImage()
-  };
-
   const handleDrop: React.DragEventHandler = (e) => {
     const template = JSON.parse(e.dataTransfer.getData('text/plain'));
     const layer = getLayerConfigFromTemplate(template, e);
@@ -107,7 +85,7 @@ const Editor: React.FC<EditorProps> = (props) => {
   };
 
   const handleRndDragStart = (layer: LayerConfig) => {
-    dispatch({ type: 'editor/selectLayer', payload: layer.id });
+    dispatch({ type: 'editor/selectLayer', payload: layer });
   };
 
   const updateView = (view: Partial<LayerViewConfig>) => {
@@ -147,11 +125,14 @@ const Editor: React.FC<EditorProps> = (props) => {
     });
   };
 
-  console.log('layers', layers);
-
   const handleScaleChange = (value: number) => {
-    console.log('handleScaleChange:', value);
     dispatch({ type: 'editor/updateBoardScale', payload: value / 100 });
+  };
+
+  const handleBoardClick: MouseEventHandler = (e) => {
+    if (e.target === e.currentTarget) {
+      dispatch({ type: 'editor/selectBoard' });
+    }
   };
 
   return (
@@ -163,25 +144,7 @@ const Editor: React.FC<EditorProps> = (props) => {
       </div>
       <div className={styles.content}>
         <div className={styles.lib}>
-          <Tabs tabPosition="left">
-            {libs.map((lib) => (
-              <TabPane
-                tab={<span style={{ writingMode: 'vertical-lr' }}>{lib.name}</span>}
-                key={lib.name}
-              >
-                {lib.children.map((item) => (
-                  <div
-                    key={item.type}
-                    draggable
-                    style={{ height: 50, border: '1px solid red' }}
-                    onDragStart={(e) => handleDragStart(e, item)}
-                  >
-                    <span>{item.name}</span>
-                  </div>
-                ))}
-              </TabPane>
-            ))}
-          </Tabs>
+          <ComponentLib />
         </div>
         <div className={styles.workspaceContainer}>
           <div
@@ -200,6 +163,7 @@ const Editor: React.FC<EditorProps> = (props) => {
               }}
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleDrop}
+              onClick={handleBoardClick}
             >
               {layers.map((l) => {
                 const {
@@ -233,7 +197,6 @@ const Editor: React.FC<EditorProps> = (props) => {
           </div>
         </div>
         <div className={styles.config}>
-          {}
           {selectedLayer ? (
             <Tabs
               defaultActiveKey="1"
@@ -266,7 +229,14 @@ const Editor: React.FC<EditorProps> = (props) => {
                 Content of Tab Pane 3
               </TabPane>
             </Tabs>
-          ) : null}
+          ) : (
+            <FormRenderer
+              key="view"
+              config={boardConfig}
+              value={board}
+              onChange={handleViewChange}
+            />
+          )}
         </div>
       </div>
     </div>

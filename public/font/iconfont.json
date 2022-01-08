@@ -1,0 +1,23 @@
+{
+  "id": "3126820",
+  "name": "可视化大屏",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "27073534",
+      "name": "lib_info",
+      "font_class": "lib_info",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "27073532",
+      "name": "lib_chart",
+      "font_class": "lib_chart",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    }
+  ]
+}

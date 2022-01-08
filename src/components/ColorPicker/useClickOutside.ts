@@ -1,16 +1,13 @@
-import { ReactNode, RefObject, useEffect } from 'react';
+import type { RefObject } from 'react';
+import { useEffect } from 'react';
 
 // Improved version of https://usehooks.com/useOnClickOutside/
-const useClickOutside = (
-  ref: RefObject<HTMLElement>,
-  handler: (e: MouseEvent) => void,
-) => {
+const useClickOutside = (ref: RefObject<HTMLElement>, handler: (e: MouseEvent) => void) => {
   useEffect(() => {
     let startedInside: any = false;
     let startedWhenMounted: any = null;
 
     const listener = (event: MouseEvent) => {
-      console.log('color picker');
       event.stopPropagation();
       event.stopImmediatePropagation();
       // Do nothing if `mousedown` or `touchstart` started inside ref element
@@ -24,8 +21,7 @@ const useClickOutside = (
 
     const validateEventStart = (event: MouseEvent | TouchEvent) => {
       startedWhenMounted = ref.current;
-      startedInside =
-        ref.current && ref.current.contains(event.target as Element);
+      startedInside = ref.current && ref.current.contains(event.target as Element);
     };
 
     document.addEventListener('mousedown', validateEventStart);

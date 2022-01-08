@@ -1,25 +1,10 @@
 import React, { useEffect } from 'react';
-import {
-  Form,
-  ConfigProvider,
-  Input,
-  InputNumber,
-  Select,
-  Collapse,
-  Radio,
-  Switch,
-} from 'antd';
+import { Form, ConfigProvider, Input, InputNumber, Select, Collapse, Radio, Switch } from 'antd';
 import omit from 'lodash/omit';
 import ColorPicker from '@/components/ColorPicker';
 import styles from './index.less';
 
-type FieldConfigType =
-  | 'text'
-  | 'number'
-  | 'select'
-  | 'color'
-  | 'radioButton'
-  | 'switch';
+type FieldConfigType = 'text' | 'number' | 'select' | 'color' | 'radioButton' | 'switch';
 
 interface FieldConfig {
   key: string;
@@ -47,29 +32,21 @@ const { Panel } = Collapse;
 
 const FormRenderer: React.FC<FormRendererProps> = (props) => {
   const { config, value, onChange } = props;
-  console.log('from value ', value);
 
   const [form] = Form.useForm();
 
   useEffect(() => {
     form.setFieldsValue(value);
-  }, [value]);
+  }, [form, value]);
 
   const handleValuesChange = (values: any) => {
-    console.log('Value Change!!', values);
     if (onChange) {
       onChange(values);
     }
   };
 
   const renderField = (item: FieldConfig) => {
-    const comProps = omit(item, [
-      'key',
-      'type',
-      'name',
-      'description',
-      'default',
-    ]);
+    const comProps = omit(item, ['key', 'type', 'name', 'description', 'default']);
 
     if (item.type === 'text') {
       return (
@@ -128,9 +105,7 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
           );
         }
       } else {
-        return (
-          <React.Fragment key={item.key}>{renderField(item)}</React.Fragment>
-        );
+        return <React.Fragment key={item.key}>{renderField(item)}</React.Fragment>;
       }
     });
   };

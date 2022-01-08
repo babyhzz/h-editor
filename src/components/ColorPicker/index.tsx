@@ -19,7 +19,6 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   useClickOutside(popover, close);
 
   const handleChange = throttle((color: string) => {
-    console.log('onChange!!!!!!!!');
     if (onChange) {
       onChange(color);
     }
