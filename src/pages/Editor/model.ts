@@ -18,6 +18,7 @@ interface EditorModel {
     updateLayerDataSource: Reducer;
     initBoard: Reducer;
     updateBoardScale: Reducer;
+    updateBoard: Reducer;
   };
   subscriptions: {
     setup: Subscription;
@@ -58,9 +59,8 @@ const editor: EditorModel = {
       layer.dataSource = merge(layer.dataSource, payload);
       console.log('layer.dataSource:', layer.dataSource);
     },
-    updateBoardScale(state, { payload }) {
-      console.log('scale payload!!!', payload);
-      state.board.scale = payload;
+    updateBoard(state, { payload }) {
+      state.board = { ...state.board, ...payload };
     },
   },
   subscriptions: {

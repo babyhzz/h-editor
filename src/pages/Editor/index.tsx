@@ -95,6 +95,10 @@ const Editor: React.FC<EditorProps> = (props) => {
     });
   };
 
+  const updateBoard = (bc: Partial<BoardConfig>) => {
+    dispatch({ type: 'editor/updateBoard', payload: bc });
+  };
+
   const handleRndDragStop = (data: DraggableData, layer: LayerConfig) => {
     const { x, y } = data;
     updateView({ x, y });
@@ -126,7 +130,11 @@ const Editor: React.FC<EditorProps> = (props) => {
   };
 
   const handleScaleChange = (value: number) => {
-    dispatch({ type: 'editor/updateBoardScale', payload: value / 100 });
+    updateBoard({ scale: value / 100 });
+  };
+
+  const handleBoardChange = (values: any) => {
+    updateBoard(values);
   };
 
   const handleBoardClick: MouseEventHandler = (e) => {
@@ -234,7 +242,7 @@ const Editor: React.FC<EditorProps> = (props) => {
               key="view"
               config={boardConfig}
               value={board}
-              onChange={handleViewChange}
+              onChange={handleBoardChange}
             />
           )}
         </div>
