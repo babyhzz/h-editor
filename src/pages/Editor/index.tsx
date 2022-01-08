@@ -13,6 +13,7 @@ import type { DraggableData, Position } from 'react-rnd';
 import { Rnd } from 'react-rnd';
 import DataSourceForm from './DataSourceForm';
 import { handleStyles, viewConfig } from './utils';
+import classNames from 'classnames';
 
 const { TabPane } = Tabs;
 
@@ -220,6 +221,9 @@ const Editor: React.FC<EditorProps> = (props) => {
                     resizeHandleStyles={handleStyles}
                     enableResizing={selectedLayer?.id === l.id}
                     scale={board.scale}
+                    resizeHandleWrapperClass={classNames(styles.handleWrapperClass, {
+                      [styles.handleWrapperActive]: selectedLayer?.id === l.id,
+                    })}
                   >
                     <DynamicComponent {...l} />
                   </Rnd>
