@@ -2,12 +2,13 @@ import { componentMap } from '@/layers';
 import type { LayerViewConfig } from '@/layers/typing';
 import type { LayerConfig } from '@/layers/typing';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { DraggableData, Position } from 'react-rnd';
 import { Rnd } from 'react-rnd';
 import type { Dispatch } from 'umi';
 import styles from './index.less';
 import { handleStyles } from './handleStyles';
+import { Menu, Dropdown } from 'antd';
 
 interface DragResizeItemProps {
   layer: LayerConfig;
@@ -22,7 +23,8 @@ const DragResizeItem: React.FC<DragResizeItemProps> = ({ layer, active, scale, d
     type,
     view: { width, height, opacity, x, y },
   } = layer;
-  const DynamicComponent = componentMap[type];
+
+  const DynamicComponent = useMemo(() => componentMap[type], [type]);
 
   const handleRndDragStart = () => {
     dispatch({ type: 'editor/selectLayer', payload: layer });
@@ -48,6 +50,18 @@ const DragResizeItem: React.FC<DragResizeItemProps> = ({ layer, active, scale, d
     });
   };
 
+  const deleteLayer = () => {
+    dispatch({ type: 'editor/deleteLayer', payload: layer });
+  };
+
+  const menu = (
+    <Menu style={{ width: 120 }}>
+      <Menu.Item key="delete" onClick={deleteLayer}>
+        删除
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <Rnd
       key={id}
@@ -61,11 +75,15 @@ const DragResizeItem: React.FC<DragResizeItemProps> = ({ layer, active, scale, d
       resizeHandleStyles={handleStyles}
       enableResizing={active}
       scale={scale}
-      resizeHandleWrapperClass={classNames(styles.handleWrapperClass, {
-        [styles.handleWrapperActive]: active,
-      })}
     >
       <DynamicComponent {...layer} />
+      <Dropdown overlay={menu} trigger={['contextMenu']}>
+        <div
+          className={classNames(styles.handleWrapperClass, {
+            [styles.handleWrapperActive]: active,
+          })}
+        />
+      </Dropdown>
     </Rnd>
   );
 };
