@@ -1,0 +1,19 @@
+
+@borderColor: #0e77ca;
+.handleWrapperClass {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+
+  &.handleWrapperActive {
+    background-color: fade(@borderColor, 20%);
+    border: 2px solid @borderColor;
+  }
+
+  &:hover:not(.handleWrapperActive){
+    background-color: fade(@borderColor, 20%);
+    border: 2px solid @borderColor;
+  }
+}

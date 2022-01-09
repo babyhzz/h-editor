@@ -1,4 +1,5 @@
 import { FormConfig } from '@/components/FormRenderer';
+import { ReactNode } from 'react';
 
 export interface DataField {
   key: string;
@@ -21,7 +22,7 @@ export interface LayerTemplate {
 
   dataTemplate?: any;
 
-  dataFields?: Array<DataField>;
+  dataFields?: DataField[];
 
   events?: any;
 }

@@ -1,21 +1,17 @@
+import type { FormConfig } from '@/components/FormRenderer';
+import FormRenderer from '@/components/FormRenderer';
 import type { BoardConfig, LayerConfig, LayerTemplate, LayerViewConfig } from '@/layers/typing';
 import { DisplayMode } from '@/layers/typing';
 import { Slider, Tabs } from 'antd';
-import styles from './index.less';
-import { componentMap } from '@/layers';
-import type { DragEvent } from 'react';
+import type { DragEvent, MouseEventHandler } from 'react';
 import React, { useEffect } from 'react';
 import type { Dispatch } from 'umi';
 import { connect } from 'umi';
-import type { FormConfig } from '@/components/FormRenderer';
-import FormRenderer from '@/components/FormRenderer';
-import type { DraggableData, Position } from 'react-rnd';
-import { Rnd } from 'react-rnd';
-import DataSourceForm from './DataSourceForm';
-import { boardConfig, handleStyles, viewConfig } from './utils';
-import classNames from 'classnames';
-import { MouseEventHandler } from 'react';
 import ComponentLib from './ComponentLib';
+import DataSourceForm from './DataSourceForm';
+import DragResizeItem from './DragResizeItem';
+import styles from './index.less';
+import { boardConfig, viewConfig } from './utils';
 
 const { TabPane } = Tabs;
 
@@ -84,10 +80,6 @@ const Editor: React.FC<EditorProps> = (props) => {
     dispatch({ type: 'editor/addLayer', payload: layer });
   };
 
-  const handleRndDragStart = (layer: LayerConfig) => {
-    dispatch({ type: 'editor/selectLayer', payload: layer });
-  };
-
   const updateView = (view: Partial<LayerViewConfig>) => {
     dispatch({
       type: 'editor/updateLayerView',
@@ -97,18 +89,6 @@ const Editor: React.FC<EditorProps> = (props) => {
 
   const updateBoard = (bc: Partial<BoardConfig>) => {
     dispatch({ type: 'editor/updateBoard', payload: bc });
-  };
-
-  const handleRndDragStop = (data: DraggableData, layer: LayerConfig) => {
-    const { x, y } = data;
-    updateView({ x, y });
-  };
-
-  const handleRndResize = (ref: HTMLElement, position: Position, layer: LayerConfig) => {
-    const { x, y } = position;
-    const width = parseInt(ref.style.width);
-    const height = parseInt(ref.style.height);
-    updateView({ x, y, width, height });
   };
 
   const handleConfigChange = (values: any) => {
@@ -173,34 +153,15 @@ const Editor: React.FC<EditorProps> = (props) => {
               onDrop={handleDrop}
               onClick={handleBoardClick}
             >
-              {layers.map((l) => {
-                const {
-                  id,
-                  type,
-                  view: { width, height, opacity, x, y },
-                } = l;
-                const DynamicComponent = componentMap[type];
-                return (
-                  <Rnd
-                    key={id}
-                    style={{ opacity }}
-                    size={{ width, height }}
-                    position={{ x, y }}
-                    onDragStart={() => handleRndDragStart(l)}
-                    onDragStop={(e, data) => handleRndDragStop(data, l)}
-                    onResize={(e, d, ref, delta, position) => handleRndResize(ref, position, l)}
-                    bounds="parent"
-                    resizeHandleStyles={handleStyles}
-                    enableResizing={selectedLayer?.id === l.id}
-                    scale={board.scale}
-                    resizeHandleWrapperClass={classNames(styles.handleWrapperClass, {
-                      [styles.handleWrapperActive]: selectedLayer?.id === l.id,
-                    })}
-                  >
-                    <DynamicComponent {...l} />
-                  </Rnd>
-                );
-              })}
+              {layers.map((l) => (
+                <DragResizeItem
+                  layer={l}
+                  key={l.id}
+                  active={selectedLayer?.id === l.id}
+                  scale={board.scale}
+                  dispatch={dispatch}
+                />
+              ))}
             </div>
           </div>
         </div>

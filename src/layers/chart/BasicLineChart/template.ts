@@ -1,4 +1,4 @@
-import { LayerTemplate } from '@/layers/typing';
+import type { LayerTemplate } from '@/layers/typing';
 
 const BasicLineChartTemplate: LayerTemplate = {
   type: 'BasicLineChart',

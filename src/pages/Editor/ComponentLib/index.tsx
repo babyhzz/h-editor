@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import React from 'react';
 import IconFont from '@/components/IconFont';
 import styles from './index.less';
+import ComponentThumb from './ComponentThumb';
 
 const { TabPane } = Tabs;
 
@@ -28,30 +29,12 @@ const libs: Lib[] = [
 ];
 
 const ComponentLib: React.FC = () => {
-  const handleDragStart = (e: React.DragEvent, template: LayerTemplate) => {
-    e.dataTransfer.setData('text/plain', JSON.stringify(template));
-    // TODO: dropEffect的区别是什么
-    // e.dataTransfer.dropEffect = 'move';
-    // e.dataTransfer.setDragImage()
-  };
-
   return (
     <Tabs tabPosition="left" type="card" className={styles.wrapper} tabBarGutter={0}>
       {libs.map((lib) => (
-        <TabPane
-          tab={lib.icon}
-          // tab={<span style={{ writingMode: 'vertical-lr' }}>{lib.name}</span>}
-          key={lib.name}
-        >
+        <TabPane tab={lib.icon} key={lib.name}>
           {lib.children.map((item) => (
-            <div
-              key={item.type}
-              draggable
-              style={{ height: 50, border: '1px solid red' }}
-              onDragStart={(e) => handleDragStart(e, item)}
-            >
-              <span>{item.name}</span>
-            </div>
+            <ComponentThumb template={item} key={item.type} />
           ))}
         </TabPane>
       ))}

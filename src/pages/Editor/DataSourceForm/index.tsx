@@ -1,12 +1,12 @@
-import { DataField, DataSource, LayerConfig } from '@/layers/typing';
-import { Table, Form, Input, Radio, ConfigProvider, Select } from 'antd';
+import type { DataField, DataSource } from '@/layers/typing';
+import { Table, Form, Input, Radio, ConfigProvider } from 'antd';
 import JsonInput from '@/components/JsonInput';
 import { useEffect } from 'react';
 
 const { Column } = Table;
 
 interface DataSourceFormProps {
-  dataFields: Array<DataField> | undefined;
+  dataFields: DataField[] | undefined;
   value: DataSource;
   onChange: (values: any) => void;
 }
@@ -20,7 +20,7 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
 
   useEffect(() => {
     form.setFieldsValue(value);
-  }, [value]);
+  }, [form, value]);
 
   const handleChange = (values: any) => {
     console.log(values);

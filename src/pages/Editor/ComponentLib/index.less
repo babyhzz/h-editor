@@ -4,6 +4,12 @@
   :global {
     .ant-tabs-content-holder {
       // background-color: #333;
+      background-color: #24282e;
+      padding: 11px 8px;
+
+      .ant-tabs-tabpane {
+        padding-left: 0 !important;
+      }
     }
 
     .ant-tabs-nav {
@@ -12,11 +18,11 @@
     }
 
     .ant-tabs-tab {
-      // border: none !important;
+      border: none !important;
       border-left: none !important;
       padding: 8px !important; 
       &.ant-tabs-tab-active {
-        // background-color: #333;
+        background-color: #24282e;
       }
 
       .anticon {
@@ -24,5 +30,24 @@
         font-size: 16px;
       }
     }
+  }
+}
+
+
+
+.thumbContainer {
+  .thumbHeader {
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    background-color: #141414;
+  }
+
+  .thumbContent {
+    height: 80px;
+    background-color: #1d1e1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
