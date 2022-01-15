@@ -1,7 +1,7 @@
 import useDataSource from '@/hooks/useDataSource';
 import useECharts from '@/hooks/useEcharts';
-import { LayerConfig } from '@/layers/typing';
-import * as echarts from 'echarts';
+import type { LayerConfig } from '@/layers/typing';
+import type * as echarts from 'echarts';
 import { useEffect, useRef, useState } from 'react';
 
 const BasicLineChart: React.FC<LayerConfig> = (props) => {
@@ -13,7 +13,7 @@ const BasicLineChart: React.FC<LayerConfig> = (props) => {
 
   const option: echarts.EChartsOption = {
     dataset: {
-      dimensions: [dcFields['x'] || 'x', dcFields['y'] || 'y'],
+      dimensions: [dcFields.x || 'x', dcFields.y || 'y'],
       source: data,
     },
     series: {
@@ -25,9 +25,16 @@ const BasicLineChart: React.FC<LayerConfig> = (props) => {
       axisTick: {
         alignWithLabel: true,
       },
+      splitLine: {
+        show: configValues.xAxisSplitLineShow,
+      },
     },
     yAxis: {
       type: 'value',
+      show: configValues.yAxisShow,
+      splitLine: {
+        show: configValues.yAxisSplitLineShow,
+      },
     },
     tooltip: { trigger: 'axis' },
   };
@@ -42,7 +49,7 @@ const BasicLineChart: React.FC<LayerConfig> = (props) => {
         height: view.height,
         backgroundColor: configValues.backgroundColor,
       }}
-    ></div>
+    />
   );
 };
 

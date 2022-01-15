@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { Form, ConfigProvider, Input, InputNumber, Select, Collapse, Radio, Switch } from 'antd';
 import omit from 'lodash/omit';
 import ColorPicker from '@/components/ColorPicker';
+// import ColorPicker from 'rc-color-picker';
 import styles from './index.less';
 
-type FieldConfigType = 'text' | 'number' | 'select' | 'color' | 'radioButton' | 'switch';
+type FieldConfigType = 'text' | 'number' | 'select' | 'color' | 'radioButton' | 'switch' | 'empty';
 
 interface FieldConfig {
   key: string;
@@ -13,14 +14,10 @@ interface FieldConfig {
   description?: string;
   default?: string | number | boolean;
   [prop: string]: any;
+  children?: FieldConfig[];
 }
 
-interface FieldGroupConfig extends Pick<FieldConfig, 'key' | 'name'> {
-  type: 'group';
-  children: Array<FieldConfig | FieldGroupConfig>;
-}
-
-export type FormConfig = Array<FieldConfig | FieldGroupConfig>;
+export type FormConfig = FieldConfig[];
 
 interface FormRendererProps {
   config: FormConfig;
@@ -45,67 +42,78 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
     }
   };
 
-  const renderField = (item: FieldConfig) => {
+  const renderField = (item: FieldConfig, withLabel = true) => {
     const comProps = omit(item, ['key', 'type', 'name', 'description', 'default']);
+    const label = withLabel ? item.name : '';
 
+    let formItem = null;
     if (item.type === 'text') {
-      return (
-        <Form.Item label={item.name} name={item.key}>
+      formItem = (
+        <Form.Item label={label} name={item.key}>
           <Input {...comProps} />
         </Form.Item>
       );
     }
     if (item.type === 'number') {
-      return (
-        <Form.Item label={item.name} name={item.key}>
+      formItem = (
+        <Form.Item label={label} name={item.key}>
           <InputNumber {...comProps} style={{ width: '100%' }} />
         </Form.Item>
       );
     }
     if (item.type === 'select') {
-      return (
-        <Form.Item label={item.name} name={item.key}>
+      formItem = (
+        <Form.Item label={label} name={item.key}>
           <Select {...comProps} />
         </Form.Item>
       );
     }
     if (item.type === 'color') {
-      return (
-        <Form.Item label={item.name} name={item.key}>
+      formItem = (
+        // <Form.Item label={label} name={item.key} valuePropName="color">
+        <Form.Item label={label} name={item.key}>
           <ColorPicker {...comProps} />
         </Form.Item>
       );
     }
     if (item.type === 'radioButton') {
-      return (
-        <Form.Item label={item.name} name={item.key}>
+      formItem = (
+        <Form.Item label={label} name={item.key}>
           <Radio.Group {...comProps} optionType="button" />
         </Form.Item>
       );
     }
     if (item.type === 'switch') {
-      return (
-        <Form.Item label={item.name} name={item.key} valuePropName="checked">
+      formItem = (
+        <Form.Item label={label} name={item.key} valuePropName="checked">
           <Switch {...comProps} />
         </Form.Item>
       );
     }
+
+    // 防止collapse panel中的switch点击事件穿透
+    return <div onClick={(e) => e.stopPropagation()}>{formItem}</div>;
   };
 
   const renderForm = (items: FormConfig) => {
     return items.map((item) => {
-      if (item.type === 'group') {
-        if (item.children && item.children.length > 0) {
-          return (
-            <Collapse accordion key={item.key}>
-              <Panel key={item.key} header={item.name}>
-                {renderForm(item.children)}
-              </Panel>
-            </Collapse>
-          );
-        }
+      if (item.children && item.children.length > 0) {
+        const editable = value[item.key];
+
+        return (
+          <Collapse
+            accordion
+            key={item.key}
+            // activeKey={editable ? item.key : undefined}
+            collapsible={editable ? undefined : 'disabled'}
+          >
+            <Panel key={item.key} header={item.name} extra={renderField(item, false)}>
+              {editable && renderForm(item.children)}
+            </Panel>
+          </Collapse>
+        );
       } else {
-        return <React.Fragment key={item.key}>{renderField(item)}</React.Fragment>;
+        return <div key={item.key}>{renderField(item)}</div>;
       }
     });
   };

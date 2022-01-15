@@ -1,22 +1,22 @@
-.picker {
+.colorPicker {
   position: relative;
-  display: flex;
-}
+  color: #000;
 
-.swatch {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  border: 3px solid #fff;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  margin-left: 10px;
-}
+  :global {
+    .rc-color-picker-panel-params-input {
+      // color: #000;
+    }
 
-.popover {
-  position: absolute;
-  top: calc(100% + 2px);
-  left: 0;
-  border-radius: 9px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    .rc-color-picker-trigger {
+      border: 1px solid #999;
+      display: inline-block;
+      padding: 2px;
+      border-radius: 2px;
+      user-select: none;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      box-shadow: 0 0 0 2px #fff inset;
+    }
+  }
 }

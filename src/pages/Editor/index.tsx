@@ -21,8 +21,8 @@ function randomString() {
 
 function getDefaultValues(config: FormConfig): Record<string, any> {
   return config.reduce((preValues, item) => {
-    if (item.type === 'group') {
-      return { ...preValues, ...getDefaultValues(item.children) };
+    if (item.children && item.children.length > 0) {
+      return { ...preValues, [item.key]: item.default, ...getDefaultValues(item.children) };
     } else {
       return { ...preValues, [item.key]: item.default };
     }
