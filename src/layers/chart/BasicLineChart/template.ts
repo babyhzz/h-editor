@@ -16,7 +16,7 @@ const BasicLineChartTemplate: LayerTemplate = {
       key: 'xAxisShow',
       name: 'X轴',
       type: 'switch',
-      default: false,
+      default: true,
       children: [
         {
           key: 'xAxisSplitLineShow',
@@ -30,7 +30,7 @@ const BasicLineChartTemplate: LayerTemplate = {
       key: 'yAxisShow',
       name: 'Y轴',
       type: 'switch',
-      default: false,
+      default: true,
       children: [
         {
           key: 'yAxisSplitLineShow',
