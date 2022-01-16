@@ -1,9 +1,8 @@
-import type { FormConfig } from '@/components/FormRenderer';
 import FormRenderer from '@/components/FormRenderer';
-import type { BoardConfig, LayerConfig, LayerTemplate, LayerViewConfig } from '@/layers/typing';
+import type { BoardConfig, LayerConfig, LayerViewConfig } from '@/layers/typing';
 import { DisplayMode } from '@/layers/typing';
 import { Slider, Tabs } from 'antd';
-import type { DragEvent, MouseEventHandler } from 'react';
+import type { MouseEventHandler } from 'react';
 import React, { useEffect } from 'react';
 import type { Dispatch } from 'umi';
 import { connect } from 'umi';
@@ -11,45 +10,9 @@ import ComponentLib from './ComponentLib';
 import DataSourceForm from './DataSourceForm';
 import DragResizeItem from './DragResizeItem';
 import styles from './index.less';
-import { boardConfig, viewConfig } from './utils';
+import { boardConfig, viewConfig, getLayerConfigFromTemplate } from './utils';
 
 const { TabPane } = Tabs;
-
-function randomString() {
-  return Math.random().toString(36).substring(9);
-}
-
-function getDefaultValues(config: FormConfig): Record<string, any> {
-  return config.reduce((preValues, item) => {
-    if (item.children && item.children.length > 0) {
-      return { ...preValues, [item.key]: item.default, ...getDefaultValues(item.children) };
-    } else {
-      return { ...preValues, [item.key]: item.default };
-    }
-  }, {});
-}
-
-function getLayerConfigFromTemplate(template: LayerTemplate, e: DragEvent): LayerConfig {
-  const { offsetX, offsetY } = e.nativeEvent;
-  return {
-    ...template,
-    id: `${template.type}-${randomString()}`,
-    view: {
-      width: template.width,
-      height: template.height,
-      x: offsetX - template.width / 2,
-      y: offsetY - template.height / 2,
-      opacity: 1,
-    },
-    configValues: getDefaultValues(template.config),
-    alias: template.name,
-    dataSource: {
-      type: 'static',
-      data: JSON.stringify(template.dataTemplate, null, 2),
-      dcFields: {},
-    },
-  };
-}
 
 interface EditorProps {
   layers: LayerConfig[];
@@ -123,6 +86,7 @@ const Editor: React.FC<EditorProps> = (props) => {
     }
   };
 
+  console.log('board:=>> ', board.backgroundImage);
   return (
     <div className={styles.page}>
       <div className={styles.header}>
@@ -148,6 +112,7 @@ const Editor: React.FC<EditorProps> = (props) => {
                 width: board?.width,
                 height: board?.height,
                 transform: `scale(${board.scale}, ${board.scale})`,
+                backgroundImage: `url(${board?.backgroundImage})`,
               }}
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleDrop}

@@ -2,10 +2,18 @@ import React, { useEffect } from 'react';
 import { Form, ConfigProvider, Input, InputNumber, Select, Collapse, Radio, Switch } from 'antd';
 import omit from 'lodash/omit';
 import ColorPicker from '@/components/ColorPicker';
-// import ColorPicker from 'rc-color-picker';
 import styles from './index.less';
+import BgPicker from '../BgPicker';
 
-type FieldConfigType = 'text' | 'number' | 'select' | 'color' | 'radioButton' | 'switch' | 'empty';
+type FieldConfigType =
+  | 'text'
+  | 'number'
+  | 'select'
+  | 'color'
+  | 'radioButton'
+  | 'switch'
+  | 'bgPicker'
+  | 'empty';
 
 interface FieldConfig {
   key: string;
@@ -87,6 +95,13 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
       formItem = (
         <Form.Item label={label} name={item.key} valuePropName="checked">
           <Switch {...comProps} />
+        </Form.Item>
+      );
+    }
+    if (item.type === 'bgPicker') {
+      formItem = (
+        <Form.Item label={label} name={item.key}>
+          <BgPicker {...comProps} />
         </Form.Item>
       );
     }
