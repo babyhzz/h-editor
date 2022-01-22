@@ -11,6 +11,7 @@ import {
   Row,
   Col,
   FormItemProps,
+  Slider,
 } from 'antd';
 import { ColorPicker, BgPicker } from '@/components/form';
 import styles from './index.less';
@@ -26,6 +27,7 @@ type FieldConfigType =
   | 'switch'
   | 'bgPicker'
   | 'suit'
+  | 'slider'
   | 'none';
 
 interface FieldConfig {
@@ -53,6 +55,8 @@ interface FormRendererProps {
 }
 
 const { Panel } = Collapse;
+
+const itemKey = (item: FieldConfig) => `${item.key}-${item.type}`;
 
 const FormRenderer: React.FC<FormRendererProps> = (props) => {
   const { config, value, onChange } = props;
@@ -101,6 +105,9 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
     if (item.type === 'bgPicker') {
       component = <BgPicker {...comProps} />;
     }
+    if (item.type === 'slider') {
+      component = <Slider {...comProps} />;
+    }
 
     return (
       // 防止collapse panel中的switch点击事件穿透
@@ -118,9 +125,9 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
           console.log('suit', item);
           return (
             <Form.Item label={item.name}>
-              <Row key={item.key} gutter={8}>
+              <Row key={itemKey(item)} gutter={8}>
                 {item.children.map((fieldItem) => (
-                  <Col key={fieldItem.key} span={12}>
+                  <Col key={itemKey(fieldItem)} span={12}>
                     {renderField(fieldItem, { noStyle: true })}
                   </Col>
                 ))}
@@ -134,17 +141,21 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
         return (
           <Collapse
             accordion
-            key={item.key}
+            key={itemKey(item)}
             // activeKey={editable ? item.key : undefined}
             collapsible={editable ? undefined : 'disabled'}
           >
-            <Panel key={item.key} header={item.name} extra={renderField(item, { noStyle: true })}>
+            <Panel
+              key={itemKey(item)}
+              header={item.name}
+              extra={renderField(item, { noStyle: true })}
+            >
               {editable && renderForm(item.children)}
             </Panel>
           </Collapse>
         );
       } else {
-        return <div key={item.key}>{renderField(item)}</div>;
+        return <div key={itemKey(item)}>{renderField(item)}</div>;
       }
     });
   };

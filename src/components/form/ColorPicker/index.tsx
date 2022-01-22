@@ -31,7 +31,9 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
 
   useEffect(() => {
     if (value) {
+      console.log('color value:', value);
       const parsedColor = colorString.get(value);
+      console.log('color parsed value:', value);
       const [r, g, b, a] = parsedColor.value;
       setInnerColor({
         color: `#${toHex(r)}${toHex(g)}${toHex(b)}`,

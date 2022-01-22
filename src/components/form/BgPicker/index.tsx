@@ -1,5 +1,5 @@
 import styles from './index.less';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Modal, Space } from 'antd';
 
 interface BgPickerProps {

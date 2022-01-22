@@ -85,23 +85,60 @@ export const viewConfig: FormConfig = [
       },
     ],
   },
+  {
+    key: 'opacity',
+    name: '不透明度',
+    type: 'suit',
+    children: [
+      {
+        key: 'opacity',
+        name: '不透明度',
+        type: 'slider',
+        comProps: {
+          min: 0,
+          max: 1,
+          step: 0.01,
+        },
+      },
+      {
+        key: 'opacity',
+        name: '不透明度',
+        type: 'number',
+        comProps: {
+          min: 0,
+          max: 1,
+          step: 0.05,
+        },
+      },
+    ],
+  },
 ];
 
 export const boardConfig: FormConfig = [
   {
-    key: 'width',
-    name: '大屏宽度',
-    type: 'number',
-    default: 1920,
-  },
-  {
-    key: 'height',
-    name: '大屏高度',
-    type: 'number',
-    default: 1080,
-    comProps: {
-      addonAfter: 'px',
-    },
+    key: 'size',
+    name: '大屏尺寸',
+    type: 'suit',
+    children: [
+      {
+        key: 'width',
+        name: '宽度',
+        type: 'number',
+        default: 1920,
+        comProps: {
+          addonAfter: 'px',
+        },
+      },
+      {
+        key: 'height',
+        name: '高度',
+        type: 'number',
+        default: 1080,
+        comProps: {
+          addonAfter: 'px',
+        },
+      },
+    ],
   },
   {
     key: 'backgroundImage',

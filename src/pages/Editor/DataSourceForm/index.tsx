@@ -1,6 +1,6 @@
 import type { DataField, DataSource } from '@/layers/typing';
 import { Table, Form, Input, Radio, ConfigProvider } from 'antd';
-import JsonInput from '@/components/JsonInput';
+import JsonInput from '@/components/form/JsonInput';
 import { useEffect } from 'react';
 
 const { Column } = Table;
