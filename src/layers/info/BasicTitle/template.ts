@@ -23,20 +23,22 @@ const BasicTitleTemplate: LayerTemplate = {
       key: 'textAlign',
       name: '对齐方式',
       type: 'select',
-      options: [
-        {
-          label: '左对齐',
-          value: 'left',
-        },
-        {
-          label: '居中',
-          value: 'center',
-        },
-        {
-          label: '右对齐',
-          value: 'right',
-        },
-      ],
+      comProps: {
+        options: [
+          {
+            label: '左对齐',
+            value: 'left',
+          },
+          {
+            label: '居中',
+            value: 'center',
+          },
+          {
+            label: '右对齐',
+            value: 'right',
+          },
+        ],
+      },
       default: 'left',
     },
     {
@@ -44,7 +46,9 @@ const BasicTitleTemplate: LayerTemplate = {
       name: '背景颜色',
       type: 'color',
       default: '#F89878',
-      prefixed: true,
+      comProps: {
+        prefixed: true,
+      },
     },
   ],
 };

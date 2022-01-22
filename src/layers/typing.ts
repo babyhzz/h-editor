@@ -1,5 +1,4 @@
-import { FormConfig } from '@/components/FormRenderer';
-import { ReactNode } from 'react';
+import type { FormConfig } from '@/components/FormRenderer';
 
 export interface DataField {
   key: string;
@@ -83,5 +82,5 @@ interface BigBoard {
   name: string;
   thumbnail?: string;
   config: BoardConfig;
-  layers: Array<LayerConfig>;
+  layers: LayerConfig[];
 }

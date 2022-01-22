@@ -8,7 +8,7 @@ function randomString() {
 
 function getDefaultValues(config: FormConfig): Record<string, any> {
   return config.reduce((preValues, item) => {
-    if (item.children && item.children.length > 0) {
+    if ('children' in item && item.children.length > 0) {
       return { ...preValues, [item.key]: item.default, ...getDefaultValues(item.children) };
     } else {
       return { ...preValues, [item.key]: item.default };
@@ -40,24 +40,50 @@ export function getLayerConfigFromTemplate(template: LayerTemplate, e: DragEvent
 
 export const viewConfig: FormConfig = [
   {
-    key: 'width',
-    name: '宽度',
-    type: 'number',
+    key: 'size',
+    name: '组件尺寸',
+    type: 'suit',
+    children: [
+      {
+        key: 'width',
+        name: '宽度',
+        type: 'number',
+        comProps: {
+          addonAfter: 'px',
+        },
+      },
+      {
+        key: 'height',
+        name: '高度',
+        type: 'number',
+        comProps: {
+          addonAfter: 'px',
+        },
+      },
+    ],
   },
   {
-    key: 'height',
-    name: '高度',
-    type: 'number',
-  },
-  {
-    key: 'x',
-    name: 'x坐标',
-    type: 'number',
-  },
-  {
-    key: 'y',
-    name: 'y坐标',
-    type: 'number',
+    key: 'position',
+    name: '组件坐标',
+    type: 'suit',
+    children: [
+      {
+        key: 'x',
+        name: 'x坐标',
+        type: 'number',
+        comProps: {
+          addonAfter: 'px',
+        },
+      },
+      {
+        key: 'y',
+        name: 'y坐标',
+        type: 'number',
+        comProps: {
+          addonAfter: 'px',
+        },
+      },
+    ],
   },
 ];
 
@@ -73,7 +99,9 @@ export const boardConfig: FormConfig = [
     name: '大屏高度',
     type: 'number',
     default: 1080,
-    addonAfter: 'px',
+    comProps: {
+      addonAfter: 'px',
+    },
   },
   {
     key: 'backgroundImage',

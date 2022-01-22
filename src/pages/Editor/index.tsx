@@ -86,7 +86,17 @@ const Editor: React.FC<EditorProps> = (props) => {
     }
   };
 
-  console.log('board:=>> ', board.backgroundImage);
+  console.log('board:=>> ', board);
+  console.log({
+    width: (board?.width || 0) * (board.scale || 1),
+    height: (board?.height || 0) * board.scale,
+  });
+  console.log({
+    width: board?.width,
+    height: board?.height,
+    transform: `scale(${board.scale}, ${board.scale})`,
+    backgroundImage: `url(${board?.backgroundImage})`,
+  });
   return (
     <div className={styles.page}>
       <div className={styles.header}>
@@ -102,8 +112,8 @@ const Editor: React.FC<EditorProps> = (props) => {
           <div
             className={styles.workspace}
             style={{
-              width: (board?.width || 0) * board.scale,
-              height: (board?.height || 0) * board.scale,
+              width: (board?.width || 0) * (board.scale || 1),
+              height: (board?.height || 0) * (board.scale || 1),
             }}
           >
             <div

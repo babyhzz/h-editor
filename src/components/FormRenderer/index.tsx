@@ -1,8 +1,21 @@
 import React, { useEffect } from 'react';
-import { Form, ConfigProvider, Input, InputNumber, Select, Collapse, Radio, Switch } from 'antd';
-import omit from 'lodash/omit';
+import {
+  Form,
+  ConfigProvider,
+  Input,
+  InputNumber,
+  Select,
+  Collapse,
+  Radio,
+  Switch,
+  Row,
+  Col,
+  FormItemProps,
+} from 'antd';
 import { ColorPicker, BgPicker } from '@/components/form';
 import styles from './index.less';
+
+type DefaultValue = string | number | boolean;
 
 type FieldConfigType =
   | 'text'
@@ -12,19 +25,26 @@ type FieldConfigType =
   | 'radioButton'
   | 'switch'
   | 'bgPicker'
-  | 'empty';
+  | 'suit'
+  | 'none';
 
 interface FieldConfig {
   key: string;
   type: FieldConfigType;
   name: string;
   description?: string;
-  default?: string | number | boolean;
-  [prop: string]: any;
-  children?: FieldConfig[];
+  default?: DefaultValue;
+  comProps?: Record<string, any>;
 }
 
-export type FormConfig = FieldConfig[];
+interface FieldGroupConfig extends FieldConfig {
+  /** 仅做两层结构 */
+  children: FieldConfig[];
+}
+
+type FormItem = FieldGroupConfig | FieldConfig;
+
+export type FormConfig = FormItem[];
 
 interface FormRendererProps {
   config: FormConfig;
@@ -49,69 +69,66 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
     }
   };
 
-  const renderField = (item: FieldConfig, withLabel = true) => {
-    const comProps = omit(item, ['key', 'type', 'name', 'description', 'default']);
-    const label = withLabel ? item.name : '';
+  const renderField = (item: FieldConfig, extraFormItemProps?: FormItemProps) => {
+    const comProps = item.comProps || {};
 
-    let formItem = null;
+    const formItemProps = {
+      label: item.name,
+      name: item.key,
+      ...(extraFormItemProps || {}),
+    };
+
+    let component = null;
     if (item.type === 'text') {
-      formItem = (
-        <Form.Item label={label} name={item.key}>
-          <Input {...comProps} />
-        </Form.Item>
-      );
+      component = <Input {...comProps} />;
     }
     if (item.type === 'number') {
-      formItem = (
-        <Form.Item label={label} name={item.key}>
-          <InputNumber {...comProps} style={{ width: '100%' }} />
-        </Form.Item>
-      );
+      component = <InputNumber {...comProps} style={{ width: '100%' }} />;
     }
     if (item.type === 'select') {
-      formItem = (
-        <Form.Item label={label} name={item.key}>
-          <Select {...comProps} />
-        </Form.Item>
-      );
+      component = <Select {...comProps} />;
     }
     if (item.type === 'color') {
-      formItem = (
-        // <Form.Item label={label} name={item.key} valuePropName="color">
-        <Form.Item label={label} name={item.key}>
-          <ColorPicker {...comProps} />
-        </Form.Item>
-      );
+      component = <ColorPicker {...comProps} />;
     }
     if (item.type === 'radioButton') {
-      formItem = (
-        <Form.Item label={label} name={item.key}>
-          <Radio.Group {...comProps} optionType="button" />
-        </Form.Item>
-      );
+      component = <Radio.Group {...comProps} optionType="button" />;
     }
     if (item.type === 'switch') {
-      formItem = (
-        <Form.Item label={label} name={item.key} valuePropName="checked">
-          <Switch {...comProps} />
-        </Form.Item>
-      );
+      formItemProps.valuePropName = 'checked';
+      component = <Switch {...comProps} />;
     }
     if (item.type === 'bgPicker') {
-      formItem = (
-        <Form.Item label={label} name={item.key}>
-          <BgPicker {...comProps} />
-        </Form.Item>
-      );
+      component = <BgPicker {...comProps} />;
     }
 
-    // 防止collapse panel中的switch点击事件穿透
-    return <div onClick={(e) => e.stopPropagation()}>{formItem}</div>;
+    return (
+      // 防止collapse panel中的switch点击事件穿透
+      <div onClick={(e) => e.stopPropagation()}>
+        {<Form.Item {...formItemProps}>{component}</Form.Item>}
+      </div>
+    );
   };
 
   const renderForm = (items: FormConfig) => {
     return items.map((item) => {
-      if (item.children && item.children.length > 0) {
+      if ('children' in item && item.children.length > 0) {
+        // 套件，配置属性的组合
+        if (item.type === 'suit') {
+          console.log('suit', item);
+          return (
+            <Form.Item label={item.name}>
+              <Row key={item.key} gutter={8}>
+                {item.children.map((fieldItem) => (
+                  <Col key={fieldItem.key} span={12}>
+                    {renderField(fieldItem, { noStyle: true })}
+                  </Col>
+                ))}
+              </Row>
+            </Form.Item>
+          );
+        }
+
         const editable = value[item.key];
 
         return (
@@ -121,7 +138,7 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
             // activeKey={editable ? item.key : undefined}
             collapsible={editable ? undefined : 'disabled'}
           >
-            <Panel key={item.key} header={item.name} extra={renderField(item, false)}>
+            <Panel key={item.key} header={item.name} extra={renderField(item, { noStyle: true })}>
               {editable && renderForm(item.children)}
             </Panel>
           </Collapse>
