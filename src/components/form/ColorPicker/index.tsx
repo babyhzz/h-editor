@@ -25,15 +25,13 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
 
   const handleColorChange = ({ color, alpha }: any) => {
     if (onChange) {
-      onChange(color + toHex((alpha / 100) * 255));
+      onChange(color + toHex((alpha / 100) * 255).padStart(2, '0'));
     }
   };
 
   useEffect(() => {
     if (value) {
-      console.log('color value:', value);
       const parsedColor = colorString.get(value);
-      console.log('color parsed value:', value);
       const [r, g, b, a] = parsedColor.value;
       setInnerColor({
         color: `#${toHex(r)}${toHex(g)}${toHex(b)}`,
@@ -41,6 +39,8 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
       });
     }
   }, [value]);
+
+  console.log('value:', value);
 
   return (
     <div className={styles.colorPicker}>

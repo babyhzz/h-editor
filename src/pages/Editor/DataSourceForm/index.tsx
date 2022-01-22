@@ -16,8 +16,6 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
 
   const [form] = Form.useForm();
 
-  console.log('DataSourceForm,', value);
-
   useEffect(() => {
     form.setFieldsValue(value);
   }, [form, value]);

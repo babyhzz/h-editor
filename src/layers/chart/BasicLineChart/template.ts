@@ -10,7 +10,7 @@ const BasicLineChartTemplate: LayerTemplate = {
       key: 'backgroundColor',
       name: '背景色',
       type: 'color',
-      default: '#FFF',
+      default: '#00000000',
     },
     {
       key: 'xAxisShow',

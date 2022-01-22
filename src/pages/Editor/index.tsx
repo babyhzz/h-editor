@@ -1,7 +1,7 @@
 import FormRenderer from '@/components/FormRenderer';
 import type { BoardConfig, LayerConfig, LayerViewConfig } from '@/layers/typing';
 import { DisplayMode } from '@/layers/typing';
-import { Slider, Tabs } from 'antd';
+import { Divider, Slider, Tabs } from 'antd';
 import type { MouseEventHandler } from 'react';
 import React, { useEffect } from 'react';
 import type { Dispatch } from 'umi';
@@ -86,17 +86,6 @@ const Editor: React.FC<EditorProps> = (props) => {
     }
   };
 
-  console.log('board:=>> ', board);
-  console.log({
-    width: (board?.width || 0) * (board.scale || 1),
-    height: (board?.height || 0) * board.scale,
-  });
-  console.log({
-    width: board?.width,
-    height: board?.height,
-    transform: `scale(${board.scale}, ${board.scale})`,
-    backgroundImage: `url(${board?.backgroundImage})`,
-  });
   return (
     <div className={styles.page}>
       <div className={styles.header}>
@@ -155,6 +144,7 @@ const Editor: React.FC<EditorProps> = (props) => {
                   value={selectedLayer.view}
                   onChange={handleViewChange}
                 />
+                <Divider style={{ margin: '0 0 8px' }} />
                 <FormRenderer
                   key="config"
                   config={selectedLayer.config}
@@ -174,12 +164,14 @@ const Editor: React.FC<EditorProps> = (props) => {
               </TabPane>
             </Tabs>
           ) : (
-            <FormRenderer
-              key="view"
-              config={boardConfig}
-              value={board}
-              onChange={handleBoardChange}
-            />
+            <div style={{ paddingTop: 8 }}>
+              <FormRenderer
+                key="view"
+                config={boardConfig}
+                value={board}
+                onChange={handleBoardChange}
+              />
+            </div>
           )}
         </div>
       </div>

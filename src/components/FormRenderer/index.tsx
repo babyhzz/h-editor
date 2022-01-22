@@ -122,10 +122,9 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
       if ('children' in item && item.children.length > 0) {
         // 套件，配置属性的组合
         if (item.type === 'suit') {
-          console.log('suit', item);
           return (
-            <Form.Item label={item.name}>
-              <Row key={itemKey(item)} gutter={8}>
+            <Form.Item label={item.name} key={itemKey(item)}>
+              <Row gutter={8}>
                 {item.children.map((fieldItem) => (
                   <Col key={itemKey(fieldItem)} span={12}>
                     {renderField(fieldItem, { noStyle: true })}
@@ -136,7 +135,7 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
           );
         }
 
-        const editable = value[item.key];
+        const editable = item.type === 'switch' && !value[item.key] ? false : true;
 
         return (
           <Collapse

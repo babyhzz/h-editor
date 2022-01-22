@@ -1,11 +1,10 @@
-import { LayerTemplate } from '@/layers/typing';
-import BasicTitle from './index';
+import type { LayerTemplate } from '@/layers/typing';
 
 const BasicTitleTemplate: LayerTemplate = {
   type: 'BasicTitle',
   name: '标题',
-  width: 100,
-  height: 36,
+  width: 300,
+  height: 80,
   config: [
     {
       key: 'text',
@@ -14,41 +13,73 @@ const BasicTitleTemplate: LayerTemplate = {
       default: '这是一个标题',
     },
     {
-      key: 'fontSize',
-      name: '字体大小',
-      type: 'number',
-      default: 14,
-    },
-    {
-      key: 'textAlign',
-      name: '对齐方式',
-      type: 'select',
-      comProps: {
-        options: [
-          {
-            label: '左对齐',
-            value: 'left',
-          },
-          {
-            label: '居中',
-            value: 'center',
-          },
-          {
-            label: '右对齐',
-            value: 'right',
-          },
-        ],
-      },
-      default: 'left',
-    },
-    {
       key: 'backgroundColor',
       name: '背景颜色',
       type: 'color',
-      default: '#F89878',
-      comProps: {
-        prefixed: true,
-      },
+      default: '#00000000',
+    },
+    {
+      key: 'textStyle',
+      name: '文本样式',
+      type: 'none',
+      children: [
+        {
+          key: 'fontSize',
+          name: '字体大小',
+          type: 'number',
+          default: 28,
+        },
+        {
+          key: 'fontColor',
+          name: '字体颜色',
+          type: 'color',
+          default: '#00FFDD',
+        },
+        {
+          key: 'fontWeight',
+          name: '字体粗细',
+          type: 'select',
+          default: 'normal',
+          comProps: {
+            options: [
+              {
+                label: 'Normal',
+                value: 'normal',
+              },
+              {
+                label: 'Bold',
+                value: 'bold',
+              },
+              {
+                label: 'Bolder',
+                value: 'bolder',
+              },
+            ],
+          },
+        },
+        {
+          key: 'textAlign',
+          name: '对齐方式',
+          type: 'select',
+          comProps: {
+            options: [
+              {
+                label: '左对齐',
+                value: 'left',
+              },
+              {
+                label: '居中',
+                value: 'center',
+              },
+              {
+                label: '右对齐',
+                value: 'right',
+              },
+            ],
+          },
+          default: 'center',
+        },
+      ],
     },
   ],
 };

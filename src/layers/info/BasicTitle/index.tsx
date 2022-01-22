@@ -1,4 +1,4 @@
-import { LayerConfig } from '@/layers/typing';
+import type { LayerConfig } from '@/layers/typing';
 
 const BasicTitle: React.FC<LayerConfig> = (props) => {
   const { view, configValues } = props;
@@ -12,6 +12,8 @@ const BasicTitle: React.FC<LayerConfig> = (props) => {
         lineHeight: height + 'px',
         backgroundColor: configValues.backgroundColor,
         fontSize: configValues.fontSize,
+        fontWeight: configValues.fontWeight,
+        color: configValues.fontColor,
         textAlign: configValues.textAlign,
         overflow: 'hidden',
       }}
