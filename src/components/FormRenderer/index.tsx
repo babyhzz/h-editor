@@ -78,7 +78,7 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
     form.setFieldsValue(value);
   }, [form, value]);
 
-  const handleValuesChange = (values: any) => {
+  const handleValuesChange = (_: any, values: any) => {
     if (onChange) {
       onChange(values);
       console.log('values change!', values);
@@ -161,12 +161,14 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
                 <Tabs className={styles.arrayTabs}>
                   {fields.map((field) => (
                     <TabPane key={field.key} tab={`${item.name}${field.key + 1}`}>
-                      {item.children.map((childItem) =>
-                        renderField(childItem, {
-                          ...field,
-                          name: [field.name, childItem.key],
-                        }),
-                      )}
+                      {item.children.map((childItem) => (
+                        <div key={itemKey(childItem)}>
+                          {renderField(childItem, {
+                            ...field,
+                            name: [field.name, childItem.key],
+                          })}
+                        </div>
+                      ))}
                     </TabPane>
                   ))}
                 </Tabs>
@@ -179,11 +181,11 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
   };
 
   const renderForm = (items: FormConfig) => {
-    return items.map((item) => {
+    const renderItem = (item: FormItem) => {
       if ('children' in item && item.children.length > 0) {
         if (item.type === 'suit') {
           return (
-            <Form.Item label={item.name} key={itemKey(item)}>
+            <Form.Item label={item.name}>
               <Row gutter={8}>
                 {item.children.map((fieldItem) => (
                   <Col key={itemKey(fieldItem)} span={12}>
@@ -205,7 +207,6 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
         return (
           <Collapse
             accordion
-            key={itemKey(item)}
             activeKey={editable ? collapseKeyMap[itemKey(item)] : []}
             collapsible={editable ? undefined : 'disabled'}
             onChange={(key: any) => handleCollapseChange(item, key)}
@@ -220,9 +221,10 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
           </Collapse>
         );
       } else {
-        return <div key={itemKey(item)}>{renderField(item)}</div>;
+        return renderField(item);
       }
-    });
+    };
+    return items.map((item) => <div key={itemKey(item)}>{renderItem(item)}</div>);
   };
 
   return (

@@ -57,6 +57,7 @@ const editor: EditorModel = {
       layer.view = { ...layer.view, ...payload };
     },
     updateLayerConfig(state, { payload }) {
+      console.log('model values', payload);
       const layer = state.layers.find((l: any) => l.id === state.selected);
       layer.configValues = { ...layer.configValues, ...payload };
     },
