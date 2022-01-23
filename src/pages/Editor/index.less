@@ -57,12 +57,12 @@
 }
 
 .configTabs {
-  
-  :global {
-    .ant-tabs-nav-list {
-      width: 100%;
-      display: flex;
 
+  & > :global(.ant-tabs-nav > .ant-tabs-nav-wrap > .ant-tabs-nav-list) {
+    width: 100%;
+    display: flex;
+
+    :global {
       .ant-tabs-tab {
         display: block;
         flex: 1;
@@ -78,4 +78,5 @@
       }
     }
   }
+  
 }

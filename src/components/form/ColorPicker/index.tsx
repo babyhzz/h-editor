@@ -30,6 +30,7 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
   };
 
   useEffect(() => {
+    console.log('init value:', value);
     if (value) {
       const parsedColor = colorString.get(value);
       const [r, g, b, a] = parsedColor.value;
@@ -39,8 +40,6 @@ const ColorPicker: React.FC<ColorPickerProps> = (props) => {
       });
     }
   }, [value]);
-
-  console.log('value:', value);
 
   return (
     <div className={styles.colorPicker}>

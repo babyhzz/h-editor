@@ -13,6 +13,20 @@ const BasicLineChartTemplate: LayerTemplate = {
       default: '#00000000',
     },
     {
+      key: 'series',
+      name: '系列',
+      type: 'array',
+      default: [],
+      children: [
+        {
+          key: 'seriesName',
+          name: '系列名称',
+          type: 'text',
+          default: '系列',
+        },
+      ],
+    },
+    {
       key: 'xAxisShow',
       name: 'X轴',
       type: 'switch',
@@ -40,40 +54,6 @@ const BasicLineChartTemplate: LayerTemplate = {
         },
       ],
     },
-
-    // {
-    //   key: 'fontSize',
-    //   name: '字体大小',
-    //   type: 'number',
-    //   default: 14,
-    // },
-    // {
-    //   key: 'textAlign',
-    //   name: '对齐方式',
-    //   type: 'select',
-    //   options: [
-    //     {
-    //       label: '左对齐',
-    //       value: 'left',
-    //     },
-    //     {
-    //       label: '居中',
-    //       value: 'center',
-    //     },
-    //     {
-    //       label: '右对齐',
-    //       value: 'right',
-    //     },
-    //   ],
-    //   default: 'left',
-    // },
-    // {
-    //   key: 'backgroundColor',
-    //   name: '背景颜色',
-    //   type: 'color',
-    //   default: '#F89878',
-    //   prefixed: true,
-    // },
   ],
   dataFields: [
     {

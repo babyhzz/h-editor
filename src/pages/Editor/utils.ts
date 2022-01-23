@@ -9,6 +9,10 @@ function randomString() {
 function getDefaultValues(config: FormConfig): Record<string, any> {
   return config.reduce((preValues, item) => {
     if ('children' in item && item.children.length > 0) {
+      // array 类型值为数组
+      if (item.type === 'array') {
+        return { ...preValues, [item.key]: [getDefaultValues(item.children)] };
+      }
       return { ...preValues, [item.key]: item.default, ...getDefaultValues(item.children) };
     } else {
       return { ...preValues, [item.key]: item.default };
