@@ -1,19 +1,16 @@
-import FormRenderer from '@/components/FormRenderer';
 import type { BoardConfig, LayerConfig, LayerTemplate, LayerViewConfig } from '@/layers/typing';
 import { DisplayMode } from '@/layers/typing';
-import { Divider, Slider, Tabs } from 'antd';
+import { useDrop } from 'ahooks';
+import { Slider } from 'antd';
 import type { MouseEventHandler } from 'react';
 import React, { useEffect, useRef } from 'react';
 import type { Dispatch } from 'umi';
 import { connect } from 'umi';
 import ComponentLib from './ComponentLib';
-import DataSourceForm from './DataSourceForm';
+import ConfigPanel from './ConfigPanel';
 import DragResizeItem from './DragResizeItem';
 import styles from './index.less';
-import { boardConfig, viewConfig, getLayerConfigFromTemplate } from './utils';
-import { useDrop } from 'ahooks';
-
-const { TabPane } = Tabs;
+import { getLayerConfigFromTemplate } from './utils';
 
 interface EditorProps {
   layers: LayerConfig[];
@@ -46,41 +43,12 @@ const Editor: React.FC<EditorProps> = (props) => {
     dispatch({ type: 'editor/initBoard', payload });
   }, [dispatch]);
 
-  const updateView = (view: Partial<LayerViewConfig>) => {
-    dispatch({
-      type: 'editor/updateLayerView',
-      payload: view,
-    });
-  };
-
   const updateBoard = (bc: Partial<BoardConfig>) => {
     dispatch({ type: 'editor/updateBoard', payload: bc });
   };
 
-  const handleConfigChange = (values: any) => {
-    dispatch({
-      type: 'editor/updateLayerConfig',
-      payload: values,
-    });
-  };
-
-  const handleViewChange = (values: any) => {
-    updateView(values);
-  };
-
-  const handleDataSourceChange = (values: any) => {
-    dispatch({
-      type: 'editor/updateLayerDataSource',
-      payload: values,
-    });
-  };
-
   const handleScaleChange = (value: number) => {
     updateBoard({ scale: value / 100 });
-  };
-
-  const handleBoardChange = (values: any) => {
-    updateBoard(values);
   };
 
   const handleBoardClick: MouseEventHandler = (e) => {
@@ -132,49 +100,7 @@ const Editor: React.FC<EditorProps> = (props) => {
           </div>
         </div>
         <div className={styles.config}>
-          {selectedLayer ? (
-            <Tabs
-              defaultActiveKey="1"
-              className={styles.configTabs}
-              tabPosition="top"
-              animated={false}
-            >
-              <TabPane tab="配置" key="config">
-                <FormRenderer
-                  key="view"
-                  config={viewConfig}
-                  value={selectedLayer.view}
-                  onChange={handleViewChange}
-                />
-                <Divider style={{ margin: '0 0 8px' }} />
-                <FormRenderer
-                  key="config"
-                  config={selectedLayer.config}
-                  value={selectedLayer.configValues}
-                  onChange={handleConfigChange}
-                />
-              </TabPane>
-              <TabPane tab="数据" key="data">
-                <DataSourceForm
-                  value={selectedLayer.dataSource}
-                  dataFields={selectedLayer.dataFields}
-                  onChange={handleDataSourceChange}
-                />
-              </TabPane>
-              <TabPane tab="交互" key="event">
-                Content of Tab Pane 3
-              </TabPane>
-            </Tabs>
-          ) : (
-            <div style={{ paddingTop: 8 }}>
-              <FormRenderer
-                key="view"
-                config={boardConfig}
-                value={board}
-                onChange={handleBoardChange}
-              />
-            </div>
-          )}
+          <ConfigPanel />
         </div>
       </div>
     </div>
