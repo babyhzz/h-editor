@@ -13,8 +13,8 @@
   }
 
   .content {
-    height: calc(100% - @headerHeight);
     display: flex;
+    height: calc(100% - @headerHeight);
     overflow: hidden;
 
     .lib {
@@ -23,60 +23,34 @@
     }
 
     .workspaceContainer {
-      flex: 1 1 0;
-      background-color: #5d5d5d;
-      padding: 20px;
       position: relative;
+      flex: 1 1 0;
+      padding: 20px;
       overflow: auto;
+      background-color: #5d5d5d;
 
       .workspace {
         position: relative;
         overflow: hidden;
 
         .board {
-          box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
           position: relative;
           z-index: 0;
           background-color: #141414;
-          transform-origin: 0 0;
           background-repeat: no-repeat;
-          background-size: 100% 100%;
           background-position: 0 0;
+          background-size: 100% 100%;
+          box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+          transform-origin: 0 0;
         }
       }
-    
     }
 
     .config {
-      background-color: #333;
-      height: 100%;
-      user-select: none;
       width: 300px;
+      height: 100%;
+      background-color: #333;
+      user-select: none;
     }
   }
-}
-
-.configTabs {
-
-  & > :global(.ant-tabs-nav > .ant-tabs-nav-wrap > .ant-tabs-nav-list) {
-    width: 100%;
-    display: flex;
-
-    :global {
-      .ant-tabs-tab {
-        display: block;
-        flex: 1;
-        text-align: center;
-      }
-
-      .ant-tabs-tab + .ant-tabs-tab {
-        margin: 0;
-      }
-
-      .ant-tabs-ink-bar {
-        top: 0;
-      }
-    }
-  }
-  
 }

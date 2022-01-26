@@ -1,4 +1,4 @@
-import type { BoardConfig, LayerConfig, LayerTemplate, LayerViewConfig } from '@/layers/typing';
+import type { BoardConfig, LayerConfig, LayerTemplate } from '@/layers/typing';
 import { DisplayMode } from '@/layers/typing';
 import { useDrop } from 'ahooks';
 import { Slider } from 'antd';
