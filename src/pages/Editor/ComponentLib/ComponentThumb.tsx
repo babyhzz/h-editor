@@ -1,8 +1,8 @@
-import IconFont from '@/components/IconFont';
-import { templateMap } from '@/layers';
 import type { LayerTemplate } from '@/layers/typing';
 import styles from './index.less';
 import thumbMap from './thumbMap';
+import { useDrag } from 'ahooks';
+import { useRef } from 'react';
 
 interface ComponentThumbProps {
   template: LayerTemplate;
@@ -10,16 +10,15 @@ interface ComponentThumbProps {
 
 const ComponentThumb: React.FC<ComponentThumbProps> = (props) => {
   const { template } = props;
+  const dragRef = useRef<HTMLDivElement>(null);
 
-  const handleDragStart = (e: React.DragEvent) => {
-    e.dataTransfer.setData('text/plain', JSON.stringify(template));
-    // TODO: dropEffect的区别是什么
-    // e.dataTransfer.dropEffect = 'move';
-    // e.dataTransfer.setDragImage()
-  };
+  useDrag(template, dragRef, {
+    onDragStart: () => {},
+    onDragEnd: () => {},
+  });
 
   return (
-    <div key={template.type} draggable onDragStart={handleDragStart}>
+    <div key={template.type} ref={dragRef}>
       <div className={styles.thumbContainer}>
         <div className={styles.thumbHeader}>{template.name}</div>
         <div className={styles.thumbContent}>{<img src={thumbMap[template.type]} />}</div>

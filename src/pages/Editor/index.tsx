@@ -1,9 +1,9 @@
 import FormRenderer from '@/components/FormRenderer';
-import type { BoardConfig, LayerConfig, LayerViewConfig } from '@/layers/typing';
+import type { BoardConfig, LayerConfig, LayerTemplate, LayerViewConfig } from '@/layers/typing';
 import { DisplayMode } from '@/layers/typing';
 import { Divider, Slider, Tabs } from 'antd';
 import type { MouseEventHandler } from 'react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import type { Dispatch } from 'umi';
 import { connect } from 'umi';
 import ComponentLib from './ComponentLib';
@@ -11,6 +11,7 @@ import DataSourceForm from './DataSourceForm';
 import DragResizeItem from './DragResizeItem';
 import styles from './index.less';
 import { boardConfig, viewConfig, getLayerConfigFromTemplate } from './utils';
+import { useDrop } from 'ahooks';
 
 const { TabPane } = Tabs;
 
@@ -24,6 +25,15 @@ interface EditorProps {
 const Editor: React.FC<EditorProps> = (props) => {
   const { layers, selectedLayer, board, dispatch } = props;
 
+  const dropRef = useRef<HTMLDivElement>(null);
+
+  useDrop(dropRef, {
+    onDom: (template: LayerTemplate, e?: React.DragEvent) => {
+      const layer = getLayerConfigFromTemplate(template, e!);
+      dispatch({ type: 'editor/addLayer', payload: layer });
+    },
+  });
+
   // 初始化board参数
   useEffect(() => {
     const payload: BoardConfig = {
@@ -35,13 +45,6 @@ const Editor: React.FC<EditorProps> = (props) => {
     };
     dispatch({ type: 'editor/initBoard', payload });
   }, [dispatch]);
-
-  const handleDrop: React.DragEventHandler = (e) => {
-    const template = JSON.parse(e.dataTransfer.getData('text/plain'));
-    const layer = getLayerConfigFromTemplate(template, e);
-
-    dispatch({ type: 'editor/addLayer', payload: layer });
-  };
 
   const updateView = (view: Partial<LayerViewConfig>) => {
     dispatch({
@@ -107,14 +110,13 @@ const Editor: React.FC<EditorProps> = (props) => {
           >
             <div
               className={styles.board}
+              ref={dropRef}
               style={{
                 width: board?.width,
                 height: board?.height,
                 transform: `scale(${board.scale}, ${board.scale})`,
                 backgroundImage: `url(${board?.backgroundImage})`,
               }}
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={handleDrop}
               onClick={handleBoardClick}
             >
               {layers.map((l) => (

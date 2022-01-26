@@ -1,6 +1,5 @@
 import type { FormConfig } from '@/components/FormRenderer';
 import type { LayerConfig, LayerTemplate } from '@/layers/typing';
-import type { DragEvent } from 'react';
 
 function randomString() {
   return Math.random().toString(36).substring(9);
@@ -20,8 +19,14 @@ function getDefaultValues(config: FormConfig): Record<string, any> {
   }, {});
 }
 
-export function getLayerConfigFromTemplate(template: LayerTemplate, e: DragEvent): LayerConfig {
-  const { offsetX, offsetY } = e.nativeEvent;
+export function getLayerConfigFromTemplate(
+  template: LayerTemplate,
+  e: React.DragEvent,
+): LayerConfig {
+  // TODO: 使用ahooks之后，之前的写法，为什么nativeEvent找不到了
+  // const { offsetX, offsetY } = e.nativeEvent;
+  // @ts-ignore
+  const { offsetX, offsetY } = e;
   return {
     ...template,
     id: `${template.type}-${randomString()}`,
