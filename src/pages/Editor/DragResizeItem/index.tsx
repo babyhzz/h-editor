@@ -62,6 +62,8 @@ const DragResizeItem: React.FC<DragResizeItemProps> = ({ layer, active, scale, d
     </Menu>
   );
 
+  const resizeHandleStyles = useMemo(() => handleStyles(scale), [scale]);
+
   return (
     <Rnd
       key={id}
@@ -72,7 +74,7 @@ const DragResizeItem: React.FC<DragResizeItemProps> = ({ layer, active, scale, d
       onDragStop={(e, data) => handleRndDragStop(data)}
       onResize={(e, d, ref, delta, position) => handleRndResize(ref, position)}
       bounds="parent"
-      resizeHandleStyles={handleStyles}
+      resizeHandleStyles={resizeHandleStyles}
       enableResizing={active}
       scale={scale}
     >
