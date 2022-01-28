@@ -1,6 +1,6 @@
 import type { BoardConfig, LayerConfig } from '@/layers/typing';
 import type { Reducer, Subscription } from 'umi';
-import { merge } from 'lodash';
+import { merge, isNil } from 'lodash';
 interface EditorModel {
   namespace: 'editor';
   state: {
@@ -19,6 +19,7 @@ interface EditorModel {
     updateLayerDataSource: Reducer;
     initBoard: Reducer;
     updateBoard: Reducer;
+    reorderLayer: Reducer;
   };
   subscriptions: {
     setup: Subscription;
@@ -68,6 +69,19 @@ const editor: EditorModel = {
     },
     updateBoard(state, { payload }) {
       state.board = { ...state.board, ...payload };
+    },
+    reorderLayer(state, { payload }) {
+      const { sourceIndex, destinationIndex } = payload;
+      console.log(isNil(sourceIndex), isNil(destinationIndex));
+      if (isNil(sourceIndex) || isNil(destinationIndex)) {
+        return;
+      }
+
+      const result = Array.from(state.layers);
+      const [removed] = result.splice(sourceIndex, 1);
+      result.splice(destinationIndex, 0, removed);
+
+      state.layers = result;
     },
   },
   subscriptions: {
