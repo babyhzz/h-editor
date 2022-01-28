@@ -6,7 +6,7 @@ interface EditorModel {
   state: {
     layers: LayerConfig[];
     /** 当前选择的图层 id */
-    selected: string | null;
+    selectedId: string | null;
     board: BoardConfig;
   };
   reducers: {
@@ -29,7 +29,7 @@ const editor: EditorModel = {
   namespace: 'editor',
   state: {
     layers: [],
-    selected: null,
+    selectedId: null,
     board: {} as BoardConfig,
   },
   reducers: {
@@ -38,31 +38,31 @@ const editor: EditorModel = {
     },
     addLayer(state, { payload }) {
       state.layers.push(payload);
-      state.selected = payload.id;
+      state.selectedId = payload.id;
     },
     deleteLayer(state, { payload }) {
       state.layers = state.layers.filter((l: any) => l.id !== payload.id);
-      if (payload.id === state.selected) {
-        state.selected = null;
+      if (payload.id === state.selectedId) {
+        state.selectedId = null;
       }
     },
     selectLayer(state, { payload }) {
-      state.selected = payload.id;
+      state.selectedId = payload.id;
     },
     selectBoard(state) {
-      state.selected = null;
+      state.selectedId = null;
     },
     updateLayerView(state, { payload }) {
-      const layer = state.layers.find((l: any) => l.id === state.selected);
+      const layer = state.layers.find((l: any) => l.id === state.selectedId);
       layer.view = { ...layer.view, ...payload };
     },
     updateLayerConfig(state, { payload }) {
       console.log('model values', payload);
-      const layer = state.layers.find((l: any) => l.id === state.selected);
+      const layer = state.layers.find((l: any) => l.id === state.selectedId);
       layer.configValues = { ...layer.configValues, ...payload };
     },
     updateLayerDataSource(state, { payload }) {
-      const layer = state.layers.find((l: any) => l.id === state.selected);
+      const layer = state.layers.find((l: any) => l.id === state.selectedId);
       layer.dataSource = merge(layer.dataSource, payload);
       console.log('layer.dataSource:', layer.dataSource);
     },

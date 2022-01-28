@@ -10,6 +10,7 @@ import ComponentLib from './ComponentLib';
 import ConfigPanel from './ConfigPanel';
 import DragResizeItem from './DragResizeItem';
 import styles from './index.less';
+import LayerList from './LayerList';
 import { getLayerConfigFromTemplate } from './utils';
 
 interface EditorProps {
@@ -65,6 +66,9 @@ const Editor: React.FC<EditorProps> = (props) => {
         </div>
       </div>
       <div className={styles.content}>
+        <div className={styles.layer}>
+          <LayerList />
+        </div>
         <div className={styles.lib}>
           <ComponentLib />
         </div>
@@ -108,8 +112,8 @@ const Editor: React.FC<EditorProps> = (props) => {
 };
 
 export default connect((state: any) => {
-  const { layers, selected, board } = state.editor;
-  const selectedLayer = layers.find((l: LayerConfig) => l.id === selected);
+  const { layers, selectedId, board } = state.editor;
+  const selectedLayer = layers.find((l: LayerConfig) => l.id === selectedId);
 
   return { layers, selectedLayer, board };
 })(Editor);

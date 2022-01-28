@@ -75,8 +75,8 @@ const ConfigLayerPanel: React.FC<LayerConfigPanelProps> = (props) => {
 };
 
 export default connect((state: any) => {
-  const { layers, selected } = state.editor;
-  const selectedLayer = layers.find((l: LayerConfig) => l.id === selected);
+  const { layers, selectedId } = state.editor;
+  const selectedLayer = layers.find((l: LayerConfig) => l.id === selectedId);
 
   return { selectedLayer };
 })(ConfigLayerPanel);
