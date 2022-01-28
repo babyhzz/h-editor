@@ -7,6 +7,7 @@ import type { DropResult } from 'react-beautiful-dnd';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useCallback } from 'react';
 import LayerItem from './LayerItem';
+import { reverse, cloneDeep } from 'lodash';
 
 interface LayerListProps {
   selectedId: string | null;
@@ -19,42 +20,62 @@ const LayerList: React.FC<LayerListProps> = (props) => {
   const onDragEnd = useCallback(
     (result: DropResult) => {
       const { destination, source } = result;
-      if (destination?.index === source.index) {
+
+      if (!destination?.index) {
         return;
       }
+
+      if (destination.index === source.index) {
+        return;
+      }
+
       dispatch({
         type: 'editor/reorderLayer',
         payload: {
-          sourceIndex: source.index,
-          destinationIndex: destination?.index,
+          sourceIndex: layers.length - 1 - source.index,
+          destinationIndex: layers.length - 1 - destination.index,
         },
       });
     },
-    [dispatch],
+    [dispatch, layers],
   );
 
+  const handleLayerClick = (layer: LayerConfig) => {
+    dispatch({ type: 'editor/selectLayer', payload: layer });
+  };
+
   const renderDraggableList = () => {
-    return layers.map((layer, index) => (
-      <Draggable draggableId={layer.id} index={index} key={layer.id}>
-        {(provided) => (
-          <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-            <LayerItem
-              layer={layer}
-              className={classNames({
-                [styles.active]: layer.id === selectedId,
-              })}
-            />
-          </div>
-        )}
-      </Draggable>
-    ));
+    const reversedLayers = reverse(cloneDeep(layers));
+    return (
+      <div className={styles.layerListWrapper}>
+        {reversedLayers.map((layer, index) => (
+          <Draggable draggableId={layer.id} index={index} key={layer.id}>
+            {(provided) => (
+              <div
+                ref={provided.innerRef}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+              >
+                <LayerItem
+                  layer={layer}
+                  className={classNames({
+                    [styles.layerActive]: layer.id === selectedId,
+                  })}
+                  onClick={handleLayerClick}
+                />
+              </div>
+            )}
+          </Draggable>
+        ))}
+      </div>
+    );
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="layer-list">
         {(provided) => (
-          <div ref={provided.innerRef} {...provided.droppableProps}>
+          <div ref={provided.innerRef} {...provided.droppableProps} style={{ height: '100%' }}>
             {renderDraggableList()}
             {provided.placeholder}
           </div>

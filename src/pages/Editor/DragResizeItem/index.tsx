@@ -1,28 +1,34 @@
 import { componentMap } from '@/layers';
-import type { LayerViewConfig } from '@/layers/typing';
+import type { BoardConfig, LayerViewConfig } from '@/layers/typing';
 import type { LayerConfig } from '@/layers/typing';
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import type { DraggableData, Position } from 'react-rnd';
 import { Rnd } from 'react-rnd';
 import type { Dispatch } from 'umi';
+import { connect } from 'umi';
 import styles from './index.less';
 import { handleStyles } from './handleStyles';
 import { Menu, Dropdown } from 'antd';
 
 interface DragResizeItemProps {
   layer: LayerConfig;
-  active: boolean;
-  scale: number;
+  selectedId: string | null;
+  board: BoardConfig;
   dispatch: Dispatch;
 }
 
-const DragResizeItem: React.FC<DragResizeItemProps> = ({ layer, active, scale, dispatch }) => {
+const DragResizeItem: React.FC<DragResizeItemProps> = (props) => {
+  const { layer, selectedId, board, dispatch } = props;
+
   const {
     id,
     type,
     view: { width, height, opacity, x, y },
   } = layer;
+
+  const active = selectedId === id;
+  const scale = board.scale;
 
   const DynamicComponent = useMemo(() => componentMap[type], [type]);
 
@@ -90,4 +96,7 @@ const DragResizeItem: React.FC<DragResizeItemProps> = ({ layer, active, scale, d
   );
 };
 
-export default DragResizeItem;
+export default connect((state: any) => ({
+  selectedId: state.editor.selectedId,
+  board: state.editor.board,
+}))(DragResizeItem);

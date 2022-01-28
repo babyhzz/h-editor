@@ -91,14 +91,8 @@ const Editor: React.FC<EditorProps> = (props) => {
               }}
               onClick={handleBoardClick}
             >
-              {layers.map((l) => (
-                <DragResizeItem
-                  layer={l}
-                  key={l.id}
-                  active={selectedLayer?.id === l.id}
-                  scale={board.scale}
-                  dispatch={dispatch}
-                />
+              {layers.map((layer) => (
+                <DragResizeItem key={layer.id} layer={layer} />
               ))}
             </div>
           </div>
