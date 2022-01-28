@@ -18,7 +18,7 @@ import {
 } from 'antd';
 import { ColorPicker, BgPicker } from '@/components/form';
 import styles from './index.less';
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined, PlusSquareFilled, DeleteFilled } from '@ant-design/icons';
 import { useMap } from 'ahooks';
 
 type DefaultValue = string | number | boolean | any[];
@@ -183,8 +183,8 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
                 header={item.name}
                 extra={
                   <Space size="middle" className={styles.arrayActionIcon}>
-                    <PlusOutlined key="add" onClick={handleAdd} />
-                    <DeleteOutlined key="delete" onClick={handleRemove} />
+                    <PlusSquareFilled key="add" onClick={handleAdd} />
+                    <DeleteFilled key="delete" onClick={handleRemove} />
                   </Space>
                 }
               >

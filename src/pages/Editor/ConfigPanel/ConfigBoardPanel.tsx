@@ -4,6 +4,7 @@ import type { Dispatch } from 'umi';
 import React from 'react';
 import { connect } from 'umi';
 import { boardConfig } from './config';
+import styles from './index.less';
 
 interface ConfigBoardPanelProps {
   board: BoardConfig;
@@ -18,7 +19,8 @@ const ConfigBoardPanel: React.FC<ConfigBoardPanelProps> = (props) => {
   };
 
   return (
-    <div style={{ paddingTop: 8 }}>
+    <div>
+      <div className={styles.boardConfigHeader}>看板设置</div>
       <FormRenderer key="view" config={boardConfig} value={board} onChange={handleBoardChange} />
     </div>
   );
