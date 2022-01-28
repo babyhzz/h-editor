@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { FormItemProps, message } from 'antd';
-import { Space } from 'antd';
-import { Tabs } from 'antd';
+import React, { useEffect, useRef } from 'react';
+import type { FormItemProps } from 'antd';
 import {
   Form,
   ConfigProvider,
@@ -14,10 +12,14 @@ import {
   Row,
   Col,
   Slider,
+  Space,
+  Tabs,
+  message,
 } from 'antd';
 import { ColorPicker, BgPicker } from '@/components/form';
 import styles from './index.less';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
+import { useMap } from 'ahooks';
 
 type DefaultValue = string | number | boolean | any[];
 
@@ -70,10 +72,11 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
   const { config, value, onChange } = props;
 
   // 保存当前每个折叠元素的折叠状态
-  const [collapseKeyMap, setCollapseKeyMap] = useState<Record<string, string>>({});
+  const [, { set: setCollapseKey, get: getCollapseKey }] = useMap<string, string>();
 
   // 保存每个tab激活key的状态，fieldKey，会递增
-  const [tabActiveKeyMap, setTabActiveKeyMap] = useState<Record<string, string>>({});
+  // const [tabActiveKeyMap, setTabActiveKeyMap] = useState<Record<string, string>>({});
+  const [, { set: setTabActiveKey, get: getTabActiveKey }] = useMap<string, string>();
 
   const tabFieldsMap = useRef<Record<string, any>>({});
 
@@ -137,10 +140,7 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
   };
 
   const handleCollapseChange = (item: FieldConfig, activeKey: string) => {
-    setCollapseKeyMap({
-      ...collapseKeyMap,
-      [itemKey(item)]: activeKey,
-    });
+    setCollapseKey(item.key, activeKey);
   };
 
   const renderArray = (item: FieldGroupConfig) => {
@@ -157,10 +157,7 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
             // 选中最新的tab项
             setTimeout(() => {
               const itemFields = tabFieldsMap.current[item.key];
-              setTabActiveKeyMap({
-                ...tabActiveKeyMap,
-                [item.key]: itemFields[itemFields.length - 1].key + '',
-              });
+              setTabActiveKey(item.key, itemFields[itemFields.length - 1].key + '');
             }, 0);
           };
           const handleRemove = (e: React.MouseEvent) => {
@@ -168,15 +165,12 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
             const itemFields = tabFieldsMap.current[item.key];
             if (itemFields && itemFields.length > 1) {
               const targetField = tabFieldsMap.current[item.key].find(
-                (field: any) => tabActiveKeyMap[item.key] === field.key + '',
+                (field: any) => getTabActiveKey(item.key) === field.key + '',
               );
               remove(targetField.name);
               // 选择第一个
               setTimeout(() => {
-                setTabActiveKeyMap({
-                  ...tabActiveKeyMap,
-                  [item.key]: tabFieldsMap.current[item.key][0].key + '',
-                });
+                setTabActiveKey(item.key, tabFieldsMap.current[item.key][0].key + '');
               }, 0);
             } else {
               message.error('无法删除，至少保留一个序列');
@@ -188,7 +182,7 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
                 key={itemKey(item)}
                 header={item.name}
                 extra={
-                  <Space size="middle">
+                  <Space size="middle" className={styles.arrayActionIcon}>
                     <PlusOutlined key="add" onClick={handleAdd} />
                     <DeleteOutlined key="delete" onClick={handleRemove} />
                   </Space>
@@ -196,13 +190,8 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
               >
                 <Tabs
                   className={styles.arrayTabs}
-                  activeKey={tabActiveKeyMap[item.key]}
-                  onChange={(activeKey) =>
-                    setTabActiveKeyMap({
-                      ...tabActiveKeyMap,
-                      [item.key]: activeKey,
-                    })
-                  }
+                  activeKey={getTabActiveKey(item.key)}
+                  onChange={(activeKey) => setTabActiveKey(item.key, activeKey)}
                 >
                   {fields.map((field) => (
                     <TabPane key={field.key} tab={`${item.name}${field.name + 1}`}>
@@ -252,7 +241,7 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
         return (
           <Collapse
             accordion
-            activeKey={editable ? collapseKeyMap[itemKey(item)] : []}
+            activeKey={editable ? getCollapseKey(item.key) : []}
             collapsible={editable ? undefined : 'disabled'}
             onChange={(key: any) => handleCollapseChange(item, key)}
           >
