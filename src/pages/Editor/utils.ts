@@ -2,7 +2,7 @@ import type { FormConfig } from '@/components/FormRenderer';
 import type { LayerConfig, LayerTemplate } from '@/layers/typing';
 
 function randomString() {
-  return Math.random().toString(36).substring(9);
+  return Math.random().toString(36).substring(8);
 }
 
 function getDefaultValues(config: FormConfig): Record<string, any> {
@@ -28,8 +28,8 @@ export function getLayerConfigFromTemplate(
   // @ts-ignore
   const { offsetX, offsetY } = e;
   return {
-    ...template,
     id: `${template.type}-${randomString()}`,
+    type: template.type,
     view: {
       width: template.width,
       height: template.height,
@@ -37,12 +37,14 @@ export function getLayerConfigFromTemplate(
       y: offsetY - template.height / 2,
       opacity: 1,
     },
+    config: template.config,
     configValues: getDefaultValues(template.config),
-    alias: template.name,
+    alias: `${template.name}-${randomString()}`,
     dataSource: {
       type: 'static',
       data: JSON.stringify(template.dataTemplate, null, 2),
       dcFields: {},
     },
+    dataFields: template.dataFields,
   };
 }

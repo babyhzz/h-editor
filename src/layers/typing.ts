@@ -53,13 +53,16 @@ export interface LayerViewConfig {
   y: number;
   opacity: number;
 }
-export interface LayerConfig extends LayerTemplate {
+export interface LayerConfig {
   /** 组件id，一个看板内唯一 */
   id: string;
+  type: string;
+  config: FormConfig;
   alias: string;
   configValues: any;
   view: LayerViewConfig;
   dataSource: DataSource;
+  dataFields?: DataField[];
 }
 
 export enum DisplayMode {

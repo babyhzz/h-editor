@@ -15,13 +15,12 @@ import { getLayerConfigFromTemplate } from './utils';
 
 interface EditorProps {
   layers: LayerConfig[];
-  selectedLayer: LayerConfig | null;
   board: BoardConfig;
   dispatch: Dispatch;
 }
 
 const Editor: React.FC<EditorProps> = (props) => {
-  const { layers, selectedLayer, board, dispatch } = props;
+  const { layers, board, dispatch } = props;
 
   const dropRef = useRef<HTMLDivElement>(null);
 

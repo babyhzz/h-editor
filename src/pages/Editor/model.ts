@@ -86,7 +86,7 @@ const editor: EditorModel = {
   },
   subscriptions: {
     setup({ dispatch, history }) {
-      console.log('doing setup');
+      console.log('doing setup', dispatch, history);
     },
   },
 };

@@ -13,7 +13,7 @@ const LayerItem: React.FC<LayerItemProps> = (props) => {
 
   return (
     <div className={classNames(className, styles.layerWrapper)} onClick={() => onClick(layer)}>
-      <div className={styles.layerItem}>{layer.alias + layer.id}</div>
+      <div className={styles.layerItem}>{layer.alias}</div>
     </div>
   );
 };
