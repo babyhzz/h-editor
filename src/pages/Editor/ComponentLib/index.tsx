@@ -18,7 +18,7 @@ type Lib = {
 const libs: Lib[] = [
   {
     name: '信息',
-    icon: <IconFont type="icon-cat-info" />,
+    icon: <IconFont type="icon-cat-text" />,
     children: [templateMap.BasicTitle],
   },
   {

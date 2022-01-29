@@ -1,6 +1,6 @@
 import type { FormConfig } from '@/components/FormRenderer';
 
-type LayerCategory = 'info' | 'chart';
+export type LayerCategory = 'info' | 'chart';
 
 export interface DataField {
   key: string;
@@ -15,6 +15,8 @@ export interface LayerTemplate {
   category: LayerCategory;
 
   name: string;
+
+  icon: string;
 
   thumbnail?: string;
 
@@ -64,6 +66,8 @@ export interface LayerConfig {
   /** 组件id，一个看板内唯一 */
   id: string;
   type: string;
+  /** 组件Icon */
+  icon: string;
   config: FormConfig;
   configValues: any;
   view: LayerViewConfig;

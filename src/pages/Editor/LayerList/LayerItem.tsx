@@ -16,7 +16,7 @@ const LayerItem: React.FC<LayerItemProps> = (props) => {
     <div className={classNames(className, styles.layerWrapper)} onClick={() => onClick(layer)}>
       <div className={styles.layerItem}>
         <div className={styles.libIconWrapper}>
-          <IconFont type="icon-cat-chart" className={styles.libIcon} />
+          <IconFont type={layer.icon} className={styles.libIcon} />
         </div>
         <span className="ellipsis" style={{ width: 110 }}>
           {layer.view.name}

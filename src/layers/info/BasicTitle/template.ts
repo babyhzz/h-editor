@@ -3,6 +3,7 @@ import type { LayerTemplate } from '@/layers/typing';
 const BasicTitleTemplate: LayerTemplate = {
   type: 'BasicTitle',
   category: 'info',
+  icon: 'icon-comp-Text',
   name: '标题',
   width: 300,
   height: 80,

@@ -47,6 +47,7 @@ export function getLayerConfigFromTemplate(
   return {
     id: `${template.type}-${randomString()}`,
     type: template.type,
+    icon: template.icon,
     view: {
       width: template.width,
       height: template.height,

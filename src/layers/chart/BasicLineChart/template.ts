@@ -3,6 +3,7 @@ import type { LayerTemplate } from '@/layers/typing';
 const BasicLineChartTemplate: LayerTemplate = {
   type: 'BasicLineChart',
   category: 'chart',
+  icon: 'icon-comp-LineChart',
   name: '折线图',
   width: 400,
   height: 300,
