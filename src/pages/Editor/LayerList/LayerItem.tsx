@@ -18,7 +18,9 @@ const LayerItem: React.FC<LayerItemProps> = (props) => {
         <div className={styles.libIconWrapper}>
           <IconFont type="icon-cat-chart" className={styles.libIcon} />
         </div>
-        <span>{layer.view.name}</span>
+        <span className="ellipsis" style={{ width: 110 }}>
+          {layer.view.name}
+        </span>
       </div>
     </div>
   );
