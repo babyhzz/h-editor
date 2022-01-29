@@ -1,4 +1,4 @@
-import { BgPicker, ColorPicker } from '@/components/form';
+import { ImgPicker, ColorPicker } from '@/components/form';
 import IconFont from '@/components/IconFont';
 import { useMap } from 'ahooks';
 import type { FormItemProps } from 'antd';
@@ -30,7 +30,7 @@ type FieldConfigType =
   | 'color'
   | 'radioButton'
   | 'switch'
-  | 'bgPicker'
+  | 'imgPicker'
   | 'slider'
   /** 配置项的集合，放在一栏显示，配置不同属性 */
   | 'suit'
@@ -123,8 +123,8 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
       formItemProps.valuePropName = 'checked';
       component = <Switch {...comProps} />;
     }
-    if (item.type === 'bgPicker') {
-      component = <BgPicker {...comProps} />;
+    if (item.type === 'imgPicker') {
+      component = <ImgPicker {...comProps} />;
     }
     if (item.type === 'slider') {
       component = <Slider {...comProps} />;

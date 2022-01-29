@@ -1,4 +1,4 @@
 import ColorPicker from './ColorPicker';
-import BgPicker from './BgPicker';
+import ImgPicker from './ImgPicker';
 
-export { ColorPicker, BgPicker };
+export { ColorPicker, ImgPicker };

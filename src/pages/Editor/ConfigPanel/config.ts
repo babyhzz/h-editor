@@ -103,6 +103,10 @@ export const boardConfig: FormConfig = [
   {
     key: 'backgroundImage',
     name: '背景图',
-    type: 'bgPicker',
+    type: 'imgPicker',
+    comProps: {
+      modalWidth: 900,
+      imgPaths: ['./bg/bg1.jpeg', './bg/bg2.jpg', './bg/bg3.jpeg', './bg/bg4.jpeg', './bg/bg5.jpg'],
+    },
   },
 ];
