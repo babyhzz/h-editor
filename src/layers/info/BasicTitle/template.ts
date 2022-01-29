@@ -15,12 +15,6 @@ const BasicTitleTemplate: LayerTemplate = {
       default: '这是一个标题',
     },
     {
-      key: 'backgroundColor',
-      name: '背景颜色',
-      type: 'color',
-      default: '#00000000',
-    },
-    {
       key: 'textStyle',
       name: '文本样式',
       type: 'none',
@@ -30,6 +24,9 @@ const BasicTitleTemplate: LayerTemplate = {
           name: '字体大小',
           type: 'number',
           default: 28,
+          comProps: {
+            suffix: 'px',
+          },
         },
         {
           key: 'fontColor',
@@ -80,6 +77,72 @@ const BasicTitleTemplate: LayerTemplate = {
             ],
           },
           default: 'center',
+        },
+      ],
+    },
+    {
+      key: 'backgroundStyle',
+      name: '背景样式',
+      type: 'none',
+      children: [
+        {
+          key: 'backgroundColor',
+          name: '背景色',
+          type: 'color',
+          default: '#00000000',
+        },
+        {
+          key: 'borderRadius',
+          name: '圆角',
+          type: 'number',
+          default: 10,
+          comProps: {
+            suffix: 'px',
+          },
+        },
+        {
+          key: 'borderStyle',
+          name: '背景边框',
+          type: 'suit',
+          children: [
+            {
+              key: 'borderWidth',
+              name: '粗细',
+              type: 'number',
+              default: 1,
+              comProps: {
+                suffix: 'px',
+              },
+            },
+            {
+              key: 'borderStyle',
+              name: '样式',
+              type: 'select',
+              default: 'none',
+              comProps: {
+                options: [
+                  {
+                    label: '无',
+                    value: 'none',
+                  },
+                  {
+                    label: '实线',
+                    value: 'solid',
+                  },
+                  {
+                    label: '虚线',
+                    value: 'dashed',
+                  },
+                ],
+              },
+            },
+            {
+              key: 'borderColor',
+              name: '颜色',
+              type: 'color',
+              default: '#FF7868',
+            },
+          ],
         },
       ],
     },

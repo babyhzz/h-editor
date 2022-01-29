@@ -8,7 +8,6 @@ import {
   ConfigProvider,
   Form,
   Input,
-  InputNumber,
   message,
   Radio,
   Row,
@@ -19,6 +18,7 @@ import {
   Tabs,
 } from 'antd';
 import React, { useEffect, useRef } from 'react';
+import CustomInputNumber from '@/components/form/CustomInputNumber';
 import styles from './index.less';
 
 type DefaultValue = string | number | boolean | any[];
@@ -49,8 +49,7 @@ interface FieldConfig {
 }
 
 interface FieldGroupConfig extends FieldConfig {
-  /** 仅做两层结构 */
-  children: FieldConfig[];
+  children: FormItem[];
 }
 
 type FormItem = FieldGroupConfig | FieldConfig;
@@ -107,7 +106,7 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
       component = <Input {...comProps} />;
     }
     if (item.type === 'number') {
-      component = <InputNumber {...comProps} style={{ width: '100%' }} />;
+      component = <CustomInputNumber {...comProps} style={{ width: '100%' }} />;
     }
     if (item.type === 'select') {
       component = <Select {...comProps} />;
@@ -223,7 +222,9 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
               <Row gutter={8}>
                 {item.children.map((fieldItem) => (
                   <Col key={itemKey(fieldItem)} span={12}>
+                    {/* {renderField(fieldItem, { noStyle: true })} */}
                     {renderField(fieldItem, { noStyle: true })}
+                    <span style={{ color: '#7a7a7a' }}>{fieldItem.name}</span>
                   </Col>
                 ))}
               </Row>

@@ -10,12 +10,13 @@ const BasicTitle: React.FC<LayerConfig> = (props) => {
         width,
         height,
         lineHeight: height + 'px',
-        backgroundColor: configValues.backgroundColor,
-        fontSize: configValues.fontSize,
-        fontWeight: configValues.fontWeight,
-        color: configValues.fontColor,
-        textAlign: configValues.textAlign,
+        // backgroundColor: configValues.backgroundColor,
+        // fontSize: configValues.fontSize,
+        // fontWeight: configValues.fontWeight,
+        // color: configValues.fontColor,
+        // textAlign: configValues.textAlign,
         overflow: 'hidden',
+        ...configValues,
       }}
     >
       {configValues.text}

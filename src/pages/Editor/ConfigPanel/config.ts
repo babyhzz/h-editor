@@ -16,7 +16,7 @@ export const viewConfig: FormConfig = [
         name: '宽度',
         type: 'number',
         comProps: {
-          addonAfter: 'px',
+          suffix: 'px',
         },
       },
       {
@@ -24,7 +24,7 @@ export const viewConfig: FormConfig = [
         name: '高度',
         type: 'number',
         comProps: {
-          addonAfter: 'px',
+          suffix: 'px',
         },
       },
     ],
@@ -39,7 +39,7 @@ export const viewConfig: FormConfig = [
         name: 'x坐标',
         type: 'number',
         comProps: {
-          addonAfter: 'px',
+          suffix: 'px',
         },
       },
       {
@@ -47,7 +47,7 @@ export const viewConfig: FormConfig = [
         name: 'y坐标',
         type: 'number',
         comProps: {
-          addonAfter: 'px',
+          suffix: 'px',
         },
       },
     ],
@@ -93,7 +93,7 @@ export const boardConfig: FormConfig = [
         type: 'number',
         default: 1920,
         comProps: {
-          addonAfter: 'px',
+          suffix: 'px',
         },
       },
       {
@@ -102,7 +102,7 @@ export const boardConfig: FormConfig = [
         type: 'number',
         default: 1080,
         comProps: {
-          addonAfter: 'px',
+          suffix: 'px',
         },
       },
     ],
