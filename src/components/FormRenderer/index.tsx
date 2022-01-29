@@ -32,8 +32,10 @@ type FieldConfigType =
   | 'switch'
   | 'bgPicker'
   | 'slider'
-  /** 配置项的集合，放在一栏显示，可能是不同的属性，也有可能是控制同一属性 */
+  /** 配置项的集合，放在一栏显示，配置不同属性 */
   | 'suit'
+  /** 配置项的集合，放在一栏显示，配置相同属性 */
+  | 'same'
   /** 用于折叠款的属性，折叠款仅用于归类 */
   | 'none'
   /** 数组类型的配置 */
@@ -216,15 +218,16 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
   const renderForm = (items: FormConfig) => {
     const renderItem = (item: FormItem) => {
       if ('children' in item && item.children.length > 0) {
-        if (item.type === 'suit') {
+        if (item.type === 'suit' || item.type === 'same') {
           return (
             <Form.Item label={item.name}>
               <Row gutter={8}>
                 {item.children.map((fieldItem) => (
                   <Col key={itemKey(fieldItem)} span={12}>
-                    {/* {renderField(fieldItem, { noStyle: true })} */}
                     {renderField(fieldItem, { noStyle: true })}
-                    <span style={{ color: '#7a7a7a' }}>{fieldItem.name}</span>
+                    {item.type === 'suit' && (
+                      <span style={{ color: '#7a7a7a' }}>{fieldItem.name}</span>
+                    )}
                   </Col>
                 ))}
               </Row>

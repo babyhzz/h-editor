@@ -3,7 +3,7 @@ import { InputNumber } from 'antd';
 import { omit } from 'lodash';
 import styles from './index.less';
 
-interface CustomInputNumberProps extends Omit<InputNumberProps, 'addonAfter'> {
+interface CustomInputNumberProps extends Omit<InputNumberProps, 'addonAfter' | 'addonBefore'> {
   suffix?: string;
 }
 

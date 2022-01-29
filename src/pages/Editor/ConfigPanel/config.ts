@@ -8,7 +8,7 @@ export const viewConfig: FormConfig = [
   },
   {
     key: 'size',
-    name: '图层尺寸',
+    name: '尺寸位置',
     type: 'suit',
     children: [
       {
@@ -27,13 +27,6 @@ export const viewConfig: FormConfig = [
           suffix: 'px',
         },
       },
-    ],
-  },
-  {
-    key: 'position',
-    name: '图层坐标',
-    type: 'suit',
-    children: [
       {
         key: 'x',
         name: 'x坐标',
@@ -55,7 +48,7 @@ export const viewConfig: FormConfig = [
   {
     key: 'opacity',
     name: '不透明度',
-    type: 'suit',
+    type: 'same',
     children: [
       {
         key: 'opacity',
