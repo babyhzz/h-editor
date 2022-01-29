@@ -1,10 +1,10 @@
-@headerColor: #282828;
+@import '~@/styles/variables.less';
 
 .configTabs {
   & > :global(.ant-tabs-nav > .ant-tabs-nav-wrap > .ant-tabs-nav-list) {
     display: flex;
     width: 100%;
-    background-color: @headerColor;
+    background-color: @panelHeaderBgColor;
 
     :global {
       .ant-tabs-tab {
@@ -25,9 +25,9 @@
 }
 
 .boardConfigHeader {
-  height: 36px;
+  height: @panelHeaderHeight;
   margin-bottom: 8px;
-  line-height: 36px;
+  line-height: @panelHeaderHeight;
   text-align: center;
-  background-color: @headerColor;
+  background-color: @panelHeaderBgColor;
 }

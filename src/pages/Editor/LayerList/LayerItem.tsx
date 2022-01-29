@@ -1,3 +1,4 @@
+import IconFont from '@/components/IconFont';
 import type { LayerConfig } from '@/layers/typing';
 import classNames from 'classnames';
 import styles from './index.less';
@@ -13,7 +14,12 @@ const LayerItem: React.FC<LayerItemProps> = (props) => {
 
   return (
     <div className={classNames(className, styles.layerWrapper)} onClick={() => onClick(layer)}>
-      <div className={styles.layerItem}>{layer.view.name}</div>
+      <div className={styles.layerItem}>
+        <div className={styles.libIconWrapper}>
+          <IconFont type="icon-cat-chart" className={styles.libIcon} />
+        </div>
+        <span>{layer.view.name}</span>
+      </div>
     </div>
   );
 };

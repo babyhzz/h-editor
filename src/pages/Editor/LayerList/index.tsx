@@ -72,16 +72,19 @@ const LayerList: React.FC<LayerListProps> = (props) => {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="layer-list">
-        {(provided) => (
-          <div ref={provided.innerRef} {...provided.droppableProps} style={{ height: '100%' }}>
-            {renderDraggableList()}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+    <div className={styles.container}>
+      <header className={styles.header}>这是什么</header>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="layer-list">
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps} className={styles.content}>
+              {renderDraggableList()}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </div>
   );
 };
 
