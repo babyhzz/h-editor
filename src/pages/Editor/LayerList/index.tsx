@@ -73,7 +73,7 @@ const LayerList: React.FC<LayerListProps> = (props) => {
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>这是什么</header>
+      <header className={styles.header}>图层</header>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="layer-list">
           {(provided) => (

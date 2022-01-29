@@ -1,5 +1,7 @@
 import type { FormConfig } from '@/components/FormRenderer';
 
+type LayerCategory = 'info' | 'chart';
+
 export interface DataField {
   key: string;
   description: string;
@@ -8,6 +10,9 @@ export interface DataField {
 export interface LayerTemplate {
   /** 唯一确定组件 */
   type: string;
+
+  /** 图层类别 */
+  category: LayerCategory;
 
   name: string;
 
