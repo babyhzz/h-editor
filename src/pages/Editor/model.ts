@@ -8,6 +8,9 @@ interface EditorModel {
     /** 当前选择的图层 id */
     selectedId: string | null;
     board: BoardConfig;
+
+    showLayerList: boolean;
+    showConfigPanel: boolean;
   };
   reducers: {
     addLayer: Reducer;
@@ -20,6 +23,8 @@ interface EditorModel {
     initBoard: Reducer;
     updateBoard: Reducer;
     reorderLayer: Reducer;
+    toggleLayerList: Reducer;
+    toggleConfigPanel: Reducer;
   };
   subscriptions: {
     setup: Subscription;
@@ -32,6 +37,8 @@ const editor: EditorModel = {
     layers: [],
     selectedId: null,
     board: {} as BoardConfig,
+    showLayerList: true,
+    showConfigPanel: true,
   },
   reducers: {
     initBoard(state, { payload }) {
@@ -82,6 +89,12 @@ const editor: EditorModel = {
       result.splice(destinationIndex, 0, removed);
 
       state.layers = result;
+    },
+    toggleLayerList(state, { payload }) {
+      state.showLayerList = payload;
+    },
+    toggleConfigPanel(state, { payload }) {
+      state.showConfigPanel = payload;
     },
   },
   subscriptions: {

@@ -1,14 +1,14 @@
-import { Button, Tooltip } from 'antd';
 import IconFont from '@/components/IconFont';
 import { useControllableValue } from 'ahooks';
-import styles from './index.less';
+import { Tooltip } from 'antd';
 import classNames from 'classnames';
+import styles from './index.less';
 
 interface SwitchButtonProps {
   iconType: string;
-  title: string;
-  value: boolean;
-  onChange: (value: boolean) => void | undefined;
+  title?: string;
+  value?: boolean;
+  onChange?: (value: boolean) => void | undefined;
 }
 
 const SwitchButton: React.FC<SwitchButtonProps> = (props) => {

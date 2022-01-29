@@ -1,21 +1,43 @@
-import { Button, Tooltip } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
 import SwitchButton from '@/components/SwitchButton';
+import { Space } from 'antd';
+import type { Dispatch } from 'umi';
+import { connect } from 'umi';
 
 interface HeaderToolProps {
-  // iconType: string;
-  // title: string;
+  showLayerList: boolean;
+  showConfigPanel: boolean;
+  dispatch: Dispatch;
 }
 
 const HeaderTool: React.FC<HeaderToolProps> = (props) => {
+  const { showLayerList, showConfigPanel, dispatch } = props;
+
+  const dispatchConfig = (typeName: string, value: boolean) => {
+    dispatch({
+      type: `editor/${typeName}`,
+      payload: value,
+    });
+  };
+
   return (
     <div>
-      <Tooltip title="search">
-        {/* <Button type="primary" shape="circle" icon={<SearchOutlined />} /> */}
-        <SwitchButton iconType="icon-config" title="属性配置" />
-      </Tooltip>
+      <Space>
+        <SwitchButton
+          iconType="icon-layers"
+          value={showLayerList}
+          onChange={(value) => dispatchConfig('toggleLayerList', value)}
+        />
+        <SwitchButton
+          iconType="icon-config"
+          value={showConfigPanel}
+          onChange={(value) => dispatchConfig('toggleConfigPanel', value)}
+        />
+      </Space>
     </div>
   );
 };
 
-export default HeaderTool;
+export default connect((state: any) => ({
+  showLayerList: state.editor.showLayerList,
+  showConfigPanel: state.editor.showConfigPanel,
+}))(HeaderTool);

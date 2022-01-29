@@ -18,6 +18,8 @@ interface EditorProps {
   layers: LayerConfig[];
   board: BoardConfig;
   dispatch: Dispatch;
+  showLayerList: boolean;
+  showConfigPanel: boolean;
 }
 
 const Editor: React.FC<EditorProps> = (props) => {
@@ -67,9 +69,11 @@ const Editor: React.FC<EditorProps> = (props) => {
         <HeaderTool />
       </div>
       <div className={styles.content}>
-        <div className={styles.layer}>
-          <LayerList />
-        </div>
+        {props.showLayerList && (
+          <div className={styles.layer}>
+            <LayerList />
+          </div>
+        )}
         <div className={styles.lib}>
           <ComponentLib />
         </div>
@@ -98,17 +102,19 @@ const Editor: React.FC<EditorProps> = (props) => {
             </div>
           </div>
         </div>
-        <div className={styles.config}>
-          <ConfigPanel />
-        </div>
+        {props.showConfigPanel && (
+          <div className={styles.config}>
+            <ConfigPanel />
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default connect((state: any) => {
-  const { layers, selectedId, board } = state.editor;
-  const selectedLayer = layers.find((l: LayerConfig) => l.id === selectedId);
-
-  return { layers, selectedLayer, board };
-})(Editor);
+export default connect((state: any) => ({
+  layers: state.editor.layers,
+  board: state.editor.board,
+  showLayerList: state.editor.showLayerList,
+  showConfigPanel: state.editor.showConfigPanel,
+}))(Editor);
