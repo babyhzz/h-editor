@@ -2,8 +2,13 @@ import type { FormConfig } from '@/components/FormRenderer';
 
 export const viewConfig: FormConfig = [
   {
+    key: 'name',
+    name: '图层名称',
+    type: 'text',
+  },
+  {
     key: 'size',
-    name: '组件尺寸',
+    name: '图层尺寸',
     type: 'suit',
     children: [
       {
@@ -26,7 +31,7 @@ export const viewConfig: FormConfig = [
   },
   {
     key: 'position',
-    name: '组件坐标',
+    name: '图层坐标',
     type: 'suit',
     children: [
       {

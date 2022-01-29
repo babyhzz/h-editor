@@ -53,10 +53,10 @@ export function getLayerConfigFromTemplate(
       x: x,
       y: y,
       opacity: 1,
+      name: `${template.name}-${randomString()}`,
     },
     config: template.config,
     configValues: getDefaultValues(template.config),
-    alias: `${template.name}-${randomString()}`,
     dataSource: {
       type: 'static',
       data: JSON.stringify(template.dataTemplate, null, 2),

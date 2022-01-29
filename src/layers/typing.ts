@@ -47,6 +47,8 @@ interface ApiDataSource {
 export type DataSource = StaticDataSource | ApiDataSource;
 
 export interface LayerViewConfig {
+  /** 图层名称 */
+  name: string;
   width: number;
   height: number;
   x: number;
@@ -58,7 +60,6 @@ export interface LayerConfig {
   id: string;
   type: string;
   config: FormConfig;
-  alias: string;
   configValues: any;
   view: LayerViewConfig;
   dataSource: DataSource;
