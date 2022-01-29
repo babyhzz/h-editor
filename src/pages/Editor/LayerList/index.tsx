@@ -21,7 +21,7 @@ const LayerList: React.FC<LayerListProps> = (props) => {
     (result: DropResult) => {
       const { destination, source } = result;
 
-      if (!destination?.index) {
+      if (!destination) {
         return;
       }
 

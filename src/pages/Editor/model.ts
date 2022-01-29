@@ -82,7 +82,6 @@ const editor: EditorModel = {
     },
     reorderLayer(state, { payload }) {
       const { sourceIndex, destinationIndex } = payload;
-      console.log(isNil(sourceIndex), isNil(destinationIndex));
       if (isNil(sourceIndex) || isNil(destinationIndex)) {
         return;
       }
