@@ -30,7 +30,7 @@ const Editor: React.FC<EditorProps> = (props) => {
 
   useDrop(dropRef, {
     onDom: (template: LayerTemplate, e?: React.DragEvent) => {
-      const layer = getLayerConfigFromTemplate(template, e!);
+      const layer = getLayerConfigFromTemplate(e!, template, board.width, board.height);
       dispatch({ type: 'editor/addLayer', payload: layer });
     },
   });
