@@ -20,6 +20,7 @@ interface EditorProps {
   dispatch: Dispatch;
   showLayerList: boolean;
   showConfigPanel: boolean;
+  showLibs: boolean;
 }
 
 const Editor: React.FC<EditorProps> = (props) => {
@@ -74,9 +75,11 @@ const Editor: React.FC<EditorProps> = (props) => {
             <LayerList />
           </div>
         )}
-        <div className={styles.lib}>
-          <ComponentLib />
-        </div>
+        {props.showLibs && (
+          <div className={styles.lib}>
+            <ComponentLib />
+          </div>
+        )}
         <div className={styles.workspaceContainer}>
           <div
             className={styles.workspace}
@@ -117,4 +120,5 @@ export default connect((state: any) => ({
   board: state.editor.board,
   showLayerList: state.editor.showLayerList,
   showConfigPanel: state.editor.showConfigPanel,
+  showLibs: state.editor.showLibs,
 }))(Editor);

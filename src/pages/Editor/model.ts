@@ -11,6 +11,7 @@ interface EditorModel {
 
     showLayerList: boolean;
     showConfigPanel: boolean;
+    showLibs: boolean;
   };
   reducers: {
     addLayer: Reducer;
@@ -25,6 +26,7 @@ interface EditorModel {
     reorderLayer: Reducer;
     toggleLayerList: Reducer;
     toggleConfigPanel: Reducer;
+    toggleLibs: Reducer;
   };
   subscriptions: {
     setup: Subscription;
@@ -39,6 +41,7 @@ const editor: EditorModel = {
     board: {} as BoardConfig,
     showLayerList: true,
     showConfigPanel: true,
+    showLibs: true,
   },
   reducers: {
     initBoard(state, { payload }) {
@@ -95,6 +98,9 @@ const editor: EditorModel = {
     },
     toggleConfigPanel(state, { payload }) {
       state.showConfigPanel = payload;
+    },
+    toggleLibs(state, { payload }) {
+      state.showLibs = payload;
     },
   },
   subscriptions: {

@@ -6,11 +6,12 @@ import { connect } from 'umi';
 interface HeaderToolProps {
   showLayerList: boolean;
   showConfigPanel: boolean;
+  showLibs: boolean;
   dispatch: Dispatch;
 }
 
 const HeaderTool: React.FC<HeaderToolProps> = (props) => {
-  const { showLayerList, showConfigPanel, dispatch } = props;
+  const { showLayerList, showConfigPanel, showLibs, dispatch } = props;
 
   const dispatchConfig = (typeName: string, value: boolean) => {
     dispatch({
@@ -28,6 +29,11 @@ const HeaderTool: React.FC<HeaderToolProps> = (props) => {
           onChange={(value) => dispatchConfig('toggleLayerList', value)}
         />
         <SwitchButton
+          iconType="icon-libs"
+          value={showLibs}
+          onChange={(value) => dispatchConfig('toggleLibs', value)}
+        />
+        <SwitchButton
           iconType="icon-config"
           value={showConfigPanel}
           onChange={(value) => dispatchConfig('toggleConfigPanel', value)}
@@ -40,4 +46,5 @@ const HeaderTool: React.FC<HeaderToolProps> = (props) => {
 export default connect((state: any) => ({
   showLayerList: state.editor.showLayerList,
   showConfigPanel: state.editor.showConfigPanel,
+  showLibs: state.editor.showLibs,
 }))(HeaderTool);

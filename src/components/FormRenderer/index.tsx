@@ -1,25 +1,25 @@
-import React, { useEffect, useRef } from 'react';
+import { BgPicker, ColorPicker } from '@/components/form';
+import IconFont from '@/components/IconFont';
+import { useMap } from 'ahooks';
 import type { FormItemProps } from 'antd';
 import {
-  Form,
+  Col,
+  Collapse,
   ConfigProvider,
+  Form,
   Input,
   InputNumber,
-  Select,
-  Collapse,
+  message,
   Radio,
-  Switch,
   Row,
-  Col,
+  Select,
   Slider,
   Space,
+  Switch,
   Tabs,
-  message,
 } from 'antd';
-import { ColorPicker, BgPicker } from '@/components/form';
+import React, { useEffect, useRef } from 'react';
 import styles from './index.less';
-import { PlusOutlined, DeleteOutlined, PlusSquareFilled, DeleteFilled } from '@ant-design/icons';
-import { useMap } from 'ahooks';
 
 type DefaultValue = string | number | boolean | any[];
 
@@ -183,8 +183,8 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
                 header={item.name}
                 extra={
                   <Space size="middle" className={styles.arrayActionIcon}>
-                    <PlusSquareFilled key="add" onClick={handleAdd} />
-                    <DeleteFilled key="delete" onClick={handleRemove} />
+                    <IconFont key="add" type="icon-add-square" onClick={handleAdd} />
+                    <IconFont key="delete" type="icon-delete" onClick={handleRemove} />
                   </Space>
                 }
               >

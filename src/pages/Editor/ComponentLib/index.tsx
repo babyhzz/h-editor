@@ -18,12 +18,12 @@ type Lib = {
 const libs: Lib[] = [
   {
     name: '信息',
-    icon: <IconFont type="icon-lib_info" style={{ color: 'red' }} />,
+    icon: <IconFont type="icon-cat-info" />,
     children: [templateMap.BasicTitle],
   },
   {
     name: '图表',
-    icon: <IconFont type="icon-lib_chart" />,
+    icon: <IconFont type="icon-cat-chart" />,
     children: [templateMap.BasicLineChart],
   },
 ];
