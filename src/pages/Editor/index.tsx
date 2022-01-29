@@ -9,6 +9,7 @@ import { connect } from 'umi';
 import ComponentLib from './ComponentLib';
 import ConfigPanel from './ConfigPanel';
 import DragResizeItem from './DragResizeItem';
+import HeaderTool from './HeaderTool';
 import styles from './index.less';
 import LayerList from './LayerList';
 import { getLayerConfigFromTemplate } from './utils';
@@ -60,9 +61,10 @@ const Editor: React.FC<EditorProps> = (props) => {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <div className={styles.scale}>
+        {/* <div className={styles.scale}>
           <Slider value={board.scale * 100} onChange={handleScaleChange} />
-        </div>
+        </div> */}
+        <HeaderTool />
       </div>
       <div className={styles.content}>
         <div className={styles.layer}>
