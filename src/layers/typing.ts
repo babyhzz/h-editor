@@ -1,6 +1,6 @@
 import type { FormConfig } from '@/components/FormRenderer';
 
-export type LayerCategory = 'info' | 'chart';
+export type LayerCategory = 'info' | 'chart' | 'media';
 
 export interface DataField {
   key: string;

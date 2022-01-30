@@ -1,4 +1,4 @@
-import { templateMap } from '@/layers';
+import { templateGroup, templateMap } from '@/layers';
 import type { LayerTemplate } from '@/layers/typing';
 import { Tabs } from 'antd';
 import type { ReactNode } from 'react';
@@ -18,15 +18,22 @@ type Lib = {
 const libs: Lib[] = [
   {
     name: '信息',
-    icon: <IconFont type="icon-cat-text" />,
-    children: [templateMap.BasicTitle],
+    icon: <IconFont type="icon-cat-info" />,
+    children: templateGroup.info,
   },
   {
     name: '图表',
     icon: <IconFont type="icon-cat-chart" />,
-    children: [templateMap.BasicLineChart],
+    children: templateGroup.chart,
+  },
+  {
+    name: '媒体',
+    icon: <IconFont type="icon-cat-media" />,
+    children: templateGroup.media,
   },
 ];
+
+console.log(libs);
 
 const ComponentLib: React.FC = () => {
   return (
