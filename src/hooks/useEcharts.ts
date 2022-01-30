@@ -1,36 +1,28 @@
 import * as echarts from 'echarts';
-import { RefObject, useEffect, useRef } from 'react';
-import { useThrottleFn } from 'ahooks';
+import type { RefObject } from 'react';
+import { useEffect, useRef } from 'react';
+import { useSize, useMount, useUpdateEffect } from 'ahooks';
 import { debounce, throttle } from 'lodash';
 
-function useECharts(
-  ref: RefObject<HTMLElement>,
-  option: Record<string, any>,
-  width: number,
-  height: number,
-) {
-  const chartRef = useRef<echarts.ECharts>();
-  // console.log('option', option);
-  useEffect(() => {
-    chartRef.current = echarts.init(ref.current as HTMLElement);
-    chartRef.current.setOption(option);
-  }, [ref.current]);
+function useECharts(ref: RefObject<HTMLElement>, option: Record<string, any>) {
+  const chartInstanceRef = useRef<echarts.ECharts>();
 
-  useEffect(() => {
-    if (chartRef.current) {
-      // chartRef.current.clear();
-      chartRef.current.setOption(option);
-    }
-  }, [option]);
-
-  const { run } = useThrottleFn(() => chartRef.current?.resize(), {
-    wait: 100,
+  useMount(() => {
+    console.log('ref.current', ref.current);
+    chartInstanceRef.current = echarts.init(ref.current as HTMLElement);
   });
 
+  useUpdateEffect(() => {
+    chartInstanceRef.current!.setOption(option);
+  }, [option]);
+
+  const size = useSize(ref);
   useEffect(() => {
-    const resize = throttle(() => chartRef.current?.resize(), 200);
-    resize();
-  }, [width, height, chartRef.current]);
+    const resize = throttle(() => chartInstanceRef.current?.resize(), 200);
+    if (chartInstanceRef.current) {
+      resize();
+    }
+  }, [size]);
 }
 
 export default useECharts;

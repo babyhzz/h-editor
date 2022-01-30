@@ -1,14 +1,14 @@
-import { DataSource } from '@/layers/typing';
+import type { DataSource } from '@/layers/typing';
 import { useRequest } from 'ahooks';
-import { memo, useEffect, useState } from 'react';
 import request from 'umi-request';
 
 async function getData(dataSource: DataSource) {
+  console.log('dataSource', dataSource);
   if (dataSource.type === 'static') {
     try {
       return Promise.resolve(JSON.parse(dataSource.data));
     } catch {
-      return [];
+      return null;
     }
   }
 
@@ -16,7 +16,7 @@ async function getData(dataSource: DataSource) {
     const { apiUrl, apiMethod = 'get', apiHeaders, apiData } = dataSource;
 
     if (!apiUrl) {
-      return [];
+      return null;
     }
 
     const options = {
@@ -24,7 +24,7 @@ async function getData(dataSource: DataSource) {
       headers: {},
       params: {},
       data: '',
-      errorHandler: () => [],
+      errorHandler: () => null,
     };
 
     if (apiHeaders) {
@@ -38,17 +38,16 @@ async function getData(dataSource: DataSource) {
         options.data = JSON.parse(apiData);
       }
     }
-    // console.log('apiDat a return request');
     const res = await request(apiUrl, options);
-    return res.code === 0 ? res.data : [];
+    return res.code === 0 ? res.data : null;
   }
 
-  return [];
+  return null;
 }
 
 function useDataSource(dataSource: DataSource) {
   const interval =
-    dataSource.type === 'api' ? (dataSource.refreshInterval || 5) * 1000 : 3600 * 1000;
+    dataSource.type === 'api' ? (dataSource.refreshInterval || 5) * 1000 : Number.MAX_SAFE_INTEGER;
 
   const { data } = useRequest(() => getData(dataSource), {
     pollingInterval: interval,
@@ -56,8 +55,7 @@ function useDataSource(dataSource: DataSource) {
     refreshDeps: [dataSource],
   });
 
-  // console.log('apiData return data====', data);
-  return data || [];
+  return data;
 }
 
 export default useDataSource;

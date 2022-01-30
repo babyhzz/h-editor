@@ -1,6 +1,6 @@
 import type { LayerTemplate } from '@/layers/typing';
 import styles from './index.less';
-import thumbMap from './thumbMap';
+import thumbMap from '@/assets/thumb';
 import { useDrag } from 'ahooks';
 import { useRef } from 'react';
 

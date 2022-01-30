@@ -1,7 +1,7 @@
 import type { LayerTemplate } from '@/layers/typing';
 
 const BasicLineChartTemplate: LayerTemplate = {
-  type: 'BasicLineChart',
+  type: 'LineChart',
   category: 'chart',
   icon: 'icon-comp-LineChart',
   name: '折线图',
@@ -18,10 +18,9 @@ const BasicLineChartTemplate: LayerTemplate = {
       key: 'series',
       name: '系列',
       type: 'array',
-      default: [],
       children: [
         {
-          key: 'seriesName',
+          key: 'name',
           name: '系列名称',
           type: 'text',
           default: '系列',
@@ -67,32 +66,12 @@ const BasicLineChartTemplate: LayerTemplate = {
       description: '数量',
     },
   ],
-  dataTemplate: [
-    {
-      x: '2000-06-05',
-      y: 116,
-    },
-    {
-      x: '2000-06-06',
-      y: 129,
-    },
-    {
-      x: '2000-06-07',
-      y: 135,
-    },
-    {
-      x: '2000-06-08',
-      y: 86,
-    },
-    {
-      x: '2000-06-09',
-      y: 73,
-    },
-    {
-      x: '2000-06-10',
-      y: 85,
-    },
-  ],
+  dataTemplate: {
+    min: 0,
+    max: 100,
+    x: ['2000-06-05', '2000-06-06', '2000-06-07', '2000-06-08', '2000-06-09', '2000-06-10'],
+    y: [[116, 129, 135, 86, 73, 85]],
+  },
 };
 
 export default BasicLineChartTemplate;
