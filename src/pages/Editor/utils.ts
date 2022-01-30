@@ -1,4 +1,5 @@
 import type { FormConfig } from '@/components/FormRenderer';
+import { interactionMap } from '@/layers';
 import type { LayerConfig, LayerTemplate } from '@/layers/typing';
 
 function randomString() {
@@ -50,6 +51,14 @@ export function getLayerConfigFromTemplate(
   }
   console.log('after y: ', y);
 
+  const configValues = getDefaultValues(template.config);
+
+  const { data, getStaticData } = interactionMap[template.type];
+  let staticData = data;
+  if (getStaticData) {
+    staticData = getStaticData(configValues);
+  }
+
   return {
     id: `${template.type}-${randomString()}`,
     type: template.type,
@@ -63,10 +72,10 @@ export function getLayerConfigFromTemplate(
       name: `${template.name}-${randomString()}`,
     },
     config: template.config,
-    configValues: getDefaultValues(template.config),
+    configValues: configValues,
     dataSource: {
       type: 'static',
-      data: JSON.stringify(template.dataTemplate, null, 2),
+      data: JSON.stringify(staticData, null, 2),
     },
   };
 }

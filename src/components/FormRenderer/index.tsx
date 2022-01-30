@@ -51,6 +51,8 @@ interface FieldConfig {
 }
 
 interface FieldGroupConfig extends FieldConfig {
+  /** max只针对array */
+  max?: number;
   children: FormItem[];
 }
 
@@ -76,7 +78,6 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
   const [, { set: setCollapseKey, get: getCollapseKey }] = useMap<string, string>();
 
   // 保存每个tab激活key的状态，fieldKey，会递增
-  // const [tabActiveKeyMap, setTabActiveKeyMap] = useState<Record<string, string>>({});
   const [, { set: setTabActiveKey, get: getTabActiveKey }] = useMap<string, string>();
 
   const tabFieldsMap = useRef<Record<string, any>>({});
@@ -143,7 +144,7 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
     setCollapseKey(item.key, activeKey);
   };
 
-  const renderArray = (item: FieldGroupConfig) => {
+  const renderArray = (item: FieldGroupConfig, max: number) => {
     return (
       <Form.List name={item.key}>
         {(fields, { add, remove }) => {
@@ -153,8 +154,12 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
           };
           const handleAdd = (e: React.MouseEvent) => {
             e.stopPropagation();
-            const itemValues = value[item.key];
-            add(itemValues[itemValues.length - 1]);
+            const arr = value[item.key];
+            if (arr.length === max) {
+              message.warn(`最大只能添加${max}项`);
+              return;
+            }
+            add({ ...arr[arr.length - 1] });
             // 选中最新的tab项
             setTimeout(() => {
               const itemFields = tabFieldsMap.current[item.key];
@@ -174,7 +179,7 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
                 setTabActiveKey(item.key, tabFieldsMap.current[item.key][0].key + '');
               }, 0);
             } else {
-              message.error('无法删除，至少保留一个序列');
+              message.error('无法删除，至少保留一项');
             }
           };
           return (
@@ -236,7 +241,7 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
         }
 
         if (item.type === 'array') {
-          return renderArray(item);
+          return renderArray(item, item.max || 8);
         }
 
         // 针对 switch 和 none，switch带disable功能，none为普通折叠器

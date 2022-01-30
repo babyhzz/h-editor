@@ -1,10 +1,9 @@
 import type { DataSource } from '@/layers/typing';
-import { useInterval, useRequest, useWhyDidYouUpdate } from 'ahooks';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useRequest } from 'ahooks';
+import { useEffect, useRef } from 'react';
 import request from 'umi-request';
 
 async function getData(dataSource: DataSource) {
-  console.log('dataSource', dataSource);
   if (dataSource.type === 'static') {
     try {
       return Promise.resolve(JSON.parse(dataSource.data));

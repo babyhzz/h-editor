@@ -7,6 +7,7 @@ import { connect } from 'umi';
 import DataSourceForm from './DataSourceForm';
 import styles from './index.less';
 import { viewConfig } from './config';
+import { interactionMap } from '@/layers';
 
 const { TabPane } = Tabs;
 
@@ -25,6 +26,13 @@ const ConfigLayerPanel: React.FC<LayerConfigPanelProps> = (props) => {
     });
   };
 
+  const handleDataSourceChange = (values: any) => {
+    dispatch({
+      type: 'editor/updateLayerDataSource',
+      payload: values,
+    });
+  };
+
   const handleViewChange = (values: any) => {
     updateView(values);
   };
@@ -34,13 +42,16 @@ const ConfigLayerPanel: React.FC<LayerConfigPanelProps> = (props) => {
       type: 'editor/updateLayerConfig',
       payload: values,
     });
-  };
 
-  const handleDataSourceChange = (values: any) => {
-    dispatch({
-      type: 'editor/updateLayerDataSource',
-      payload: values,
-    });
+    const dataSource = selectedLayer.dataSource;
+    if (dataSource.type === 'static') {
+      console.log('selectedLayer', selectedLayer);
+      const { getStaticData } = interactionMap[selectedLayer.type];
+      if (getStaticData) {
+        const data = getStaticData(selectedLayer.configValues);
+        handleDataSourceChange({ data: JSON.stringify(data, null, 2) });
+      }
+    }
   };
 
   return (

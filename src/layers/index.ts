@@ -16,4 +16,11 @@ templateContext.keys().forEach((key) => {
 
 const templateGroup = groupBy(Object.values(templateMap), 'category');
 
-export { componentMap, templateMap, templateGroup };
+const interactionMap: Record<string, any> = {};
+const interactionContext = require.context('./', true, /\/interaction.ts$/);
+interactionContext.keys().forEach((key) => {
+  const { type, ...rest } = interactionContext(key);
+  interactionMap[type] = rest;
+});
+
+export { componentMap, templateMap, templateGroup, interactionMap };
