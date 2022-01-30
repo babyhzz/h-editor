@@ -1,5 +1,6 @@
 import type { DataSource } from '@/layers/typing';
-import { useRequest } from 'ahooks';
+import { useInterval, useRequest, useWhyDidYouUpdate } from 'ahooks';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import request from 'umi-request';
 
 async function getData(dataSource: DataSource) {
@@ -46,14 +47,20 @@ async function getData(dataSource: DataSource) {
 }
 
 function useDataSource(dataSource: DataSource) {
-  const interval =
-    dataSource.type === 'api' ? (dataSource.refreshInterval || 5) * 1000 : Number.MAX_SAFE_INTEGER;
-
-  const { data } = useRequest(() => getData(dataSource), {
-    pollingInterval: interval,
-    // pollingWhenHidden: false,
-    refreshDeps: [dataSource],
+  const intervalId = useRef<number>();
+  const { data, run } = useRequest(getData, {
+    refreshOnWindowFocus: true,
+    manual: true,
   });
+
+  useEffect(() => {
+    run(dataSource);
+  }, [dataSource, run]);
+
+  if (dataSource.type === 'api') {
+    clearInterval(intervalId.current);
+    setInterval(() => run(dataSource), (dataSource.refreshInterval || 5) * 1000);
+  }
 
   return data;
 }

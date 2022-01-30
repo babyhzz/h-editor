@@ -25,6 +25,24 @@ const BasicLineChartTemplate: LayerTemplate = {
           type: 'text',
           default: '系列',
         },
+        {
+          key: 'type',
+          name: '类型',
+          type: 'select',
+          default: 'line',
+          comProps: {
+            options: [
+              {
+                label: '折线图',
+                value: 'line',
+              },
+              {
+                label: '柱状图',
+                value: 'bar',
+              },
+            ],
+          },
+        },
       ],
     },
     {
@@ -56,21 +74,32 @@ const BasicLineChartTemplate: LayerTemplate = {
       ],
     },
   ],
-  dataFields: [
-    {
-      key: 'x',
-      description: '日期',
-    },
-    {
-      key: 'y',
-      description: '数量',
-    },
-  ],
   dataTemplate: {
     min: 0,
     max: 100,
-    x: ['2000-06-05', '2000-06-06', '2000-06-07', '2000-06-08', '2000-06-09', '2000-06-10'],
-    y: [[116, 129, 135, 86, 73, 85]],
+    x: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    y: [
+      {
+        name: 'Email',
+        data: [120, 132, 101, 134, 90, 230, 210],
+      },
+      {
+        name: 'Union Ads',
+        data: [220, 182, 191, 234, 290, 330, 310],
+      },
+      {
+        name: 'Video Ads',
+        data: [150, 232, 201, 154, 190, 330, 410],
+      },
+      {
+        name: 'Direct',
+        data: [320, 332, 301, 334, 390, 330, 320],
+      },
+      {
+        name: 'Search Engine',
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+      },
+    ],
   },
 };
 

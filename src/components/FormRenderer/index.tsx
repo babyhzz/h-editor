@@ -153,7 +153,8 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
           };
           const handleAdd = (e: React.MouseEvent) => {
             e.stopPropagation();
-            add({});
+            const itemValues = value[item.key];
+            add(itemValues[itemValues.length - 1]);
             // 选中最新的tab项
             setTimeout(() => {
               const itemFields = tabFieldsMap.current[item.key];

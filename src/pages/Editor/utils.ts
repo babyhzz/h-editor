@@ -67,8 +67,6 @@ export function getLayerConfigFromTemplate(
     dataSource: {
       type: 'static',
       data: JSON.stringify(template.dataTemplate, null, 2),
-      dcFields: {},
     },
-    dataFields: template.dataFields,
   };
 }

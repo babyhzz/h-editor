@@ -61,11 +61,7 @@ const ConfigLayerPanel: React.FC<LayerConfigPanelProps> = (props) => {
         />
       </TabPane>
       <TabPane tab="数据" key="data">
-        <DataSourceForm
-          value={selectedLayer.dataSource}
-          dataFields={selectedLayer.dataFields}
-          onChange={handleDataSourceChange}
-        />
+        <DataSourceForm value={selectedLayer.dataSource} onChange={handleDataSourceChange} />
       </TabPane>
       <TabPane tab="交互" key="event">
         Content of Tab Pane 3

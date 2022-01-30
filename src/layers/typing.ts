@@ -28,15 +28,12 @@ export interface LayerTemplate {
 
   dataTemplate?: any;
 
-  dataFields?: DataField[];
-
   events?: any;
 }
 
 interface StaticDataSource {
   type: 'static';
-  data: string;
-  dcFields: Record<string, string>;
+  data: any;
 }
 
 interface ApiDataSource {
@@ -46,8 +43,6 @@ interface ApiDataSource {
   apiHeaders: string;
   /** API参数，可能是params也可能是body */
   apiData: string;
-  /** 字段映射 */
-  dcFields: Record<string, string>;
   /** 刷新的秒数 */
   refreshInterval: number;
 }
@@ -72,7 +67,6 @@ export interface LayerConfig {
   configValues: any;
   view: LayerViewConfig;
   dataSource: DataSource;
-  dataFields?: DataField[];
 }
 
 export enum DisplayMode {

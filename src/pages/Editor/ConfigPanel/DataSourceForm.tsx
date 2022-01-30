@@ -1,18 +1,17 @@
-import type { DataField, DataSource } from '@/layers/typing';
+import type { DataSource } from '@/layers/typing';
 import { Table, Form, Input, Radio, ConfigProvider } from 'antd';
 import JsonInput from '@/components/form/JsonInput';
 import { useEffect } from 'react';
 
-const { Column } = Table;
+// const { Column } = Table;
 
 interface DataSourceFormProps {
-  dataFields: DataField[] | undefined;
   value: DataSource;
   onChange: (values: any) => void;
 }
 
 const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
-  const { dataFields, onChange, value } = props;
+  const { onChange, value } = props;
 
   const [form] = Form.useForm();
 
@@ -35,7 +34,7 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
           apiMethod: 'get',
         }}
       >
-        {dataFields && (
+        {/* {dataFields && (
           <Table dataSource={dataFields} pagination={false} rowKey="key">
             <Column title="字段" dataIndex="key" />
             <Column
@@ -48,7 +47,7 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
               )}
             />
           </Table>
-        )}
+        )} */}
 
         <Form.Item label="数据源" name="type">
           <Radio.Group

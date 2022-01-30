@@ -42,7 +42,7 @@ const Editor: React.FC<EditorProps> = (props) => {
       height: 1080,
       grid: 8,
       display: DisplayMode.FULL_SCREEN,
-      scale: 0.5,
+      scale: 1,
     };
     dispatch({ type: 'editor/initBoard', payload });
   }, [dispatch]);

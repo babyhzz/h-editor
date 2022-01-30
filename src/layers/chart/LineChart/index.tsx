@@ -2,25 +2,20 @@ import useDataSource from '@/hooks/useDataSource';
 import useECharts from '@/hooks/useEcharts';
 import type { LayerConfig } from '@/layers/typing';
 import type * as echarts from 'echarts';
-import { at } from 'lodash';
+import { get } from 'lodash';
 import { useRef } from 'react';
 
 const LineChart: React.FC<LayerConfig> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { view, dataSource, configValues } = props;
-  const { dcFields } = dataSource;
-
-  const xField = dcFields.x || 'x';
-  const yField = dcFields.y || 'y';
 
   const data = useDataSource(dataSource);
 
   const option: echarts.EChartsOption = {
     series: configValues.series.map((s: any, index: number) => ({
-      type: 'line',
-      // type: s.type,
-      name: s.name,
-      data: at(data, `${yField}[${index}]`) || [],
+      type: s.type,
+      name: get(data, `y[${index}].name`),
+      data: get(data, `y[${index}].data`) || [],
     })),
     xAxis: {
       show: configValues.xAxisShow,
@@ -31,7 +26,7 @@ const LineChart: React.FC<LayerConfig> = (props) => {
       splitLine: {
         show: configValues.xAxisSplitLineShow,
       },
-      data: at(data, `${xField}`) || [],
+      data: get(data, 'x') || [],
     },
     yAxis: {
       type: 'value',
@@ -45,10 +40,9 @@ const LineChart: React.FC<LayerConfig> = (props) => {
 
   useECharts(containerRef, option);
 
-  console.log(data);
-
-  console.log('configValues', configValues);
-  console.log('data', data);
+  // console.log('configValues', configValues);
+  // console.log('option', option);
+  // console.log('data', data);
 
   return (
     <div
