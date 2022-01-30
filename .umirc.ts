@@ -17,6 +17,9 @@ export default defineConfig({
     // '@slider-track-background-color': '#21dfe2',
     // '@slider-track-background-color-hover': '#21dfe2',
   },
-  routes: [{ path: '/', component: '@/pages/Editor' }],
+  routes: [
+    { path: '/', component: 'Editor' },
+    { path: '/preview', component: 'Preview' },
+  ],
   fastRefresh: {},
 });

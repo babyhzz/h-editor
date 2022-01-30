@@ -3,6 +3,7 @@ import { useControllableValue } from 'ahooks';
 import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import styles from './index.less';
+export { default as IconButton } from './IconButton';
 
 interface SwitchButtonProps {
   iconType: string;
