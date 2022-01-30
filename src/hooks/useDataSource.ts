@@ -38,7 +38,7 @@ async function getData(dataSource: DataSource) {
         options.data = JSON.parse(apiData);
       }
     }
-    console.log('apiData return request');
+    // console.log('apiDat a return request');
     const res = await request(apiUrl, options);
     return res.code === 0 ? res.data : [];
   }
@@ -56,7 +56,7 @@ function useDataSource(dataSource: DataSource) {
     refreshDeps: [dataSource],
   });
 
-  console.log('apiData return data====', data);
+  // console.log('apiData return data====', data);
   return data || [];
 }
 

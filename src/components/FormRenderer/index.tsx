@@ -90,7 +90,6 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
   const handleValuesChange = (_: any, values: any) => {
     if (onChange) {
       onChange(values);
-      console.log('values change!', values);
     }
   };
 

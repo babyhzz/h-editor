@@ -33,8 +33,6 @@ const libs: Lib[] = [
   },
 ];
 
-console.log(libs);
-
 const ComponentLib: React.FC = () => {
   return (
     <Tabs tabPosition="left" type="card" className={styles.wrapper} tabBarGutter={0}>

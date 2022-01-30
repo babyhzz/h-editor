@@ -68,14 +68,12 @@ const editor: EditorModel = {
       layer.view = { ...layer.view, ...payload };
     },
     updateLayerConfig(state, { payload }) {
-      console.log('model values', payload);
       const layer = state.layers.find((l: any) => l.id === state.selectedId);
       layer.configValues = { ...layer.configValues, ...payload };
     },
     updateLayerDataSource(state, { payload }) {
       const layer = state.layers.find((l: any) => l.id === state.selectedId);
       layer.dataSource = merge(layer.dataSource, payload);
-      console.log('layer.dataSource:', layer.dataSource);
     },
     updateBoard(state, { payload }) {
       state.board = { ...state.board, ...payload };

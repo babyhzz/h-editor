@@ -21,7 +21,6 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
   }, [form, value]);
 
   const handleChange = (values: any) => {
-    console.log(values);
     if (onChange) {
       onChange(values);
     }

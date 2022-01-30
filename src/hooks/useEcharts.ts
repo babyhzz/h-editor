@@ -10,7 +10,7 @@ function useECharts(
   height: number,
 ) {
   const chartRef = useRef<echarts.ECharts>();
-  console.log('option', option);
+  // console.log('option', option);
   useEffect(() => {
     chartRef.current = echarts.init(ref.current as HTMLElement);
     chartRef.current.setOption(option);

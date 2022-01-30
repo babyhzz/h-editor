@@ -29,20 +29,26 @@ export function getLayerConfigFromTemplate(
   // const { offsetX, offsetY } = e.nativeEvent;
   // @ts-ignore
   const { offsetX, offsetY } = e;
+  console.log(e);
 
   let x = offsetX - template.width / 2;
+  console.log('before x: ', x);
   if (x < 0) {
     x = 0;
   } else if (x > boardWidth - template.width) {
     x = boardWidth - template.width;
   }
+  console.log('after x: ', x);
 
   let y = offsetY - template.height / 2;
+  console.log('offsetY: ', offsetY);
+  console.log('before y: ', y);
   if (y < 0) {
     y = 0;
   } else if (y > boardHeight - template.height) {
     y = boardHeight - template.height;
   }
+  console.log('after y: ', y);
 
   return {
     id: `${template.type}-${randomString()}`,
