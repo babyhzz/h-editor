@@ -48,7 +48,7 @@ const ConfigLayerPanel: React.FC<LayerConfigPanelProps> = (props) => {
       const { getStaticData } = interactionMap[selectedLayer.type];
       if (getStaticData) {
         const data = getStaticData(configValues);
-        handleDataSourceChange({ data: JSON.stringify(data, null, 2) });
+        handleDataSourceChange({ data: data });
       }
     }
   };

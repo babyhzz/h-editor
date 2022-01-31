@@ -1,68 +1,25 @@
-import codemirror from 'codemirror';
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/addon/lint/lint';
-import { Controlled as CodeMirror } from 'react-codemirror2';
-
-const jsonlint = require('codemirror/addon/lint/json-lint');
-window.jsonlint = jsonlint;
-
-/**
- * CodeMirror 使用还不是很熟悉，需要了解
- * https://github.com/scniro/react-codemirror2/issues/21
- */
+import JSONInput from 'react-json-editor-ajrm';
+import locale from 'react-json-editor-ajrm/locale/zh-cn';
 interface JsonInputProps {
-  value?: string;
-  onChange?: (value: string) => void;
+  value?: any;
+  onChange?: (value: any) => void;
 }
 
+/**
+ * https://github.com/AndrewRedican/react-json-editor-ajrm
+ */
 const JsonInput: React.FC<JsonInputProps> = (props) => {
   const { value, onChange } = props;
 
-  // const handleChange = (
-  //   editor: codemirror.Editor,
-  //   data: codemirror.EditorChange,
-  //   value: string,
-  // ) => {
-  //   try {
-  //     const jsonObj = JSON.parse(value);
-  //     if (onChange) {
-  //       onChange(jsonObj);
-  //     }
-  //   } finally {
-  //   }
-  // };
-
-  const handleBeforeChange = (
-    editor: codemirror.Editor,
-    data: codemirror.EditorChange,
-    value: string,
-  ) => {
-    if (onChange) {
-      onChange(value);
+  function handleContentChange(content: any) {
+    const { jsObject, error } = content;
+    if (onChange && !error) {
+      onChange(jsObject);
     }
-    // let jsonObj = props.value;
-    // try {
-    //   jsonObj = JSON.parse(value);
-    // } finally {
-    //   if (onChange) {
-    //     onChange(jsonObj || {});
-    //   }
-    // }
-  };
+  }
 
-  return (
-    <CodeMirror
-      value={value || ''}
-      // value={JSON.stringify(value)}
-      // onChange={handleChange}
-      onBeforeChange={handleBeforeChange}
-      options={{
-        mode: 'application/json',
-        lineNumbers: false,
-        lint: true,
-      }}
-    />
-  );
+  console.log('value:', value);
+  return <JSONInput locale={locale} placeholder={value} onChange={handleContentChange} />;
 };
 
 export default JsonInput;

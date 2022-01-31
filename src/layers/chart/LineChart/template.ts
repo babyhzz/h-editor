@@ -21,29 +21,50 @@ const BasicLineChartTemplate: LayerTemplate = {
       max: 5,
       children: [
         {
-          key: 'name',
-          name: '系列名称',
-          type: 'text',
-          default: '系列',
+          key: 'smooth',
+          name: '平滑',
+          type: 'switch',
+          default: false,
         },
         {
-          key: 'type',
-          name: '类型',
-          type: 'select',
-          default: 'line',
-          comProps: {
-            options: [
-              {
-                label: '折线图',
-                value: 'line',
-              },
-              {
-                label: '柱状图',
-                value: 'bar',
-              },
-            ],
-          },
+          key: 'labelDistance',
+          name: '标签距离',
+          type: 'number',
+          default: 5,
         },
+        {
+          key: 'labelShow',
+          name: '文本标签',
+          type: 'switch',
+          default: false,
+          children: [
+            {
+              key: 'labelDistance',
+              name: '标签距离',
+              type: 'number',
+              default: 5,
+            },
+          ],
+        },
+        // 折线柱状图配置项不一样
+        // {
+        //   key: 'type',
+        //   name: '类型',
+        //   type: 'select',
+        //   default: 'line',
+        //   comProps: {
+        //     options: [
+        //       {
+        //         label: '折线图',
+        //         value: 'line',
+        //       },
+        //       {
+        //         label: '柱状图',
+        //         value: 'bar',
+        //       },
+        //     ],
+        //   },
+        // },
       ],
     },
     {
@@ -75,33 +96,6 @@ const BasicLineChartTemplate: LayerTemplate = {
       ],
     },
   ],
-  // dataTemplate: {
-  //   min: 0,
-  //   max: 100,
-  //   x: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-  //   y: [
-  //     {
-  //       name: 'Email',
-  //       data: [120, 132, 101, 134, 90, 230, 210],
-  //     },
-  //     {
-  //       name: 'Union Ads',
-  //       data: [220, 182, 191, 234, 290, 330, 310],
-  //     },
-  //     {
-  //       name: 'Video Ads',
-  //       data: [150, 232, 201, 154, 190, 330, 410],
-  //     },
-  //     {
-  //       name: 'Direct',
-  //       data: [320, 332, 301, 334, 390, 330, 320],
-  //     },
-  //     {
-  //       name: 'Search Engine',
-  //       data: [820, 932, 901, 934, 1290, 1330, 1320],
-  //     },
-  //   ],
-  // },
 };
 
 export default BasicLineChartTemplate;

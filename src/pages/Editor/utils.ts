@@ -53,7 +53,7 @@ export function getLayerConfigFromTemplate(
 
   const configValues = getDefaultValues(template.config);
 
-  const { data, getStaticData } = interactionMap[template.type];
+  const { data, getStaticData } = interactionMap[template.type] || {};
   let staticData = data;
   if (getStaticData) {
     staticData = getStaticData(configValues);
@@ -75,7 +75,8 @@ export function getLayerConfigFromTemplate(
     configValues: configValues,
     dataSource: {
       type: 'static',
-      data: JSON.stringify(staticData, null, 2),
+      // data: JSON.stringify(staticData, null, 2),
+      data: staticData,
     },
   };
 }

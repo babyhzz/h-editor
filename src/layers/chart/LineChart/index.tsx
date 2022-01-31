@@ -13,9 +13,14 @@ const LineChart: React.FC<LayerConfig> = (props) => {
 
   const option: echarts.EChartsOption = {
     series: configValues.series.map((s: any, index: number) => ({
-      type: s.type,
+      type: 'line',
       name: get(data, `y[${index}].name`),
       data: get(data, `y[${index}].data`) || [],
+      smooth: s.smooth,
+      label: {
+        show: s.labelShow,
+        distance: s.labelDistance,
+      },
     })),
     xAxis: {
       show: configValues.xAxisShow,

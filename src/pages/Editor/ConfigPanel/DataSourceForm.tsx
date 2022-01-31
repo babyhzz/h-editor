@@ -77,6 +77,13 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
               />
             </Form.Item>
             <Form.Item label="头部信息" name="apiHeaders">
+              <JSONInput
+                id="a_unique_id"
+                placeholder={sampleObject}
+                colors={darktheme}
+                locale={locale}
+                height="550px"
+              />
               <JsonInput />
             </Form.Item>
             <Form.Item label="Body信息" name="apiBody">

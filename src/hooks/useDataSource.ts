@@ -6,7 +6,7 @@ import request from 'umi-request';
 async function getData(dataSource: DataSource) {
   if (dataSource.type === 'static') {
     try {
-      return Promise.resolve(JSON.parse(dataSource.data));
+      return dataSource.data;
     } catch {
       return null;
     }
