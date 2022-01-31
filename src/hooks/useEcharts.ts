@@ -2,7 +2,7 @@ import * as echarts from 'echarts';
 import type { RefObject } from 'react';
 import { useEffect, useRef } from 'react';
 import { useSize, useMount, useUpdateEffect } from 'ahooks';
-import { debounce, throttle } from 'lodash';
+import { throttle } from 'lodash';
 
 function useECharts(ref: RefObject<HTMLElement>, option: Record<string, any>) {
   const chartInstanceRef = useRef<echarts.ECharts>();
@@ -13,7 +13,9 @@ function useECharts(ref: RefObject<HTMLElement>, option: Record<string, any>) {
   });
 
   useUpdateEffect(() => {
-    chartInstanceRef.current!.setOption(option);
+    chartInstanceRef.current!.setOption(option, {
+      replaceMerge: ['xAxis', 'yAxis', 'series'],
+    });
   }, [option]);
 
   const size = useSize(ref);

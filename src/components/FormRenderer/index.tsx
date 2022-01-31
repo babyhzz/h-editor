@@ -77,10 +77,10 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
   // 保存当前每个折叠元素的折叠状态
   const [, { set: setCollapseKey, get: getCollapseKey }] = useMap<string, string>();
 
-  // 保存每个tab激活key的状态，fieldKey，会递增
-  const [, { set: setTabActiveKey, get: getTabActiveKey }] = useMap<string, string>();
-
+  // 保存每个array的所有fields
   const tabFieldsMap = useRef<Record<string, any>>({});
+  // 保存每个array field 激活key的状态，fieldKey，会递增
+  const [, { set: setTabActiveKey, get: getTabActiveKey }] = useMap<string, string>();
 
   const [form] = Form.useForm();
 
@@ -170,11 +170,13 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
             e.stopPropagation();
             const itemFields = tabFieldsMap.current[item.key];
             if (itemFields && itemFields.length > 1) {
-              const targetField = tabFieldsMap.current[item.key].find(
-                (field: any) => getTabActiveKey(item.key) === field.key + '',
-              );
+              // 热加载时可能不存在，默认选择第一个
+              const targetField =
+                tabFieldsMap.current[item.key].find(
+                  (field: any) => getTabActiveKey(item.key) === field.key + '',
+                ) || tabFieldsMap.current[item.key][0];
               remove(targetField.name);
-              // 选择第一个
+              // 删除后选择第一个
               setTimeout(() => {
                 setTabActiveKey(item.key, tabFieldsMap.current[item.key][0].key + '');
               }, 0);
@@ -182,6 +184,7 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
               message.error('无法删除，至少保留一项');
             }
           };
+
           return (
             <Collapse accordion key={itemKey(item)}>
               <Panel

@@ -38,17 +38,16 @@ const ConfigLayerPanel: React.FC<LayerConfigPanelProps> = (props) => {
   };
 
   const handleConfigChange = (values: any) => {
-    dispatch({
+    const { payload: configValues } = dispatch({
       type: 'editor/updateLayerConfig',
       payload: values,
     });
 
     const dataSource = selectedLayer.dataSource;
     if (dataSource.type === 'static') {
-      console.log('selectedLayer', selectedLayer);
       const { getStaticData } = interactionMap[selectedLayer.type];
       if (getStaticData) {
-        const data = getStaticData(selectedLayer.configValues);
+        const data = getStaticData(configValues);
         handleDataSourceChange({ data: JSON.stringify(data, null, 2) });
       }
     }

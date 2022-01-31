@@ -27,6 +27,7 @@ const data = {
 /** 根据配置获取静态数据 */
 const getStaticData = (configValues: any): any => {
   const seriesLength = configValues.series.length;
+  console.log('configValues', configValues);
   console.log('seriesLength', seriesLength);
 
   return { ...data, y: data.y.slice(0, seriesLength) };
