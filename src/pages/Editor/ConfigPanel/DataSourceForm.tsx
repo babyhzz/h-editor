@@ -45,7 +45,7 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
           />
         </Form.Item>
         {value.type === 'static' && (
-          <Form.Item noStyle name="data">
+          <Form.Item name="data" noStyle>
             <JsonInput height="calc(100% - 30px)" />
           </Form.Item>
         )}
@@ -62,11 +62,13 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
                 ]}
               />
             </Form.Item>
-            <Form.Item label="头部信息" name="apiHeaders">
-              <JsonInput />
+            <Form.Item label="Header信息" />
+            <Form.Item name="apiHeaders" noStyle>
+              <JsonInput height="200px" />
             </Form.Item>
-            <Form.Item label="Body信息" name="apiBody">
-              <JsonInput />
+            <Form.Item label="Body信息" />
+            <Form.Item name="apiBody" noStyle>
+              <JsonInput height="200px" />
             </Form.Item>
           </>
         )}

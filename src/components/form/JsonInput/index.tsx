@@ -20,7 +20,13 @@ const JsonInput: React.FC<JsonInputProps> = (props) => {
   }
 
   return (
-    <JSONInput locale={locale} placeholder={value} onChange={handleContentChange} height={height} />
+    <JSONInput
+      locale={locale}
+      placeholder={value}
+      onChange={handleContentChange}
+      height={height}
+      width="100%"
+    />
   );
 };
 
