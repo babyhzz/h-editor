@@ -1,10 +1,7 @@
 import type { DataSource } from '@/layers/typing';
-import { Table, Form, Input, Radio, ConfigProvider } from 'antd';
+import { Form, Input, Radio, ConfigProvider } from 'antd';
 import JsonInput from '@/components/form/JsonInput';
 import { useEffect } from 'react';
-
-// const { Column } = Table;
-
 interface DataSourceFormProps {
   value: DataSource;
   onChange: (values: any) => void;
@@ -28,27 +25,16 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
   return (
     <ConfigProvider componentSize="small">
       <Form
-        onValuesChange={handleChange}
         form={form}
+        colon={false}
+        labelAlign="left"
+        className="editor-form"
+        onValuesChange={handleChange}
         initialValues={{
           apiMethod: 'get',
         }}
+        style={{ height: '100%' }}
       >
-        {/* {dataFields && (
-          <Table dataSource={dataFields} pagination={false} rowKey="key">
-            <Column title="字段" dataIndex="key" />
-            <Column
-              title="映射"
-              dataIndex="dcKey"
-              render={(_, item: any) => (
-                <Form.Item name={['dcFields', item.key]} noStyle>
-                  <Input />
-                </Form.Item>
-              )}
-            />
-          </Table>
-        )} */}
-
         <Form.Item label="数据源" name="type">
           <Radio.Group
             optionType="button"
@@ -60,7 +46,7 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
         </Form.Item>
         {value.type === 'static' && (
           <Form.Item noStyle name="data">
-            <JsonInput />
+            <JsonInput height="calc(100% - 30px)" />
           </Form.Item>
         )}
         {value.type === 'api' && (
@@ -77,13 +63,6 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
               />
             </Form.Item>
             <Form.Item label="头部信息" name="apiHeaders">
-              <JSONInput
-                id="a_unique_id"
-                placeholder={sampleObject}
-                colors={darktheme}
-                locale={locale}
-                height="550px"
-              />
               <JsonInput />
             </Form.Item>
             <Form.Item label="Body信息" name="apiBody">
@@ -92,6 +71,7 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
           </>
         )}
       </Form>
+      {/* </div> */}
     </ConfigProvider>
   );
 };

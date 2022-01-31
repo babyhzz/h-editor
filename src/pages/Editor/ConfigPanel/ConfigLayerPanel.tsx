@@ -55,7 +55,7 @@ const ConfigLayerPanel: React.FC<LayerConfigPanelProps> = (props) => {
 
   return (
     <Tabs defaultActiveKey="1" className={styles.configTabs} tabPosition="top" animated={false}>
-      <TabPane tab="配置" key="config">
+      <TabPane tab="配置" key="config" style={{ overflow: 'auto' }}>
         <FormRenderer
           key="view"
           config={viewConfig}
@@ -70,7 +70,7 @@ const ConfigLayerPanel: React.FC<LayerConfigPanelProps> = (props) => {
           onChange={handleConfigChange}
         />
       </TabPane>
-      <TabPane tab="数据" key="data">
+      <TabPane tab="数据" key="data" style={{ height: '100%' }}>
         <DataSourceForm value={selectedLayer.dataSource} onChange={handleDataSourceChange} />
       </TabPane>
       <TabPane tab="交互" key="event">

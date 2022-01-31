@@ -3,13 +3,14 @@ import locale from 'react-json-editor-ajrm/locale/zh-cn';
 interface JsonInputProps {
   value?: any;
   onChange?: (value: any) => void;
+  height?: string;
 }
 
 /**
  * https://github.com/AndrewRedican/react-json-editor-ajrm
  */
 const JsonInput: React.FC<JsonInputProps> = (props) => {
-  const { value, onChange } = props;
+  const { value, height, onChange } = props;
 
   function handleContentChange(content: any) {
     const { jsObject, error } = content;
@@ -18,8 +19,9 @@ const JsonInput: React.FC<JsonInputProps> = (props) => {
     }
   }
 
-  console.log('value:', value);
-  return <JSONInput locale={locale} placeholder={value} onChange={handleContentChange} />;
+  return (
+    <JSONInput locale={locale} placeholder={value} onChange={handleContentChange} height={height} />
+  );
 };
 
 export default JsonInput;
