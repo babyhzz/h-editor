@@ -58,15 +58,24 @@ body,
   .ant-slider {
     margin: 8px 0 0;
     padding: 0;
+  }
+}
 
-    .ant-slider-track {
-      background-color: #53abfb;
-    }
+/* 全局Slider样式 */
+.ant-slider {
+  .ant-slider-track,
+  &:hover .ant-slider-track {
+    background-color: #53abfb;
+  }
 
-    .ant-slider-handle {
-      background-color: #2b949d;
-      border: solid 2px #283f54;
-    }
+  .ant-slider-rail,
+  &:hover .ant-slider-rail {
+    background-color: #6a6a6a;
+  }
+
+  .ant-slider-handle {
+    background-color: #2b949d;
+    border: solid 2px #283f54;
   }
 }
 

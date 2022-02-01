@@ -27,24 +27,16 @@ const BasicLineChartTemplate: LayerTemplate = {
           default: false,
         },
         {
-          key: 'labelDistance',
-          name: '标签距离',
-          type: 'number',
-          default: 5,
-        },
-        {
           key: 'labelShow',
           name: '文本标签',
           type: 'switch',
           default: false,
-          children: [
-            {
-              key: 'labelDistance',
-              name: '标签距离',
-              type: 'number',
-              default: 5,
-            },
-          ],
+        },
+        {
+          key: 'labelDistance',
+          name: '标签距离',
+          type: 'number',
+          default: 5,
         },
         // 折线柱状图配置项不一样
         // {

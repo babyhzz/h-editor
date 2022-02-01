@@ -7,5 +7,25 @@
   }
 
   .boardRegion {
+    .scale {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 210px;
+
+      :global {
+        .ant-slider {
+          width: 120px;
+          margin: 0 8px;
+          padding: 4px 0;
+        }
+        .anticon {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .publishRegion {
   }
 }
