@@ -1,6 +1,5 @@
 import type { BoardConfig } from '@/layers/typing';
 import { DisplayMode } from '@/layers/typing';
-import type { MouseEventHandler } from 'react';
 import React, { useEffect } from 'react';
 import type { Dispatch } from 'umi';
 import { connect } from 'umi';
@@ -12,6 +11,7 @@ import LayerList from './LayerList';
 import Workspace from './Workspace';
 
 interface EditorProps {
+  board: BoardConfig;
   dispatch: Dispatch;
   showLayerList: boolean;
   showConfigPanel: boolean;
@@ -19,19 +19,21 @@ interface EditorProps {
 }
 
 const Editor: React.FC<EditorProps> = (props) => {
-  const { dispatch } = props;
+  const { board, dispatch } = props;
 
   // 初始化board参数
   useEffect(() => {
-    const payload: BoardConfig = {
-      width: 1920,
-      height: 1080,
-      grid: 8,
-      display: DisplayMode.FULL_SCREEN,
-      scale: 1,
-    };
-    dispatch({ type: 'editor/initBoard', payload });
-  }, [dispatch]);
+    if (!board) {
+      const payload: BoardConfig = {
+        width: 1920,
+        height: 1080,
+        grid: 8,
+        display: DisplayMode.FULL_SCREEN,
+        scale: 1,
+      };
+      dispatch({ type: 'editor/initBoard', payload });
+    }
+  }, [dispatch, board]);
 
   return (
     <div className={styles.page}>
@@ -63,6 +65,7 @@ const Editor: React.FC<EditorProps> = (props) => {
 };
 
 export default connect((state: any) => ({
+  board: state.editor.board,
   showLayerList: state.editor.showLayerList,
   showConfigPanel: state.editor.showConfigPanel,
   showLibs: state.editor.showLibs,

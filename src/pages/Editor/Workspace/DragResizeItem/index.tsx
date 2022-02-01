@@ -44,13 +44,13 @@ const DragResizeItem: React.FC<DragResizeItemProps> = (props) => {
   };
 
   const handleRndDragStop = (data: DraggableData) => {
-    updateView({ x: data.x, y: data.y });
+    updateView({ x: Math.round(data.x), y: Math.round(data.y) });
   };
 
   const handleRndResize = (ref: HTMLElement, position: Position) => {
     updateView({
-      x: position.x,
-      y: position.y,
+      x: Math.round(position.x),
+      y: Math.round(position.y),
       width: parseInt(ref.style.width),
       height: parseInt(ref.style.height),
     });
@@ -83,6 +83,8 @@ const DragResizeItem: React.FC<DragResizeItemProps> = (props) => {
       resizeHandleStyles={resizeHandleStyles}
       enableResizing={active}
       scale={scale}
+      // dragGrid={[board.grid, board.grid]}
+      // resizeGrid={[board.grid, board.grid]}
     >
       <DynamicComponent {...layer} />
       <Dropdown overlay={menu} trigger={['contextMenu']}>

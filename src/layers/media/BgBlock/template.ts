@@ -4,7 +4,7 @@ const BgBlock: LayerTemplate = {
   type: 'BgBlock',
   category: 'media',
   icon: 'icon-comp-BgBlock',
-  name: '标题',
+  name: '背景块',
   width: 300,
   height: 80,
   config: [
