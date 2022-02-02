@@ -38,11 +38,12 @@ interface StaticDataSource {
 
 interface ApiDataSource {
   type: 'api';
-  apiUrl: string;
-  apiMethod: 'get' | 'post';
-  apiHeaders: string;
+  url: string;
+  method: 'get' | 'post';
+  /** API Header信息 */
+  headers: string;
   /** API参数，可能是params也可能是body */
-  apiData: string;
+  params: string;
   /** 刷新的秒数 */
   refreshInterval: number;
 }

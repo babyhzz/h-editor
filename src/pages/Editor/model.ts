@@ -1,6 +1,6 @@
 import type { BoardConfig, LayerConfig } from '@/layers/typing';
 import type { Reducer, Subscription } from 'umi';
-import { merge, isNil } from 'lodash';
+import { isNil } from 'lodash';
 interface EditorModel {
   namespace: 'editor';
   state: {
@@ -73,7 +73,7 @@ const editor: EditorModel = {
     },
     updateLayerDataSource(state, { payload }) {
       const layer = state.layers.find((l: any) => l.id === state.selectedId);
-      layer.dataSource = merge(layer.dataSource, payload);
+      layer.dataSource = { ...layer.dataSource, ...payload };
     },
     updateBoard(state, { payload }) {
       state.board = { ...state.board, ...payload };

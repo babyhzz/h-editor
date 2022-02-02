@@ -14,6 +14,7 @@ const JsonInput: React.FC<JsonInputProps> = (props) => {
 
   function handleContentChange(content: any) {
     const { jsObject, error } = content;
+    console.log('jsObject');
     if (onChange && !error) {
       onChange(jsObject);
     }

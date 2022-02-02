@@ -23,7 +23,7 @@ const Editor: React.FC<EditorProps> = (props) => {
 
   // 初始化board参数
   useEffect(() => {
-    if (!board) {
+    if (!board || !board.width || !board.height) {
       const payload: BoardConfig = {
         width: 1920,
         height: 1080,

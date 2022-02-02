@@ -28,7 +28,7 @@ async function getData(dataSource: DataSource) {
     };
 
     if (apiHeaders) {
-      options.headers = JSON.parse(apiHeaders);
+      options.headers = apiHeaders;
     }
 
     if (apiData) {
@@ -46,7 +46,7 @@ async function getData(dataSource: DataSource) {
 }
 
 function useDataSource(dataSource: DataSource) {
-  const intervalId = useRef<number>();
+  // const intervalId = useRef<number>();
   const { data, run } = useRequest(getData, {
     refreshOnWindowFocus: true,
     manual: true,
@@ -56,10 +56,10 @@ function useDataSource(dataSource: DataSource) {
     run(dataSource);
   }, [dataSource, run]);
 
-  if (dataSource.type === 'api') {
-    clearInterval(intervalId.current);
-    setInterval(() => run(dataSource), (dataSource.refreshInterval || 5) * 1000);
-  }
+  // if (dataSource.type === 'api') {
+  //   clearInterval(intervalId.current);
+  //   setInterval(() => run(dataSource), (dataSource.refreshInterval || 5) * 1000);
+  // }
 
   return data;
 }

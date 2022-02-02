@@ -31,7 +31,7 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
         className="editor-form"
         onValuesChange={handleChange}
         initialValues={{
-          apiMethod: 'get',
+          method: 'get',
         }}
         style={{ height: '100%' }}
       >
@@ -51,10 +51,10 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
         )}
         {value.type === 'api' && (
           <>
-            <Form.Item label="接口地址" name="apiUrl">
+            <Form.Item label="接口地址" name="url">
               <Input />
             </Form.Item>
-            <Form.Item label="接口方式" name="apiMethod">
+            <Form.Item label="接口方式" name="method">
               <Radio.Group
                 options={[
                   { value: 'get', label: 'GET' },
@@ -63,11 +63,11 @@ const DataSourceForm: React.FC<DataSourceFormProps> = (props) => {
               />
             </Form.Item>
             <Form.Item label="Header信息" />
-            <Form.Item name="apiHeaders" noStyle>
+            <Form.Item name="headers" noStyle>
               <JsonInput height="200px" />
             </Form.Item>
-            <Form.Item label="Body信息" />
-            <Form.Item name="apiBody" noStyle>
+            <Form.Item label="参数信息" />
+            <Form.Item name="params" noStyle>
               <JsonInput height="200px" />
             </Form.Item>
           </>
