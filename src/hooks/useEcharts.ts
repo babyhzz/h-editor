@@ -14,7 +14,7 @@ function useECharts(ref: RefObject<HTMLElement>, option: Record<string, any>) {
 
   useUpdateEffect(() => {
     chartInstanceRef.current!.setOption(option, {
-      replaceMerge: ['xAxis', 'yAxis', 'series'],
+      notMerge: true,
     });
   }, [option]);
 
