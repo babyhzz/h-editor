@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Modal, Space } from 'antd';
 
 interface ImgPickerProps {
-  title: string;
+  title?: string;
   imgPaths?: string[];
   modalWidth?: number;
   value?: string;

@@ -86,7 +86,7 @@ const DragResizeItem: React.FC<DragResizeItemProps> = (props) => {
       // dragGrid={[board.grid, board.grid]}
       // resizeGrid={[board.grid, board.grid]}
     >
-      <DynamicComponent {...layer} />
+      <DynamicComponent {...layer} board={board} />
       <Dropdown overlay={menu} trigger={['contextMenu']}>
         <div
           className={classNames(styles.handleWrapperClass, {

@@ -41,9 +41,9 @@ interface ApiDataSource {
   url: string;
   method: 'get' | 'post';
   /** API Header信息 */
-  headers: string;
+  headers: Record<string, string>;
   /** API参数，可能是params也可能是body */
-  params: string;
+  params: Record<string, string>;
   /** 刷新的秒数 */
   refreshInterval: number;
 }
@@ -70,6 +70,10 @@ export interface LayerConfig {
   dataSource: DataSource;
 }
 
+export interface ComponentConfig extends LayerConfig {
+  board: BoardConfig;
+}
+
 export enum DisplayMode {
   FULL_SCREEN = 1,
   FIT_WIDTH = 2,
@@ -84,6 +88,7 @@ export interface BoardConfig {
   backgroundColor?: string;
   backgroundImage?: string;
   scale: number;
+  commonHeaders: Record<string, any>;
 }
 
 interface BigBoard {

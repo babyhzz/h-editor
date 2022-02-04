@@ -110,4 +110,9 @@ export const boardConfig: FormConfig = [
       imgPaths: ['./bg/bg1.jpeg', './bg/bg2.jpg', './bg/bg3.jpeg', './bg/bg4.jpeg', './bg/bg5.jpg'],
     },
   },
+  {
+    key: 'commonHeaders',
+    name: '公共头部',
+    type: 'jsonButton',
+  },
 ];

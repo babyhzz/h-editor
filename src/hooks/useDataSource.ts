@@ -1,9 +1,9 @@
 import type { DataSource } from '@/layers/typing';
 import { useRequest } from 'ahooks';
 import { useEffect, useRef } from 'react';
-import request from 'umi-request';
+import request from '@/utils/request';
 
-async function getData(dataSource: DataSource) {
+async function getData(dataSource: DataSource, commonHeaders: Record<string, any>) {
   if (dataSource.type === 'static') {
     try {
       return dataSource.data;
@@ -23,12 +23,15 @@ async function getData(dataSource: DataSource) {
       method,
       headers: {},
       params: {},
-      data: '',
-      errorHandler: () => null,
+      data: {},
     };
 
+    if (commonHeaders) {
+      options.headers = commonHeaders || {};
+    }
+
     if (headers) {
-      options.headers = headers;
+      options.headers = { ...options.headers, ...headers };
     }
 
     if (params) {
@@ -39,13 +42,13 @@ async function getData(dataSource: DataSource) {
       }
     }
     const res = await request(url, options);
-    return res.code === 0 ? res.data : null;
+    return res && res.code === 0 ? res.data : null;
   }
 
   return null;
 }
 
-function useDataSource(dataSource: DataSource) {
+function useDataSource(dataSource: DataSource, commonHeaders: Record<string, any>) {
   const { data, run } = useRequest(getData, {
     manual: true,
     // @ts-ignore
@@ -53,8 +56,8 @@ function useDataSource(dataSource: DataSource) {
   });
 
   useEffect(() => {
-    run(dataSource);
-  }, [dataSource, run]);
+    run(dataSource, commonHeaders);
+  }, [dataSource, commonHeaders, run]);
 
   return data;
 }

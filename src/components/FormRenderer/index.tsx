@@ -20,6 +20,8 @@ import {
 import React, { useEffect, useRef } from 'react';
 import CustomInputNumber from '@/components/form/CustomInputNumber';
 import styles from './index.less';
+import JsonInput from '../form/JsonInput';
+import JsonInputButton from '../form/JsonInputButton';
 
 type DefaultValue = string | number | boolean | any[];
 
@@ -32,6 +34,8 @@ type FieldConfigType =
   | 'switch'
   | 'imgPicker'
   | 'slider'
+  | 'json'
+  | 'jsonButton'
   /** 配置项的集合，放在一栏显示，配置不同属性 */
   | 'suit'
   /** 配置项的集合，放在一栏显示，配置相同属性 */
@@ -128,6 +132,12 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
     }
     if (item.type === 'slider') {
       component = <Slider {...comProps} />;
+    }
+    if (item.type === 'json') {
+      component = <JsonInput {...comProps} />;
+    }
+    if (item.type === 'jsonButton') {
+      component = <JsonInputButton {...comProps} />;
     }
 
     return (

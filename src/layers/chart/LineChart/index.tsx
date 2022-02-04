@@ -1,15 +1,15 @@
 import useDataSource from '@/hooks/useDataSource';
 import useECharts from '@/hooks/useEcharts';
-import type { LayerConfig } from '@/layers/typing';
+import type { ComponentConfig } from '@/layers/typing';
 import type * as echarts from 'echarts';
 import { get } from 'lodash';
 import { useRef } from 'react';
 
-const LineChart: React.FC<LayerConfig> = (props) => {
+const LineChart: React.FC<ComponentConfig> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { view, dataSource, configValues } = props;
+  const { view, dataSource, configValues, board } = props;
 
-  const data = useDataSource(dataSource);
+  const data = useDataSource(dataSource, board.commonHeaders);
 
   const option: echarts.EChartsOption = {
     series: configValues.series.map((s: any, index: number) => ({
