@@ -31,5 +31,5 @@ const getStaticData = (configValues: any): any => {
   return { ...data, y: data.y.slice(0, seriesLength) };
 };
 
-const type = 'LineChart';
+const type = 'BarChart';
 export { type, data, getStaticData };

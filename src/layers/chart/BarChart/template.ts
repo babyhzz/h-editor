@@ -1,10 +1,10 @@
 import type { LayerTemplate } from '@/layers/typing';
 
 const BasicLineChartTemplate: LayerTemplate = {
-  type: 'LineChart',
+  type: 'BarChart',
   category: 'chart',
   icon: 'icon-comp-LineChart',
-  name: '折线图',
+  name: '柱状图',
   width: 400,
   height: 300,
   config: [
@@ -38,7 +38,6 @@ const BasicLineChartTemplate: LayerTemplate = {
           type: 'number',
           default: 5,
         },
-        {},
         // 折线柱状图配置项不一样
         // {
         //   key: 'type',

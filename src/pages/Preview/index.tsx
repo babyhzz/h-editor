@@ -49,7 +49,7 @@ const Preview: React.FC<PreviewProps> = (props) => {
               opacity: view.opacity,
             }}
           >
-            <DynamicComponent {...layer} />
+            <DynamicComponent {...layer} board={board} />
           </div>
         );
       })}
