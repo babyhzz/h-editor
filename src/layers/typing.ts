@@ -61,12 +61,20 @@ export interface LayerViewConfig {
 export interface LayerConfig {
   /** 组件id，一个看板内唯一 */
   id: string;
-  type: string;
+  /** 图层名称 */
+  name: string;
   /** 组件Icon */
   icon: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  opacity: number;
+  comName: string;
+  comProps: any;
   config: FormConfig;
-  configValues: any;
-  view: LayerViewConfig;
+  // configValues: any;
+  // view: LayerViewConfig;
   dataSource: DataSource;
 }
 

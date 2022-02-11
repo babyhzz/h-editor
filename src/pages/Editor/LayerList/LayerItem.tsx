@@ -19,7 +19,7 @@ const LayerItem: React.FC<LayerItemProps> = (props) => {
           <IconFont type={layer.icon} className={styles.libIcon} />
         </div>
         <span className="ellipsis" style={{ width: 110 }}>
-          {layer.view.name}
+          {layer.name}
         </span>
       </div>
     </div>

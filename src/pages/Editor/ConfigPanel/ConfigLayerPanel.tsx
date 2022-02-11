@@ -38,17 +38,17 @@ const ConfigLayerPanel: React.FC<LayerConfigPanelProps> = (props) => {
   };
 
   const handleConfigChange = (values: any) => {
-    const { payload: configValues } = dispatch({
+    const { payload: comProps } = dispatch({
       type: 'editor/updateLayerConfig',
       payload: values,
     });
 
     const dataSource = selectedLayer.dataSource;
     if (dataSource.type === 'static') {
-      const interaction = interactionMap[selectedLayer.type];
+      const interaction = interactionMap[selectedLayer.comName];
       if (interaction) {
         const { getStaticData } = interaction;
-        const data = getStaticData(configValues);
+        const data = getStaticData(comProps);
         handleDataSourceChange({ data: data });
       }
     }
@@ -60,14 +60,14 @@ const ConfigLayerPanel: React.FC<LayerConfigPanelProps> = (props) => {
         <FormRenderer
           key="view"
           config={viewConfig}
-          value={selectedLayer.view}
+          value={selectedLayer}
           onChange={handleViewChange}
         />
         <Divider style={{ margin: '0 0 8px' }} />
         <FormRenderer
           key="config"
           config={selectedLayer.config}
-          value={selectedLayer.configValues}
+          value={selectedLayer.comProps}
           onChange={handleConfigChange}
         />
       </TabPane>

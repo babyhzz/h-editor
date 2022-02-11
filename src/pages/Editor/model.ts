@@ -65,11 +65,13 @@ const editor: EditorModel = {
     },
     updateLayerView(state, { payload }) {
       const layer = state.layers.find((l: any) => l.id === state.selectedId);
-      layer.view = { ...layer.view, ...payload };
+      Object.keys(payload).forEach((key) => {
+        layer[key] = payload[key];
+      });
     },
     updateLayerConfig(state, { payload }) {
       const layer = state.layers.find((l: any) => l.id === state.selectedId);
-      layer.configValues = { ...layer.configValues, ...payload };
+      layer.comProps = { ...layer.comProps, ...payload };
     },
     updateLayerDataSource(state, { payload }) {
       const layer = state.layers.find((l: any) => l.id === state.selectedId);

@@ -38,7 +38,6 @@ const BasicLineChartTemplate: LayerTemplate = {
           type: 'number',
           default: 5,
         },
-        {},
         // 折线柱状图配置项不一样
         // {
         //   key: 'type',

@@ -21,16 +21,12 @@ interface DragResizeItemProps {
 const DragResizeItem: React.FC<DragResizeItemProps> = (props) => {
   const { layer, selectedId, board, dispatch } = props;
 
-  const {
-    id,
-    type,
-    view: { width, height, opacity, x, y },
-  } = layer;
+  const { id, comName, width, height, opacity, x, y } = layer;
 
   const active = selectedId === id;
   const scale = board.scale;
 
-  const DynamicComponent = useMemo(() => componentMap[type], [type]);
+  const DynamicComponent = useMemo(() => componentMap[comName], [comName]);
 
   const handleRndDragStart = () => {
     dispatch({ type: 'editor/selectLayer', payload: layer });

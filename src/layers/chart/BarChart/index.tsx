@@ -7,12 +7,12 @@ import { useRef } from 'react';
 
 const BarChart: React.FC<ComponentConfig> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { view, dataSource, configValues, board } = props;
+  const { width, height, dataSource, comProps, board } = props;
 
   const data = useDataSource(dataSource, board.commonHeaders);
 
   const option: echarts.EChartsOption = {
-    series: configValues.series.map((s: any, index: number) => ({
+    series: comProps.series.map((s: any, index: number) => ({
       type: 'bar',
       name: get(data, `y[${index}].name`),
       data: get(data, `y[${index}].data`) || [],
@@ -22,22 +22,22 @@ const BarChart: React.FC<ComponentConfig> = (props) => {
       },
     })),
     xAxis: {
-      show: configValues.xAxisShow,
+      show: comProps.xAxisShow,
       type: 'category',
       boundaryGap: true,
       axisTick: {
         alignWithLabel: true,
       },
       splitLine: {
-        show: configValues.xAxisSplitLineShow,
+        show: comProps.xAxisSplitLineShow,
       },
       data: get(data, 'x') || [],
     },
     yAxis: {
       type: 'value',
-      show: configValues.yAxisShow,
+      show: comProps.yAxisShow,
       splitLine: {
-        show: configValues.yAxisSplitLineShow,
+        show: comProps.yAxisSplitLineShow,
       },
     },
     tooltip: {
@@ -50,7 +50,7 @@ const BarChart: React.FC<ComponentConfig> = (props) => {
 
   useECharts(containerRef, option);
 
-  // console.log('configValues', configValues);
+  // console.log('comProps', comProps);
   // console.log('option', option);
   // console.log('data', data);
 
@@ -58,9 +58,9 @@ const BarChart: React.FC<ComponentConfig> = (props) => {
     <div
       ref={containerRef}
       style={{
-        width: view.width,
-        height: view.height,
-        backgroundColor: configValues.backgroundColor,
+        width: width,
+        height: height,
+        backgroundColor: comProps.backgroundColor,
       }}
     />
   );

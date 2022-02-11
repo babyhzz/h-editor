@@ -25,8 +25,8 @@ const data = {
 };
 
 /** 根据配置获取静态数据 */
-const getStaticData = (configValues: any): any => {
-  const seriesLength = configValues.series.length;
+const getStaticData = (comProps: any): any => {
+  const seriesLength = comProps.series.length;
 
   return { ...data, y: data.y.slice(0, seriesLength) };
 };

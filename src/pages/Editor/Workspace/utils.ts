@@ -33,6 +33,7 @@ export function getLayerConfigFromTemplate(
   console.log(e);
 
   let x = offsetX - template.width / 2;
+
   console.log('before x: ', x);
   if (x < 0) {
     x = 0;
@@ -51,28 +52,26 @@ export function getLayerConfigFromTemplate(
   }
   console.log('after y: ', y);
 
-  const configValues = getDefaultValues(template.config);
+  const comProps = getDefaultValues(template.config);
 
   const { data, getStaticData } = interactionMap[template.type] || {};
   let staticData = data;
   if (getStaticData) {
-    staticData = getStaticData(configValues);
+    staticData = getStaticData(comProps);
   }
 
   return {
     id: `${template.type}-${randomString()}`,
-    type: template.type,
+    comName: template.type,
     icon: template.icon,
-    view: {
-      width: template.width,
-      height: template.height,
-      x: x,
-      y: y,
-      opacity: 1,
-      name: `${template.name}-${randomString()}`,
-    },
+    width: template.width,
+    height: template.height,
+    x: x,
+    y: y,
+    opacity: 1,
+    name: `${template.name}-${randomString()}`,
     config: template.config,
-    configValues: configValues,
+    comProps: comProps,
     dataSource: {
       type: 'static',
       // data: JSON.stringify(staticData, null, 2),
