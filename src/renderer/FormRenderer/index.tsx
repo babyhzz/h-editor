@@ -23,57 +23,16 @@ import styles from './index.less';
 import JsonInput from '../../components/form/JsonInput';
 import JsonInputButton from '../../components/form/JsonInputButton';
 
-type DefaultValue = string | number | boolean | any[];
+const { Panel } = Collapse;
+const { TabPane } = Tabs;
 
-type FieldConfigType =
-  | 'text'
-  | 'number'
-  | 'select'
-  | 'color'
-  | 'radioButton'
-  | 'switch'
-  | 'imgPicker'
-  | 'slider'
-  | 'json'
-  | 'jsonButton'
-  /** 配置项的集合，放在一栏显示，配置不同属性 */
-  | 'suit'
-  /** 配置项的集合，放在一栏显示，配置相同属性 */
-  | 'same'
-  /** 用于折叠款的属性，折叠款仅用于归类 */
-  | 'none'
-  /** 数组类型的配置 */
-  | 'array';
-
-interface FieldConfig {
-  key: string;
-  type: FieldConfigType;
-  name: string;
-  description?: string;
-  default?: DefaultValue;
-  comProps?: Record<string, any>;
-}
-
-interface FieldGroupConfig extends FieldConfig {
-  /** max只针对array */
-  max?: number;
-  children: FormItem[];
-}
-
-type FormItem = FieldGroupConfig | FieldConfig;
-
-export type FormConfig = FormItem[];
+const itemKey = (item: FieldConfig) => `${item.key}-${item.type}`;
 
 interface FormRendererProps {
   config: FormConfig;
   value: any;
   onChange?: (values: any) => void;
 }
-
-const { Panel } = Collapse;
-const { TabPane } = Tabs;
-
-const itemKey = (item: FieldConfig) => `${item.key}-${item.type}`;
 
 const FormRenderer: React.FC<FormRendererProps> = (props) => {
   const { config, value, onChange } = props;
