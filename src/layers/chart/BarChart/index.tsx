@@ -8,7 +8,7 @@ const BarChart: React.FC<ComponentConfig> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { width, height, dataSource, comProps, board } = props;
 
-  const data = useDataSource(dataSource, board.commonHeaders);
+  const data = useDataSource(dataSource, board.dataSourceHeaders);
 
   const option: echarts.EChartsOption = {
     series: comProps.series.map((s: any, index: number) => ({

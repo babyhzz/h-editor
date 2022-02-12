@@ -7,20 +7,20 @@
                 <mxCell id="14" value="&lt;h1&gt;渲染器&lt;/h1&gt;&lt;div&gt;渲染器提供基础渲染功能，可作为单独模块，若想被渲染，需满足格式定义&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="18" y="-801" width="236" height="120" as="geometry"/>
                 </mxCell>
-                <mxCell id="15" value="" style="group" parent="1" vertex="1" connectable="0">
-                    <mxGeometry x="23" y="-683" width="200" height="303" as="geometry"/>
+                <mxCell id="7" value="渲染器&lt;br&gt;Renderer" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="23" y="-683" width="200" height="352" as="geometry"/>
                 </mxCell>
-                <mxCell id="7" value="渲染器&lt;br&gt;Renderer" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=top;" parent="15" vertex="1">
-                    <mxGeometry width="200" height="266.86238532110093" as="geometry"/>
+                <mxCell id="8" value="配置表单渲染器&lt;br&gt;FormRenderer" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="32.5" y="-640.3740544539804" width="181" height="57.016129032258064" as="geometry"/>
                 </mxCell>
-                <mxCell id="8" value="配置表单渲染器&lt;br&gt;FormRenderer" style="rounded=0;whiteSpace=wrap;html=1;" parent="15" vertex="1">
-                    <mxGeometry x="9.5" y="42.62594554601953" width="181" height="57.016129032258064" as="geometry"/>
+                <mxCell id="11" value="大屏渲染器&lt;br&gt;BoardRenderer" style="rounded=0;whiteSpace=wrap;html=1;horizontal=1;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="32.5" y="-567.34" width="181" height="219.34" as="geometry"/>
                 </mxCell>
-                <mxCell id="11" value="大屏渲染器&lt;br&gt;BoardRenderer" style="rounded=0;whiteSpace=wrap;html=1;horizontal=1;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=top;" parent="15" vertex="1">
-                    <mxGeometry x="9.5" y="115.6588990825688" width="181" height="126.18513761467891" as="geometry"/>
+                <mxCell id="13" value="图层渲染器&lt;br&gt;LayerRenderer&lt;br&gt;（预览+编辑模式）" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="43.5" y="-519.92" width="159" height="150.92" as="geometry"/>
                 </mxCell>
-                <mxCell id="13" value="图层渲染器&lt;br&gt;LayerRenderer&lt;br&gt;（预览+编辑模式）" style="rounded=0;whiteSpace=wrap;html=1;" parent="15" vertex="1">
-                    <mxGeometry x="20.5" y="163.07838413731875" width="159" height="57.016129032258064" as="geometry"/>
+                <mxCell id="17" value="组件解析器&lt;br&gt;ComponentResolver" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="65" y="-452" width="120" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

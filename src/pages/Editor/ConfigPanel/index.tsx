@@ -1,4 +1,3 @@
-import type { LayerConfig } from '@/layers/typing';
 import { connect } from 'umi';
 import ConfigBoardPanel from './ConfigBoardPanel';
 import ConfigLayerPanel from './ConfigLayerPanel';

@@ -150,7 +150,7 @@ interface BoardConfig {
   backgroundColor?: string;
   backgroundImage?: string;
   scale: number;
-  commonHeaders?: Record<string, any>;
+  dataSourceHeaders?: Record<string, string>;
 }
 
 /** 大屏配置 */

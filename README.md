@@ -1,5 +1,5 @@
 TODO
 - [ ] 提取渲染器
-  - [ ] FormRenderer
+  - [x] FormRenderer 表单渲染器
   - [ ] LayerRenderer
   - [ ] BoardRenderer
