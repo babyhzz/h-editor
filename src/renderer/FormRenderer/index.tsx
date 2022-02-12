@@ -20,8 +20,8 @@ import {
 import React, { useEffect, useRef } from 'react';
 import CustomInputNumber from '@/components/form/CustomInputNumber';
 import styles from './index.less';
-import JsonInput from '../form/JsonInput';
-import JsonInputButton from '../form/JsonInputButton';
+import JsonInput from '../../components/form/JsonInput';
+import JsonInputButton from '../../components/form/JsonInputButton';
 
 type DefaultValue = string | number | boolean | any[];
 

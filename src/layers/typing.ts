@@ -1,4 +1,4 @@
-import type { FormConfig } from '@/components/FormRenderer';
+import type { FormConfig } from '@/renderer/FormRenderer';
 
 export type LayerCategory = 'info' | 'chart' | 'media';
 

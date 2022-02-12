@@ -1,4 +1,4 @@
-import FormRenderer from '@/components/FormRenderer';
+import FormRenderer from '@/renderer/FormRenderer';
 import type { BoardConfig } from '@/layers/typing';
 import type { Dispatch } from 'umi';
 import React from 'react';

@@ -1,4 +1,4 @@
-import type { FormConfig } from '@/components/FormRenderer';
+import type { FormConfig } from '@/renderer/FormRenderer';
 import { interactionMap } from '@/layers';
 import type { LayerConfig, LayerTemplate } from '@/layers/typing';
 
