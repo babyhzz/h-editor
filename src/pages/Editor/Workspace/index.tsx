@@ -1,4 +1,3 @@
-import type { BoardConfig, LayerConfig, LayerTemplate } from '@/layers/typing';
 import { useDrop } from 'ahooks';
 import type { MouseEventHandler } from 'react';
 import React, { useRef } from 'react';

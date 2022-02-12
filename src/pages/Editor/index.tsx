@@ -1,5 +1,3 @@
-import type { BoardConfig } from '@/layers/typing';
-import { DisplayMode } from '@/layers/typing';
 import React, { useEffect } from 'react';
 import type { Dispatch } from 'umi';
 import { connect } from 'umi';

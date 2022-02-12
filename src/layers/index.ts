@@ -23,4 +23,6 @@ interactionContext.keys().forEach((key) => {
   interactionMap[type] = rest;
 });
 
+console.log(require.context('./', true).keys());
+
 export { componentMap, templateMap, templateGroup, interactionMap };

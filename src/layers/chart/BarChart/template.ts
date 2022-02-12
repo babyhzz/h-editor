@@ -1,5 +1,3 @@
-import type { LayerTemplate } from '@/layers/typing';
-
 const BasicLineChartTemplate: LayerTemplate = {
   type: 'BarChart',
   category: 'chart',
