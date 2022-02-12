@@ -1,5 +1,3 @@
-import type { LayerConfig } from '@/layers/typing';
-
 const TitleBg: React.FC<LayerConfig> = (props) => {
   const { comProps } = props;
   return (

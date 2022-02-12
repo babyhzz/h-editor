@@ -1,5 +1,4 @@
 import SwitchButton, { IconButton } from '@/components/SwitchButton';
-import type { BoardConfig } from '@/layers/typing';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { Space, Slider } from 'antd';
 import { round } from 'lodash';

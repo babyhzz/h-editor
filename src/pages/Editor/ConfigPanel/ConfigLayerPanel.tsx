@@ -1,5 +1,4 @@
 import FormRenderer from '@/renderer/FormRenderer';
-import type { LayerConfig, LayerViewConfig } from '@/layers/typing';
 import { Divider, Tabs } from 'antd';
 import React from 'react';
 import type { Dispatch } from 'umi';

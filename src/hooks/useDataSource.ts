@@ -1,9 +1,8 @@
-import type { DataSource } from '@/layers/typing';
 import { useRequest } from 'ahooks';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import request from '@/utils/request';
 
-async function getData(dataSource: DataSource, commonHeaders: Record<string, any>) {
+async function getData(dataSource: DataSource, commonHeaders: Record<string, any> | undefined) {
   if (dataSource.type === 'static') {
     try {
       return dataSource.data;
@@ -48,7 +47,7 @@ async function getData(dataSource: DataSource, commonHeaders: Record<string, any
   return null;
 }
 
-function useDataSource(dataSource: DataSource, commonHeaders: Record<string, any>) {
+function useDataSource(dataSource: DataSource, commonHeaders: Record<string, any> | undefined) {
   const { data, run } = useRequest(getData, {
     manual: true,
     // @ts-ignore

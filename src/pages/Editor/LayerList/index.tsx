@@ -1,4 +1,3 @@
-import type { LayerConfig } from '@/layers/typing';
 import classNames from 'classnames';
 import type { Dispatch } from 'umi';
 import { connect } from 'umi';

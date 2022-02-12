@@ -1,5 +1,4 @@
 import { templateGroup } from '@/layers';
-import type { LayerTemplate } from '@/layers/typing';
 import { Tabs } from 'antd';
 import type { ReactNode } from 'react';
 import React from 'react';
@@ -12,7 +11,7 @@ const { TabPane } = Tabs;
 type Lib = {
   name: string;
   icon: ReactNode;
-  children: LayerTemplate[];
+  children: ComponentTemplate[];
 };
 
 const libs: Lib[] = [

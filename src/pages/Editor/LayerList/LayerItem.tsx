@@ -1,5 +1,4 @@
 import IconFont from '@/components/IconFont';
-import type { LayerConfig } from '@/layers/typing';
 import classNames from 'classnames';
 import styles from './index.less';
 

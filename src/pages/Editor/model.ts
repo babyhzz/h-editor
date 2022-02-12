@@ -1,4 +1,3 @@
-import type { BoardConfig, LayerConfig } from '@/layers/typing';
 import type { Reducer, Subscription } from 'umi';
 import { isNil } from 'lodash';
 interface EditorModel {

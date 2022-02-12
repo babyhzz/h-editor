@@ -4,7 +4,7 @@
  */
 import type { ResponseError } from 'umi-request';
 import { extend } from 'umi-request';
-import { message, notification } from 'antd';
+import { message } from 'antd';
 
 const codeMessage: Record<number, string> = {
   200: '服务器成功返回请求的数据。',

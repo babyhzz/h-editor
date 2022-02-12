@@ -1,4 +1,3 @@
-import type { DataSource } from '@/layers/typing';
 import { Form, Input, Radio, ConfigProvider } from 'antd';
 import JsonInput from '@/components/form/JsonInput';
 import { useEffect } from 'react';

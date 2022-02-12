@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="G8auiXpXaOgUYgz5J3JE" name="渲染器">
-        <mxGraphModel dx="619" dy="1454" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="619" dy="1160" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -19,7 +19,7 @@
                 <mxCell id="11" value="大屏渲染器&lt;br&gt;BoardRenderer" style="rounded=0;whiteSpace=wrap;html=1;horizontal=1;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=top;" parent="15" vertex="1">
                     <mxGeometry x="9.5" y="115.6588990825688" width="181" height="126.18513761467891" as="geometry"/>
                 </mxCell>
-                <mxCell id="13" value="图层渲染器&lt;br&gt;LayerRenderer" style="rounded=0;whiteSpace=wrap;html=1;" parent="15" vertex="1">
+                <mxCell id="13" value="图层渲染器&lt;br&gt;LayerRenderer&lt;br&gt;（预览+编辑模式）" style="rounded=0;whiteSpace=wrap;html=1;" parent="15" vertex="1">
                     <mxGeometry x="20.5" y="163.07838413731875" width="159" height="57.016129032258064" as="geometry"/>
                 </mxCell>
             </root>

@@ -1,11 +1,10 @@
-import type { LayerTemplate } from '@/layers/typing';
 import styles from './index.less';
 import thumbMap from '@/assets/thumb';
 import { useDrag } from 'ahooks';
 import { useRef } from 'react';
 
 interface ComponentThumbProps {
-  template: LayerTemplate;
+  template: ComponentTemplate;
 }
 
 const ComponentThumb: React.FC<ComponentThumbProps> = (props) => {

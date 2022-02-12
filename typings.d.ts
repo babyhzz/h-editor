@@ -128,8 +128,6 @@ interface LayerConfig {
   comName: string;
   comProps: any;
   config: FormConfig;
-  // configValues: any;
-  // view: LayerViewConfig;
   dataSource: DataSource;
 }
 
@@ -143,6 +141,7 @@ declare enum DisplayMode {
   FIT_HEIGHT = 3,
 }
 
+/** 看板配置 */
 interface BoardConfig {
   width: number;
   height: number;
@@ -151,13 +150,13 @@ interface BoardConfig {
   backgroundColor?: string;
   backgroundImage?: string;
   scale: number;
-  commonHeaders: Record<string, any>;
+  commonHeaders?: Record<string, any>;
 }
 
-interface BigBoard {
+/** 大屏配置 */
+interface BigBoard extends BoardConfig {
   name: string;
   thumbnail?: string;
-  config: BoardConfig;
   layers: LayerConfig[];
 }
 

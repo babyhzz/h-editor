@@ -1,6 +1,4 @@
-import type { FormConfig } from '@/renderer/FormRenderer';
 import { interactionMap } from '@/layers';
-import type { LayerConfig, LayerTemplate } from '@/layers/typing';
 
 function randomString() {
   return Math.random().toString(36).substring(8);
@@ -22,7 +20,7 @@ function getDefaultValues(config: FormConfig): Record<string, any> {
 
 export function getLayerConfigFromTemplate(
   e: React.DragEvent,
-  template: LayerTemplate,
+  template: ComponentTemplate,
   boardWidth: number,
   boardHeight: number,
 ): LayerConfig {

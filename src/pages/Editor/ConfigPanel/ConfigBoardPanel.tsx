@@ -1,5 +1,4 @@
 import FormRenderer from '@/renderer/FormRenderer';
-import type { BoardConfig } from '@/layers/typing';
 import type { Dispatch } from 'umi';
 import React from 'react';
 import { connect } from 'umi';

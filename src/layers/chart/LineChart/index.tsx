@@ -1,6 +1,5 @@
 import useDataSource from '@/hooks/useDataSource';
 import useECharts from '@/hooks/useEcharts';
-import type { ComponentConfig } from '@/layers/typing';
 import type * as echarts from 'echarts';
 import { get } from 'lodash';
 import { useRef } from 'react';

@@ -1,6 +1,4 @@
 import { componentMap } from '@/layers';
-import type { BoardConfig, LayerViewConfig } from '@/layers/typing';
-import type { LayerConfig } from '@/layers/typing';
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import type { DraggableData, Position } from 'react-rnd';

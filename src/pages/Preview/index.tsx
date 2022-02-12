@@ -1,5 +1,4 @@
 import { componentMap } from '@/layers';
-import type { BoardConfig, LayerConfig } from '@/layers/typing';
 import { useSize } from 'ahooks';
 import { useMemo } from 'react';
 import { connect } from 'umi';
@@ -34,19 +33,18 @@ const Preview: React.FC<PreviewProps> = (props) => {
       className={styles.board}
     >
       {layers.map((layer) => {
-        const DynamicComponent = componentMap[layer.type];
-        const { view } = layer;
+        const DynamicComponent = componentMap[layer.comName];
 
         return (
           <div
             key={layer.id}
             style={{
               position: 'absolute',
-              left: view.x,
-              top: view.y,
-              width: view.width,
-              height: view.height,
-              opacity: view.opacity,
+              left: layer.x,
+              top: layer.y,
+              width: layer.width,
+              height: layer.height,
+              opacity: layer.opacity,
             }}
           >
             <DynamicComponent {...layer} board={board} />
