@@ -1,6 +1,4 @@
-import type { LayerTemplate } from '@/layers/typing';
-
-const BasicLineChartTemplate: LayerTemplate = {
+const BasicLineChartTemplate: ComponentTemplate = {
   type: 'LineChart',
   category: 'chart',
   icon: 'icon-comp-LineChart',

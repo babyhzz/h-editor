@@ -19,7 +19,7 @@ const Workspace: React.FC<WorkspaceProps> = (props) => {
   const dropRef = useRef<HTMLDivElement>(null);
 
   useDrop(dropRef, {
-    onDom: (template: LayerTemplate, e?: React.DragEvent) => {
+    onDom: (template: ComponentTemplate, e?: React.DragEvent) => {
       const layer = getLayerConfigFromTemplate(e!, template, board.width, board.height);
       dispatch({ type: 'editor/addLayer', payload: layer });
     },

@@ -1,5 +1,3 @@
-import type { LayerConfig } from '@/layers/typing';
-
 const BasicTitle: React.FC<LayerConfig> = (props) => {
   const { width, height, comProps } = props;
 

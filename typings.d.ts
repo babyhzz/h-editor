@@ -62,7 +62,7 @@ interface DataField {
   description: string;
 }
 
-interface LayerTemplate {
+interface ComponentTemplate {
   /** 唯一确定组件 */
   type: string;
 

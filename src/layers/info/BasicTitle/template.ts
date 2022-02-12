@@ -1,6 +1,4 @@
-import type { LayerTemplate } from '@/layers/typing';
-
-const BasicTitleTemplate: LayerTemplate = {
+const BasicTitleTemplate: ComponentTemplate = {
   type: 'BasicTitle',
   category: 'info',
   icon: 'icon-comp-Text',

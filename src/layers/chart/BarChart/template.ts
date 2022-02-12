@@ -1,4 +1,4 @@
-const BasicLineChartTemplate: LayerTemplate = {
+const BasicLineChartTemplate: ComponentTemplate = {
   type: 'BarChart',
   category: 'chart',
   icon: 'icon-comp-LineChart',

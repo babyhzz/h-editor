@@ -1,6 +1,4 @@
-import type { LayerTemplate } from '@/layers/typing';
-
-const BgBlock: LayerTemplate = {
+const BgBlock: ComponentTemplate = {
   type: 'BgBlock',
   category: 'media',
   icon: 'icon-comp-BgBlock',
