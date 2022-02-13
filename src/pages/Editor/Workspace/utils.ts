@@ -69,7 +69,6 @@ export function getLayerConfigFromTemplate(
     y: y,
     opacity: 1,
     name: `${template.name}-${randomString()}`,
-    config: template.config,
     dataSource: {
       type: 'static',
       // data: JSON.stringify(staticData, null, 2),

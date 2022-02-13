@@ -6,7 +6,7 @@ import { connect } from 'umi';
 import DataSourceForm from './DataSourceForm';
 import styles from './index.less';
 import { viewConfig } from './config';
-import { interactionMap } from '@/layers-components';
+import { interactionMap, resolveTemplate } from '@/layers-components';
 
 const { TabPane } = Tabs;
 
@@ -53,6 +53,7 @@ const ConfigLayerPanel: React.FC<LayerConfigPanelProps> = (props) => {
     }
   };
 
+  const config = resolveTemplate(selectedLayer.comName).config;
   return (
     <Tabs defaultActiveKey="1" className={styles.configTabs} tabPosition="top" animated={false}>
       <TabPane tab="配置" key="config" style={{ overflow: 'auto' }}>
@@ -65,7 +66,7 @@ const ConfigLayerPanel: React.FC<LayerConfigPanelProps> = (props) => {
         <Divider style={{ margin: '0 0 8px' }} />
         <FormRenderer
           key="config"
-          config={selectedLayer.config}
+          config={config}
           value={selectedLayer.comProps}
           onChange={handleConfigChange}
         />

@@ -1,4 +1,4 @@
-import resolveComponent from '@/layers-components';
+import { resolveComponent } from '@/layers-components';
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import type { DraggableData, Position } from 'react-rnd';

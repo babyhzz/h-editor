@@ -127,7 +127,6 @@ interface LayerConfig {
   opacity: number;
   comName: string;
   comProps: any;
-  config: FormConfig;
   dataSource: DataSource;
 }
 
@@ -135,11 +134,13 @@ interface ComponentConfig extends LayerConfig {
   board: BoardConfig;
 }
 
-declare const enum DisplayMode {
-  FULL_SCREEN = 1,
-  FIT_WIDTH = 2,
-  FIT_HEIGHT = 3,
-}
+type DisplayMode =
+  /* FULL_SCREEN */
+  | 1
+  /* FIT_WIDTH */
+  | 2
+  /* FIT_HEIGHT */
+  | 3;
 
 /** 看板配置 */
 interface BoardConfig {

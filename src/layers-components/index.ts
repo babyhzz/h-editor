@@ -27,10 +27,12 @@ console.log(require.context('./', true).keys());
 
 export { componentMap, templateMap, templateGroup, interactionMap };
 
-const resolveComponent = (name: string): LayerComponent => {
-  console.log('name===>', name);
-  console.log('componentMap', componentMap);
+export const resolveComponent = (name: string): LayerComponent => {
   return componentMap[name];
+};
+
+export const resolveTemplate = (name: string): any => {
+  return templateMap[name];
 };
 
 export default resolveComponent;

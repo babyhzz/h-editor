@@ -1,4 +1,4 @@
-import resolveComponent from '@/layers-components';
+import { resolveComponent } from '@/layers-components';
 import { useSize } from 'ahooks';
 import { useMemo } from 'react';
 import { connect } from 'umi';
