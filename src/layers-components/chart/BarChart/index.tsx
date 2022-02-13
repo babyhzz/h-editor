@@ -1,14 +1,14 @@
-import useDataSource from '@/hooks/useDataSource';
+// import useDataSource from '@/hooks/useDataSource';
 import useECharts from '@/hooks/useEcharts';
 import type * as echarts from 'echarts';
 import { get } from 'lodash';
 import { useRef } from 'react';
 
-const BarChart: React.FC<ComponentConfig> = (props) => {
+const BarChart: LayerComponent = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { width, height, dataSource, comProps, board } = props;
+  const { width, height, data, comProps } = props;
 
-  const data = useDataSource(dataSource, board.dataSourceHeaders);
+  // const data = useDataSource(dataSource, board.dataSourceHeaders);
 
   const option: echarts.EChartsOption = {
     series: comProps.series.map((s: any, index: number) => ({
@@ -48,10 +48,6 @@ const BarChart: React.FC<ComponentConfig> = (props) => {
   };
 
   useECharts(containerRef, option);
-
-  // console.log('comProps', comProps);
-  // console.log('option', option);
-  // console.log('data', data);
 
   return (
     <div

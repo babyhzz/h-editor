@@ -1,4 +1,4 @@
-const BasicTitle: React.FC<LayerConfig> = (props) => {
+const BasicTitle: LayerComponent = (props) => {
   const { width, height, comProps } = props;
 
   return (

@@ -130,10 +130,6 @@ interface LayerConfig {
   dataSource: DataSource;
 }
 
-interface ComponentConfig extends LayerConfig {
-  board: BoardConfig;
-}
-
 type DisplayMode =
   /* FULL_SCREEN */
   | 1
@@ -161,6 +157,11 @@ interface BigBoard extends BoardConfig {
   layers: LayerConfig[];
 }
 
-type LayerComponent = React.FC<any>;
-
+type LayerProps = LayerConfig;
+/** 组件需要的属性 */
+interface LayerComponentProps extends Pick<LayerProps, 'width' | 'height' | 'comProps'> {
+  /** 数据，动态数据的处理在外层layer层处理 */
+  data: any;
+}
+type LayerComponent = React.FC<LayerComponentProps>;
 /******************** 图层和大屏全局类型 end ************************/

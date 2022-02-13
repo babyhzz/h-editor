@@ -1,4 +1,4 @@
-const TitleBg: React.FC<LayerConfig> = (props) => {
+const TitleBg: LayerComponent = (props) => {
   const { comProps } = props;
   return (
     <div
