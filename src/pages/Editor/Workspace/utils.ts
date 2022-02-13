@@ -18,12 +18,12 @@ function getDefaultValues(config: FormConfig): Record<string, any> {
   }, {});
 }
 
-export function getLayerConfigFromTemplate(
+export function getLayerPropsFromTemplate(
   e: React.DragEvent,
   template: ComponentTemplate,
   boardWidth: number,
   boardHeight: number,
-): LayerConfig {
+): LayerProps {
   // TODO: 使用ahooks之后，之前的写法，为什么nativeEvent找不到了
   // const { offsetX, offsetY } = e.nativeEvent;
   // @ts-ignore

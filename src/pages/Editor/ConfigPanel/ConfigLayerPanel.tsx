@@ -10,12 +10,12 @@ import { interactionMap, resolveTemplate } from '@/layers-components';
 
 const { TabPane } = Tabs;
 
-interface LayerConfigPanelProps {
-  selectedLayer: LayerConfig;
+interface LayerPropsPanelProps {
+  selectedLayer: LayerProps;
   dispatch: Dispatch;
 }
 
-const ConfigLayerPanel: React.FC<LayerConfigPanelProps> = (props) => {
+const ConfigLayerPanel: React.FC<LayerPropsPanelProps> = (props) => {
   const { selectedLayer, dispatch } = props;
 
   const updateView = (view: Partial<LayerViewConfig>) => {
@@ -38,7 +38,7 @@ const ConfigLayerPanel: React.FC<LayerConfigPanelProps> = (props) => {
 
   const handleConfigChange = (values: any) => {
     const { payload: comProps } = dispatch({
-      type: 'editor/updateLayerConfig',
+      type: 'editor/updateLayerProps',
       payload: values,
     });
 
@@ -83,7 +83,7 @@ const ConfigLayerPanel: React.FC<LayerConfigPanelProps> = (props) => {
 
 export default connect((state: any) => {
   const { layers, selectedId } = state.editor;
-  const selectedLayer = layers.find((l: LayerConfig) => l.id === selectedId);
+  const selectedLayer = layers.find((l: LayerProps) => l.id === selectedId);
 
   return { selectedLayer };
 })(ConfigLayerPanel);

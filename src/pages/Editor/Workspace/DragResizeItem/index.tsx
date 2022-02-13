@@ -10,7 +10,7 @@ import { handleStyles } from './handleStyles';
 import { Menu, Dropdown } from 'antd';
 
 interface DragResizeItemProps {
-  layer: LayerConfig;
+  layer: LayerProps;
   selectedId: string | null;
   board: BoardConfig;
   dispatch: Dispatch;
@@ -19,7 +19,7 @@ interface DragResizeItemProps {
 const DragResizeItem: React.FC<DragResizeItemProps> = (props) => {
   const { layer, selectedId, board, dispatch } = props;
 
-  const { id, comName, width, height, opacity, x, y } = layer;
+  const { id, comName, comProps, width, height, opacity, x, y } = layer;
 
   const active = selectedId === id;
   const scale = board.scale;
@@ -82,7 +82,7 @@ const DragResizeItem: React.FC<DragResizeItemProps> = (props) => {
       // dragGrid={[board.grid, board.grid]}
       // resizeGrid={[board.grid, board.grid]}
     >
-      <LayerComponent {...layer} board={board} />
+      <LayerComponent width={width} height={height} comProps={comProps} data={{}} />
       <Dropdown overlay={menu} trigger={['contextMenu']}>
         <div
           className={classNames(styles.handleWrapperClass, {

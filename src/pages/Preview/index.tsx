@@ -6,7 +6,7 @@ import styles from './index.less';
 
 interface PreviewProps {
   board: BoardConfig;
-  layers: LayerConfig[];
+  layers: LayerProps[];
 }
 
 const Preview: React.FC<PreviewProps> = (props) => {

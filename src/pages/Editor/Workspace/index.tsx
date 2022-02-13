@@ -5,10 +5,10 @@ import type { Dispatch } from 'umi';
 import { connect } from 'umi';
 import DragResizeItem from './DragResizeItem';
 import styles from './index.less';
-import { getLayerConfigFromTemplate } from './utils';
+import { getLayerPropsFromTemplate } from './utils';
 
 interface WorkspaceProps {
-  layers: LayerConfig[];
+  layers: LayerProps[];
   board: BoardConfig;
   dispatch: Dispatch;
 }
@@ -20,7 +20,7 @@ const Workspace: React.FC<WorkspaceProps> = (props) => {
 
   useDrop(dropRef, {
     onDom: (template: ComponentTemplate, e?: React.DragEvent) => {
-      const layer = getLayerConfigFromTemplate(e!, template, board.width, board.height);
+      const layer = getLayerPropsFromTemplate(e!, template, board.width, board.height);
       dispatch({ type: 'editor/addLayer', payload: layer });
     },
   });

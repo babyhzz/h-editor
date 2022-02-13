@@ -10,7 +10,7 @@ import { reverse, cloneDeep } from 'lodash';
 
 interface LayerListProps {
   selectedId: string | null;
-  layers: LayerConfig[];
+  layers: LayerProps[];
   dispatch: Dispatch;
 }
 
@@ -39,7 +39,7 @@ const LayerList: React.FC<LayerListProps> = (props) => {
     [dispatch, layers],
   );
 
-  const handleLayerClick = (layer: LayerConfig) => {
+  const handleLayerClick = (layer: LayerProps) => {
     dispatch({ type: 'editor/selectLayer', payload: layer });
   };
 

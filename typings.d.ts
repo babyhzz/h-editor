@@ -51,6 +51,33 @@ type FormItem = FieldGroupConfig | FieldConfig;
 type FormConfig = FormItem[];
 /******************** FormRenderer 自定义全局类型 end ************************/
 
+/******************** 图层全局类型 begin ************************/
+
+interface LayerProps {
+  /** 组件id，一个看板内唯一 */
+  id: string;
+  /** 图层名称 */
+  name: string;
+  /** 组件Icon */
+  icon: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  opacity: number;
+  comName: string;
+  comProps: any;
+  dataSource: DataSource;
+}
+
+/** 组件需要的属性 */
+interface LayerComponentProps extends Pick<LayerProps, 'width' | 'height' | 'comProps'> {
+  /** 数据，动态数据的处理在外层layer层处理 */
+  data: any;
+}
+type LayerComponent = React.FC<LayerComponentProps>;
+/******************** 图层全局类型 end ************************/
+
 /******************** 图层和大屏全局类型 begin ************************/
 
 type LayerCategory = 'info' | 'chart' | 'media';
@@ -113,22 +140,6 @@ interface LayerViewConfig {
   y: number;
   opacity: number;
 }
-interface LayerConfig {
-  /** 组件id，一个看板内唯一 */
-  id: string;
-  /** 图层名称 */
-  name: string;
-  /** 组件Icon */
-  icon: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  opacity: number;
-  comName: string;
-  comProps: any;
-  dataSource: DataSource;
-}
 
 type DisplayMode =
   /* FULL_SCREEN */
@@ -154,14 +165,7 @@ interface BoardConfig {
 interface BigBoard extends BoardConfig {
   name: string;
   thumbnail?: string;
-  layers: LayerConfig[];
+  layers: LayerProps[];
 }
 
-type LayerProps = LayerConfig;
-/** 组件需要的属性 */
-interface LayerComponentProps extends Pick<LayerProps, 'width' | 'height' | 'comProps'> {
-  /** 数据，动态数据的处理在外层layer层处理 */
-  data: any;
-}
-type LayerComponent = React.FC<LayerComponentProps>;
 /******************** 图层和大屏全局类型 end ************************/

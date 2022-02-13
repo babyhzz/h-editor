@@ -3,7 +3,7 @@ import { isNil } from 'lodash';
 interface EditorModel {
   namespace: 'editor';
   state: {
-    layers: LayerConfig[];
+    layers: LayerProps[];
     /** 当前选择的图层 id */
     selectedId: string | null;
     board: BoardConfig;
@@ -18,7 +18,7 @@ interface EditorModel {
     selectLayer: Reducer;
     selectBoard: Reducer;
     updateLayerView: Reducer;
-    updateLayerConfig: Reducer;
+    updateLayerProps: Reducer;
     updateLayerDataSource: Reducer;
     initBoard: Reducer;
     updateBoard: Reducer;
@@ -68,7 +68,7 @@ const editor: EditorModel = {
         layer[key] = payload[key];
       });
     },
-    updateLayerConfig(state, { payload }) {
+    updateLayerProps(state, { payload }) {
       const layer = state.layers.find((l: any) => l.id === state.selectedId);
       layer.comProps = { ...layer.comProps, ...payload };
     },

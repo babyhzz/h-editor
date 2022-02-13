@@ -3,7 +3,7 @@ import ConfigBoardPanel from './ConfigBoardPanel';
 import ConfigLayerPanel from './ConfigLayerPanel';
 
 interface ConfigPanelProps {
-  selectedLayer: LayerConfig | null;
+  selectedLayer: LayerProps | null;
 }
 
 const ConfigPanel: React.FC<ConfigPanelProps> = (props) => {
@@ -13,7 +13,7 @@ const ConfigPanel: React.FC<ConfigPanelProps> = (props) => {
 
 export default connect((state: any) => {
   const { layers, selectedId } = state.editor;
-  const selectedLayer = layers.find((l: LayerConfig) => l.id === selectedId);
+  const selectedLayer = layers.find((l: LayerProps) => l.id === selectedId);
 
   return { selectedLayer };
 })(ConfigPanel);

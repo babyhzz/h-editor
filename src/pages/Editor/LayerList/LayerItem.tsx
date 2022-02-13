@@ -3,9 +3,9 @@ import classNames from 'classnames';
 import styles from './index.less';
 
 interface LayerItemProps {
-  layer: LayerConfig;
+  layer: LayerProps;
   className: string | undefined;
-  onClick: (layer: LayerConfig) => void;
+  onClick: (layer: LayerProps) => void;
 }
 
 const LayerItem: React.FC<LayerItemProps> = (props) => {
