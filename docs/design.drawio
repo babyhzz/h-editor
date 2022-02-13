@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="G8auiXpXaOgUYgz5J3JE" name="渲染器">
-        <mxGraphModel dx="619" dy="1160" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1153" dy="1486" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -19,8 +19,14 @@
                 <mxCell id="13" value="图层渲染器&lt;br&gt;LayerRenderer&lt;br&gt;（预览+编辑模式）" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" parent="1" vertex="1">
                     <mxGeometry x="43.5" y="-519.92" width="159" height="150.92" as="geometry"/>
                 </mxCell>
-                <mxCell id="17" value="组件解析器&lt;br&gt;ComponentResolver" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="17" value="组件解析器&lt;br&gt;DynamicComponent" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;" parent="1" vertex="1">
                     <mxGeometry x="65" y="-452" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="组件解析器&lt;br&gt;DynamicComponent" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" vertex="1" parent="1">
+                    <mxGeometry x="359" y="-681" width="782" height="352" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="基础标题&lt;br&gt;BasicTitle" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="378" y="-631" width="120" height="31" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

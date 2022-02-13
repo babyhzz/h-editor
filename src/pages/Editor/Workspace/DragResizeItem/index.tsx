@@ -1,4 +1,4 @@
-import { componentMap } from '@/layers';
+import resolveComponent from '@/layers-components';
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import type { DraggableData, Position } from 'react-rnd';
@@ -24,7 +24,9 @@ const DragResizeItem: React.FC<DragResizeItemProps> = (props) => {
   const active = selectedId === id;
   const scale = board.scale;
 
-  const DynamicComponent = useMemo(() => componentMap[comName], [comName]);
+  console.log('DragResizeItem layer', layer);
+  const LayerComponent = resolveComponent(comName);
+  console.log('LayerComponent:', LayerComponent);
 
   const handleRndDragStart = () => {
     dispatch({ type: 'editor/selectLayer', payload: layer });
@@ -80,7 +82,7 @@ const DragResizeItem: React.FC<DragResizeItemProps> = (props) => {
       // dragGrid={[board.grid, board.grid]}
       // resizeGrid={[board.grid, board.grid]}
     >
-      <DynamicComponent {...layer} board={board} />
+      <LayerComponent {...layer} board={board} />
       <Dropdown overlay={menu} trigger={['contextMenu']}>
         <div
           className={classNames(styles.handleWrapperClass, {

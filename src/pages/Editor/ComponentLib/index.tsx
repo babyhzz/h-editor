@@ -1,4 +1,4 @@
-import { templateGroup } from '@/layers';
+import { templateGroup } from '@/layers-components';
 import { Tabs } from 'antd';
 import type { ReactNode } from 'react';
 import React from 'react';

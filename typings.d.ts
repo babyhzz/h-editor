@@ -135,7 +135,7 @@ interface ComponentConfig extends LayerConfig {
   board: BoardConfig;
 }
 
-declare enum DisplayMode {
+declare const enum DisplayMode {
   FULL_SCREEN = 1,
   FIT_WIDTH = 2,
   FIT_HEIGHT = 3,
@@ -159,5 +159,7 @@ interface BigBoard extends BoardConfig {
   thumbnail?: string;
   layers: LayerConfig[];
 }
+
+type LayerComponent = React.FC<any>;
 
 /******************** 图层和大屏全局类型 end ************************/

@@ -1,6 +1,6 @@
 import { groupBy } from 'lodash';
 
-const componentMap: Record<string, any> = {};
+const componentMap: Record<string, LayerComponent> = {};
 const componentContext = require.context('./', true, /.tsx$/);
 componentContext.keys().forEach((key) => {
   const { default: component } = componentContext(key);
@@ -26,3 +26,11 @@ interactionContext.keys().forEach((key) => {
 console.log(require.context('./', true).keys());
 
 export { componentMap, templateMap, templateGroup, interactionMap };
+
+const resolveComponent = (name: string): LayerComponent => {
+  console.log('name===>', name);
+  console.log('componentMap', componentMap);
+  return componentMap[name];
+};
+
+export default resolveComponent;

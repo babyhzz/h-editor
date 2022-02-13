@@ -1,4 +1,4 @@
-import { componentMap } from '@/layers';
+import resolveComponent from '@/layers-components';
 import { useSize } from 'ahooks';
 import { useMemo } from 'react';
 import { connect } from 'umi';
@@ -33,7 +33,7 @@ const Preview: React.FC<PreviewProps> = (props) => {
       className={styles.board}
     >
       {layers.map((layer) => {
-        const DynamicComponent = componentMap[layer.comName];
+        const LayerComponent = resolveComponent(layer.comName);
 
         return (
           <div
@@ -47,7 +47,7 @@ const Preview: React.FC<PreviewProps> = (props) => {
               opacity: layer.opacity,
             }}
           >
-            <DynamicComponent {...layer} board={board} />
+            <LayerComponent {...layer} board={board} />
           </div>
         );
       })}

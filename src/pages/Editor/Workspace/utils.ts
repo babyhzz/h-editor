@@ -1,4 +1,4 @@
-import { interactionMap } from '@/layers';
+import { interactionMap } from '@/layers-components';
 
 function randomString() {
   return Math.random().toString(36).substring(8);
@@ -61,6 +61,7 @@ export function getLayerConfigFromTemplate(
   return {
     id: `${template.type}-${randomString()}`,
     comName: template.type,
+    comProps: comProps,
     icon: template.icon,
     width: template.width,
     height: template.height,
@@ -69,7 +70,6 @@ export function getLayerConfigFromTemplate(
     opacity: 1,
     name: `${template.name}-${randomString()}`,
     config: template.config,
-    comProps: comProps,
     dataSource: {
       type: 'static',
       // data: JSON.stringify(staticData, null, 2),

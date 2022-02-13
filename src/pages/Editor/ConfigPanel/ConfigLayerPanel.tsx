@@ -6,7 +6,7 @@ import { connect } from 'umi';
 import DataSourceForm from './DataSourceForm';
 import styles from './index.less';
 import { viewConfig } from './config';
-import { interactionMap } from '@/layers';
+import { interactionMap } from '@/layers-components';
 
 const { TabPane } = Tabs;
 
