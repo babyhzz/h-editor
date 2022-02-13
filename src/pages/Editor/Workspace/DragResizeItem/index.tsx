@@ -8,6 +8,7 @@ import { connect } from 'umi';
 import styles from './index.less';
 import { handleStyles } from './handleStyles';
 import { Menu, Dropdown } from 'antd';
+import useDataSource from '@/hooks/useDataSource';
 
 interface DragResizeItemProps {
   layer: LayerProps;
@@ -18,6 +19,8 @@ interface DragResizeItemProps {
 
 const DragResizeItem: React.FC<DragResizeItemProps> = (props) => {
   const { layer, selectedId, board, dispatch } = props;
+
+  const componentData = useDataSource(layer.dataSource, board.dataSourceHeaders);
 
   const { id, comName, comProps, width, height, opacity, x, y } = layer;
 
@@ -82,7 +85,7 @@ const DragResizeItem: React.FC<DragResizeItemProps> = (props) => {
       // dragGrid={[board.grid, board.grid]}
       // resizeGrid={[board.grid, board.grid]}
     >
-      <LayerComponent width={width} height={height} comProps={comProps} data={{}} />
+      <LayerComponent width={width} height={height} comProps={comProps} data={componentData} />
       <Dropdown overlay={menu} trigger={['contextMenu']}>
         <div
           className={classNames(styles.handleWrapperClass, {

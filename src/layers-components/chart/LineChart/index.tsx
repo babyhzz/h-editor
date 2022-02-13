@@ -1,4 +1,3 @@
-// import useDataSource from '@/hooks/useDataSource';
 import useECharts from '@/hooks/useEcharts';
 import type * as echarts from 'echarts';
 import { get } from 'lodash';
@@ -7,7 +6,6 @@ import { useRef } from 'react';
 const LineChart: LayerComponent = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { width, height, comProps, data } = props;
-  // const data = useDataSource(dataSource, board.dataSourceHeaders);
 
   const option: echarts.EChartsOption = {
     series: comProps.series.map((s: any, index: number) => ({
