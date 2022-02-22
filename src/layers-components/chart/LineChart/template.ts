@@ -1,4 +1,4 @@
-const BasicLineChartTemplate: ComponentTemplate = {
+const template: ComponentTemplate = {
   type: 'LineChart',
   category: 'chart',
   icon: 'icon-comp-LineChart',
@@ -88,4 +88,4 @@ const BasicLineChartTemplate: ComponentTemplate = {
   ],
 };
 
-export default BasicLineChartTemplate;
+export default template;

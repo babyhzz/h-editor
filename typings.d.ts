@@ -9,6 +9,7 @@ declare module '*.svg' {
 
 /******************** FormRenderer 全局类型 begin ************************/
 type DefaultValue = string | number | boolean | any[];
+type ShowCondition = [string, string, boolean];
 interface FieldConfig {
   key: string;
   type: FieldConfigType;
@@ -16,6 +17,8 @@ interface FieldConfig {
   description?: string;
   default?: DefaultValue;
   comProps?: Record<string, any>;
+  /** 显示条件，数组形式，[变量，操作符，值] */
+  show?: [string, string, boolean];
 }
 
 type FieldConfigType =

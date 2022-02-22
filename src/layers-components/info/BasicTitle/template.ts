@@ -1,4 +1,4 @@
-const BasicTitleTemplate: ComponentTemplate = {
+const template: ComponentTemplate = {
   type: 'BasicTitle',
   category: 'info',
   icon: 'icon-comp-Text',
@@ -147,4 +147,4 @@ const BasicTitleTemplate: ComponentTemplate = {
   ],
 };
 
-export default BasicTitleTemplate;
+export default template;

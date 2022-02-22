@@ -1,4 +1,4 @@
-const BasicLineChartTemplate: ComponentTemplate = {
+const template: ComponentTemplate = {
   type: 'BarChart',
   category: 'chart',
   icon: 'icon-comp-LineChart',
@@ -35,6 +35,7 @@ const BasicLineChartTemplate: ComponentTemplate = {
           name: '标签距离',
           type: 'number',
           default: 5,
+          show: ['.labelShow', '$eq', true],
         },
         // 折线柱状图配置项不一样
         // {
@@ -88,4 +89,4 @@ const BasicLineChartTemplate: ComponentTemplate = {
   ],
 };
 
-export default BasicLineChartTemplate;
+export default template;

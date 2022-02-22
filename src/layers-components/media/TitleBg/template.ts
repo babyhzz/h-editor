@@ -1,4 +1,4 @@
-const TitleBg: ComponentTemplate = {
+const template: ComponentTemplate = {
   type: 'TitleBg',
   category: 'media',
   icon: 'icon-comp-BgBlock',
@@ -19,4 +19,4 @@ const TitleBg: ComponentTemplate = {
   ],
 };
 
-export default TitleBg;
+export default template;

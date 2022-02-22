@@ -22,6 +22,7 @@ import CustomInputNumber from '@/components/form/CustomInputNumber';
 import styles from './index.less';
 import JsonInput from '../../components/form/JsonInput';
 import JsonInputButton from '../../components/form/JsonInputButton';
+import { getShowStatus } from './utils';
 
 const { Panel } = Collapse;
 const { TabPane } = Tabs;
@@ -52,12 +53,21 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
   }, [form, value]);
 
   const handleValuesChange = (_: any, values: any) => {
+    console.log('values=', values);
     if (onChange) {
       onChange(values);
     }
   };
 
-  const renderField = (item: FieldConfig, extraFormItemProps?: FormItemProps) => {
+  const renderField = (
+    item: FieldConfig,
+    extraFormItemProps?: FormItemProps,
+    parentField?: string[],
+  ) => {
+    if (item.show && !getShowStatus(value, item.show, parentField)) {
+      return null;
+    }
+
     const comProps = item.comProps || {};
 
     const formItemProps = {
@@ -175,10 +185,14 @@ const FormRenderer: React.FC<FormRendererProps> = (props) => {
                     <TabPane key={field.key} tab={`${item.name}${field.name + 1}`}>
                       {item.children.map((childItem) => (
                         <div key={itemKey(childItem)}>
-                          {renderField(childItem, {
-                            ...field,
-                            name: [field.name, childItem.key],
-                          })}
+                          {renderField(
+                            childItem,
+                            {
+                              ...field,
+                              name: [field.name, childItem.key],
+                            },
+                            [item.key, field.name + ''],
+                          )}
                         </div>
                       ))}
                     </TabPane>

@@ -1,4 +1,4 @@
-const BgBlock: ComponentTemplate = {
+const template: ComponentTemplate = {
   type: 'BgBlock',
   category: 'media',
   icon: 'icon-comp-BgBlock',
@@ -147,4 +147,4 @@ const BgBlock: ComponentTemplate = {
   ],
 };
 
-export default BgBlock;
+export default template;
